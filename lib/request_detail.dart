@@ -245,7 +245,42 @@ class _RequestDetailState extends State<RequestDetail> {
                           paddingTop: 8.0,
                           pressedImage: Image.asset('assets/Button_approve.png'),
                           unpressedImage: Image.asset('assets/Button_approve.png'),
-                          onTap: () {},
+                          onTap: () => approveForm(approvalFormId).then((task){
+                            if(task.status=="fail"){
+                              showDialog(
+                                  context: context,
+                                  builder: (BuildContext context){
+                                    return AlertDialog(
+                                      title: Text("Approve Fail"),
+                                      content: Text(task.message),
+                                      actions:[
+                                        FlatButton(
+                                            child: Text("Close"),
+                                            onPressed: () => Navigator.of(context).pop()
+                                        )
+                                      ],
+                                    );
+                                  }
+                              );
+                            }else{
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context){
+                                  return AlertDialog(
+                                    title: Text("Approve Success"),
+                                    content: Text(task.message),
+                                    actions:[
+                                      FlatButton(
+                                          child: Text("Close"),
+                                          onPressed: () => Navigator.of(context).pop()
+                                      )
+                                    ],
+                                  );
+                                },
+
+                              );
+                            }
+                          }),
                         ),
                         ImageButton(
                           children: <Widget>[],
