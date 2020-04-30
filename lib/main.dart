@@ -115,7 +115,7 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: () => Navigator.of(context).push(
                   new MaterialPageRoute(
                       builder: (BuildContext context) =>
-                      new RequestDetail())),
+                      new RequestDetail("11"))),
               child: Text(
                   'Request Detail form'
               ),

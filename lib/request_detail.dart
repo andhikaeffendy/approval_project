@@ -10,6 +10,8 @@ import 'package:intl/intl.dart';
 import 'globals/variable.dart';
 
 class RequestDetail extends StatefulWidget {
+  RequestDetail(String approvalFormId);
+
   @override
   _RequestDetailState createState() => _RequestDetailState();
 }
