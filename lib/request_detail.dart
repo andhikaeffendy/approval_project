@@ -24,6 +24,8 @@ class RequestDetail extends StatefulWidget {
 class _RequestDetailState extends State<RequestDetail> {
   String approvalFormId;
   _RequestDetailState(this.approvalFormId);
+
+  TextEditingController rejectionText = TextEditingController();
   
   DateFormat dateFormat = new DateFormat('yyyy-MM-dd');
 
@@ -303,6 +305,7 @@ class _RequestDetailState extends State<RequestDetail> {
                     ),
                     Container(
                       child: TextField(
+                        controller: rejectionText,
                         maxLines: 5,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
@@ -324,7 +327,42 @@ class _RequestDetailState extends State<RequestDetail> {
                           pressedImage: Image.asset('assets/Button_reject.png'),
                           unpressedImage:
                               Image.asset('assets/Button_reject.png'),
-                          onTap: () {},
+                          onTap: () => rejectForm(approvalFormId, rejectionText.text).then((task){
+                            if(task.status=="fail"){
+                              showDialog(
+                                  context: context,
+                                  builder: (BuildContext context){
+                                    return AlertDialog(
+                                      title: Text("Rejection Fail"),
+                                      content: Text(task.message),
+                                      actions:[
+                                        FlatButton(
+                                            child: Text("Close"),
+                                            onPressed: () => Navigator.of(context).pop()
+                                        )
+                                      ],
+                                    );
+                                  }
+                              );
+                            }else{
+                              showDialog(
+                                  context: context,
+                                  builder: (BuildContext context){
+                                    return AlertDialog(
+                                      title: Text("Rejection Success"),
+                                      content: Text(task.message),
+                                      actions:[
+                                        FlatButton(
+                                          child: Text("Close"),
+                                          onPressed: () => Navigator.of(context).pop()
+                                        )
+                                      ],
+                                    );
+                                  },
+
+                              );
+                            }
+                          }),
                         ),
                         ImageButton(
                           children: <Widget>[],
@@ -348,7 +386,7 @@ class _RequestDetailState extends State<RequestDetail> {
         });
   }
 
-  Future<DetailApprovalForm> getDetailApproval(String formId) async {
+  getDetailApproval(String formId) async {
     var dio = Dio();
     print("dio jalan");
     String url = domain + "/api/v1/detail_form?form_id=" + formId;
@@ -360,7 +398,7 @@ class _RequestDetailState extends State<RequestDetail> {
     return newResponse;
   }
 
-  Future<FormApprove> approveForm(String formId) async{
+  approveForm(String formId) async{
     var dio = Dio();
     String url = domain + "/api/v1/approve_form?form_id=" + formId;
     dio.options.headers[HttpHeaders.authorizationHeader] = 'Bearer ' + globalUserDetails.idToken;
@@ -372,7 +410,7 @@ class _RequestDetailState extends State<RequestDetail> {
     return newResponse;
   }
 
-  Future<FormReject> rejectForm(String formId, String reason) async{
+  rejectForm(String formId, String reason) async{
     var dio = Dio();
     String url = domain + "/api/v1/reject_form";
     dio.options.headers[HttpHeaders.authorizationHeader] = 'Bearer ' + globalUserDetails.idToken;
@@ -382,7 +420,7 @@ class _RequestDetailState extends State<RequestDetail> {
       "reason": reason,
     });
 
-    Response response = await dio.post(url);
+    Response response = await dio.post(url, data: formData);
     print(response.data);
 
     FormReject newResponse = formRejectFromJson(response.toString());
