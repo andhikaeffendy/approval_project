@@ -199,20 +199,3 @@ Future<LoginResponse> loginRequest(String idToken) async{
   LoginResponse loginResponse = loginResponseFromJson(response.toString());
   return loginResponse;
 }
-
-class UserDetails {
-  final String providerDetails;
-  final String userName;
-  final String photoUrl;
-  final String userEmail;
-  final String idToken;
-  final List<ProviderDetails> providerData;
-
-  UserDetails(this.providerDetails,this.userName, this.photoUrl,this.userEmail, this.providerData, this.idToken);
-}
-
-
-class ProviderDetails {
-  ProviderDetails(this.providerDetails);
-  final String providerDetails;
-}

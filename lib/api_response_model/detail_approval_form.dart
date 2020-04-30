@@ -19,11 +19,14 @@ class DetailApprovalForm {
     this.message,
   });
 
-  factory DetailApprovalForm.fromJson(Map<String, dynamic> json) => DetailApprovalForm(
-    data: Data.fromJson(json["data"]),
-    status: json["status"],
-    message: json["message"],
-  );
+  factory DetailApprovalForm.fromJson(Map<String, dynamic> json) {
+    print("DetailfromJson jalan");
+    return DetailApprovalForm(
+      data: Data.fromJson(json["data"]),
+      status: json["status"],
+      message: json["message"],
+    );
+  }
 
   Map<String, dynamic> toJson() => {
     "data": data.toJson(),
@@ -42,7 +45,7 @@ class Data {
   String procurementType;
   String issuedBy;
   String recurringOption;
-  int value;
+  double value;
   String supplier;
   String summary;
   String summaryTerm;
@@ -67,23 +70,26 @@ class Data {
     this.createdAt,
   });
 
-  factory Data.fromJson(Map<String, dynamic> json) => Data(
-    id: json["id"],
-    name: json["name"],
-    formDate: DateTime.parse(json["form_date"]),
-    documentNumber: json["document_number"],
-    costAllocation: json["cost_allocation"],
-    purposeOfIssue: json["purpose_of_issue"],
-    procurementType: json["procurement_type"],
-    issuedBy: json["issued_by"],
-    recurringOption: json["recurring_option"],
-    value: json["value"],
-    supplier: json["supplier"],
-    summary: json["summary"],
-    summaryTerm: json["summary_term"],
-    justification: json["justification"],
-    createdAt: DateTime.parse(json["created_at"]),
-  );
+  factory Data.fromJson(Map<String, dynamic> json) {
+    print("Data From json Jalan");
+    return Data(
+      id: json["id"],
+      name: json["name"],
+      formDate: DateTime.parse(json["form_date"]),
+      documentNumber: json["document_number"],
+      costAllocation: json["cost_allocation"],
+      purposeOfIssue: json["purpose_of_issue"],
+      procurementType: json["procurement_type"],
+      issuedBy: json["issued_by"],
+      recurringOption: json["recurring_option"],
+      value: json["value"],
+      supplier: json["supplier"],
+      summary: json["summary"],
+      summaryTerm: json["summary_term"],
+      justification: json["justification"],
+      createdAt: DateTime.parse(json["created_at"]),
+    );
+  }
 
   Map<String, dynamic> toJson() => {
     "id": id,
