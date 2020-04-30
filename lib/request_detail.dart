@@ -10,25 +10,29 @@ import 'package:intl/intl.dart';
 import 'globals/variable.dart';
 
 class RequestDetail extends StatefulWidget {
-  RequestDetail(String approvalFormId);
+  final String approvalFormId;
+
+  const RequestDetail({Key key, this.approvalFormId}) : super(key : key);
 
   @override
-  _RequestDetailState createState() => _RequestDetailState();
+  _RequestDetailState createState() => _RequestDetailState(approvalFormId);
 }
 
 class _RequestDetailState extends State<RequestDetail> {
-  List<Offset> _points = <Offset>[];
-
+  String approvalFormId;
+  _RequestDetailState(this.approvalFormId);
+  
   DateFormat dateFormat = new DateFormat('yyyy-MM-dd');
 
   @override
   Widget build(BuildContext context) {
+    print("app id = " + approvalFormId);
     return Scaffold(
       appBar: AppBar(
         title: Text('Request Detail'),
       ),
       body: FutureBuilder(
-        future: getDetailApproval("11"),
+        future: getDetailApproval(approvalFormId),
         builder: (context, snapshot){
           if(snapshot.data==null){
             return Container();
@@ -345,11 +349,13 @@ class _RequestDetailState extends State<RequestDetail> {
     var dio = Dio();
     print("dio jalan");
     String url = domain + "/api/v1/detail_form?form_id=" + formId;
-    dio.options.headers[HttpHeaders.authorizationHeader] = 'Bearer ' + "eyJhbGciOiJSUzI1NiIsImtpZCI6IjVlOWVlOTdjODQwZjk3ZTAyNTM2ODhhM2I3ZTk0NDczZTUyOGE3YjUiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiQ2FuZXNoYSBEcmFnb24iLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDUuZ29vZ2xldXNlcmNvbnRlbnQuY29tLy1Nekh1UmZQdHJKWS9BQUFBQUFBQUFBSS9BQUFBQUFBQUFBQS9BQUtXSkpNcm5OeVZkWjY4WFhOQVhWZUVDcXlleHZuR3pnL3M5Ni1jL3Bob3RvLmpwZyIsImlzcyI6Imh0dHBzOi8vc2VjdXJldG9rZW4uZ29vZ2xlLmNvbS9mMS1mb3JtLWFwcHJvdmFsIiwiYXVkIjoiZjEtZm9ybS1hcHByb3ZhbCIsImF1dGhfdGltZSI6MTU4ODIzODkwNiwidXNlcl9pZCI6Im1DczE2T0pvM1JWQld1OXBHUENoall6RjV5YzIiLCJzdWIiOiJtQ3MxNk9KbzNSVkJXdTlwR1BDaGpZekY1eWMyIiwiaWF0IjoxNTg4MjM4OTA2LCJleHAiOjE1ODgyNDI1MDYsImVtYWlsIjoiY2FuZXNoYS5zZWFAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZ29vZ2xlLmNvbSI6WyIxMTU5OTk1Nzg4ODI2NzU3NDI0MzEiXSwiZW1haWwiOlsiY2FuZXNoYS5zZWFAZ21haWwuY29tIl19LCJzaWduX2luX3Byb3ZpZGVyIjoiZ29vZ2xlLmNvbSJ9fQ.FnnNGj8Dw4ldDECFh6Q6Vp1pKVkwWEHbJxZlC4iinSccFLYO1Wwp9n6fbNdx1T_7Mnk-K5yJ8QRDsvq6poy3gngA-qk08iaQTdzBT4rqKQAdC9jT5W2MexQoYj3-9nwz_QZ1AXmbkMJze_bzBilnS2Pj_dAiP6";
+    dio.options.headers[HttpHeaders.authorizationHeader] = 'Bearer ' + globalUserDetails.idToken;
     Response response = await dio.get(url);
     print("response : "+response.toString());
     DetailApprovalForm newResponse = detailApprovalFormFromJson(response.toString());
     print("Finish");
     return newResponse;
   }
+
+
 }

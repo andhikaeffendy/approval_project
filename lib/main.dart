@@ -1,7 +1,6 @@
 import 'package:approvalproject/login.dart';
 import 'package:approvalproject/request.dart';
 import 'package:approvalproject/request_detail.dart';
-import 'package:approvalproject/signature.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
@@ -115,7 +114,7 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: () => Navigator.of(context).push(
                   new MaterialPageRoute(
                       builder: (BuildContext context) =>
-                      new RequestDetail("11"))),
+                      new RequestDetail(approvalFormId: "11",))),
               child: Text(
                   'Request Detail form'
               ),
