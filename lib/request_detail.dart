@@ -1,6 +1,9 @@
 import 'dart:io';
 
 import 'package:approvalproject/api_response_model/detail_approval_form.dart';
+import 'package:approvalproject/api_response_model/form_approve.dart';
+import 'package:approvalproject/api_response_model/form_reject.dart';
+import 'package:approvalproject/api_response_model/form_signature.dart';
 import 'package:approvalproject/signature.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -354,6 +357,51 @@ class _RequestDetailState extends State<RequestDetail> {
     print("response : "+response.toString());
     DetailApprovalForm newResponse = detailApprovalFormFromJson(response.toString());
     print("Finish");
+    return newResponse;
+  }
+
+  Future<FormApprove> approveForm(String formId) async{
+    var dio = Dio();
+    String url = domain + "/api/v1/approve_form?form_id=" + formId;
+    dio.options.headers[HttpHeaders.authorizationHeader] = 'Bearer ' + globalUserDetails.idToken;
+
+    Response response = await dio.post(url);
+    print(response.data);
+
+    FormApprove newResponse = formApproveFromJson(response.toString());
+    return newResponse;
+  }
+
+  Future<FormReject> rejectForm(String formId, String reason) async{
+    var dio = Dio();
+    String url = domain + "/api/v1/reject_form";
+    dio.options.headers[HttpHeaders.authorizationHeader] = 'Bearer ' + globalUserDetails.idToken;
+
+    FormData formData = new FormData.fromMap({
+      "form_id": formId,
+      "reason": reason,
+    });
+
+    Response response = await dio.post(url);
+    print(response.data);
+
+    FormReject newResponse = formRejectFromJson(response.toString());
+    return newResponse;
+  }
+
+  Future<FormSignature> signForm(String formId) async{
+    var dio = Dio();
+    String url = domain + "/api/v1/reject_form?form_id=" + formId;
+    dio.options.headers[HttpHeaders.authorizationHeader] = 'Bearer ' + globalUserDetails.idToken;
+
+    FormData formData = new FormData.fromMap({
+      "signature": " ",
+    });
+
+    Response response = await dio.post(url, data: formData);
+    print(response.data);
+
+    FormSignature newResponse = formSignatureFromJson(response.toString());
     return newResponse;
   }
 
