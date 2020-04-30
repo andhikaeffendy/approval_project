@@ -306,7 +306,9 @@ class _RequestDetailState extends State<RequestDetail> {
                           pressedImage: Image.asset('assets/Button_cancel.png'),
                           unpressedImage:
                               Image.asset('assets/Button_cancel.png'),
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.of(context).pop();
+                          },
                         )
                       ],
                     )
