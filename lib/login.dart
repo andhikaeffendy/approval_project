@@ -23,13 +23,21 @@ class _LoginState extends State<Login> {
     final GoogleSignInAccount googleUser = await _googlSignIn.signIn();
     final GoogleSignInAuthentication googleAuth =await googleUser.authentication;
 
+    print("google acc token : " + googleAuth.accessToken);
+    print("go0gle id token : " + googleAuth.idToken);
+
     final AuthCredential credential = GoogleAuthProvider.getCredential(
       accessToken: googleAuth.accessToken,
       idToken: googleAuth.idToken,
     );
 
+
+
     FirebaseUser userDetails = (await _firebaseAuth.signInWithCredential(credential)).user;
     ProviderDetails providerInfo = new ProviderDetails(userDetails.providerId);
+
+    var googleIdToken = await userDetails.getIdToken();
+    print("userDetails.getIdToken = " + googleIdToken.token);
 
     List<ProviderDetails> providerData = new List<ProviderDetails>();
     providerData.add(providerInfo);
@@ -40,6 +48,7 @@ class _LoginState extends State<Login> {
       userDetails.photoUrl,
       userDetails.email,
       providerData,
+      googleIdToken.token
     );
 
     Navigator.push(
@@ -50,7 +59,7 @@ class _LoginState extends State<Login> {
       ),
     );
 
-    print("login sukses");
+    print("Google Sign In Success");
     return userDetails;
   }
 
@@ -146,9 +155,10 @@ class UserDetails {
   final String userName;
   final String photoUrl;
   final String userEmail;
+  final String idToken;
   final List<ProviderDetails> providerData;
 
-  UserDetails(this.providerDetails,this.userName, this.photoUrl,this.userEmail, this.providerData);
+  UserDetails(this.providerDetails,this.userName, this.photoUrl,this.userEmail, this.providerData, this.idToken);
 }
 
 
