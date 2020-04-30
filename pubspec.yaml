@@ -21,8 +21,10 @@ dependencies:
     sdk: flutter
 
   imagebutton: ^0.0.6
-
+  dio: ^3.0.9
   google_sign_in: ^4.4.4
+  intl: "^0.15.6"
+
 
   firebase_auth: ^0.16.0
 

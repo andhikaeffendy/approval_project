@@ -1,8 +1,11 @@
+import 'package:approvalproject/api_response_model/login_response.dart';
 import 'package:approvalproject/request.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:imagebutton/imagebutton.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:dio/dio.dart';
+import 'globals/variable.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -51,13 +54,47 @@ class _LoginState extends State<Login> {
       googleIdToken.token
     );
 
-    Navigator.push(
-      context,
-      new MaterialPageRoute(
-        builder: (context) => new Request(),
-        //detailsUser: details
-      ),
-    );
+    loginRequest(googleIdToken.token).then((task){
+      if(task.status == "fail"){
+        showDialog(
+            context: context,
+            builder: (BuildContext context){
+              return AlertDialog(
+                title: Text("Sign Fail"),
+                content: Text(task.message),
+              );
+            }
+        );
+      }else{
+        globalUserDetails = details;
+        showDialog(
+            context: context,
+            builder: (BuildContext context){
+              return AlertDialog(
+                title: Text("Sign In Success"),
+                content: Text("Welcome " + userDetails.displayName + "!"),
+                actions:[
+                  FlatButton(
+                    child: Text("Proceed"),
+                    onPressed: () => Navigator.push(
+                      context,
+                      new MaterialPageRoute(
+                        builder: (context) => new Request(),
+                        //detailsUser: details
+                      ),
+                    ),
+                  )
+                ],
+              );
+            }
+        );
+
+
+      }
+
+    });
+
+
 
     print("Google Sign In Success");
     return userDetails;
@@ -148,6 +185,19 @@ class _LoginState extends State<Login> {
       )
     );
   }
+}
+
+Future<LoginResponse> loginRequest(String idToken) async{
+  var dio = Dio();
+  String url = domain + "/api/v1/login";
+  FormData formData = new FormData.fromMap({
+    "id_token": idToken,
+  });
+  Response response = await dio.post(url, data: formData);
+  print(response.data);
+
+  LoginResponse loginResponse = loginResponseFromJson(response.toString());
+  return loginResponse;
 }
 
 class UserDetails {

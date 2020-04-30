@@ -42,7 +42,7 @@ class Datum {
   String procurementType;
   String issuedBy;
   String recurringOption;
-  int percentage;
+  double percentage;
 
   Datum({
     this.id,
@@ -67,7 +67,7 @@ class Datum {
     procurementType: json["procurement_type"],
     issuedBy: json["issued_by"],
     recurringOption: json["recurring_option"],
-    percentage: json["percentage"],
+    percentage: json["percentage"].toDouble(),
   );
 
   Map<String, dynamic> toJson() => {
