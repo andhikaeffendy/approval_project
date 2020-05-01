@@ -54,7 +54,7 @@ class _LoginState extends State<Login> {
       googleIdToken.token
     );
 
-    loginRequest(googleIdToken.token).then((task){
+    /*loginRequest(googleIdToken.token).then((task){
       if(task.status == "fail"){
         showDialog(
             context: context,
@@ -92,10 +92,10 @@ class _LoginState extends State<Login> {
 
       }
 
-    });
+    });*/
 
 
-
+    Navigator.push(context, new MaterialPageRoute(builder: (context) => new Request()));
     print("Google Sign In Success");
     return userDetails;
   }

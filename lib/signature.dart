@@ -99,6 +99,7 @@ class _SignatureFormState extends State<SignatureForm> {
                         final image = await sign.getData();
                         var data = await image.toByteData(
                             format: ui.ImageByteFormat.png);
+
                         sign.clear();
                         final encoded =
                             base64.encode(data.buffer.asUint8List());
