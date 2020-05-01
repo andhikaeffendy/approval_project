@@ -218,7 +218,7 @@ class _RequestDetailState extends State<RequestDetail> {
                                             new SignatureForm())),
                                     child: Container(
                                       width: 100.0,
-                                      child: Image.asset('assets/logo.png'),
+                                      child: Image.memory(ttd.buffer.asUint8List()),
                                     ),
                                   )
                                 ],

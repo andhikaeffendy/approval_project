@@ -1,7 +1,11 @@
-import 'package:approvalproject/login.dart';
+import 'package:approvalproject/api_response_model/login_response.dart';
 import 'package:approvalproject/request.dart';
-import 'package:approvalproject/request_detail.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:imagebutton/imagebutton.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:dio/dio.dart';
+import 'globals/variable.dart';
 
 void main() => runApp(MyApp());
 
@@ -23,105 +27,200 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
-
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
 
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
+  bool _value1 = false;
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  final GoogleSignIn _googlSignIn = new GoogleSignIn();
+
+  Future<FirebaseUser> _signIn(BuildContext context) async{
+    Scaffold.of(context).showSnackBar(new SnackBar(
+      content: new Text('Sign in'),
+    ));
+
+    final GoogleSignInAccount googleUser = await _googlSignIn.signIn();
+    final GoogleSignInAuthentication googleAuth =await googleUser.authentication;
+
+    print("google acc token : " + googleAuth.accessToken);
+    print("go0gle id token : " + googleAuth.idToken);
+
+    final AuthCredential credential = GoogleAuthProvider.getCredential(
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
+    );
+
+
+
+    FirebaseUser userDetails = (await _firebaseAuth.signInWithCredential(credential)).user;
+    ProviderDetails providerInfo = new ProviderDetails(userDetails.providerId);
+
+    var googleIdToken = await userDetails.getIdToken();
+    print("userDetails.getIdToken = " + googleIdToken.token);
+
+    List<ProviderDetails> providerData = new List<ProviderDetails>();
+    providerData.add(providerInfo);
+
+    UserDetails details = new UserDetails(
+        userDetails.providerId,
+        userDetails.displayName,
+        userDetails.photoUrl,
+        userDetails.email,
+        providerData,
+        googleIdToken.token
+    );
+
+    loginRequest(googleIdToken.token).then((task){
+      if(task.status == "fail"){
+        showDialog(
+            context: context,
+            builder: (BuildContext context){
+              return AlertDialog(
+                title: Text("Sign Fail"),
+                content: Text(task.message),
+              );
+            }
+        );
+      }else{
+        globalUserDetails = details;
+        showDialog(
+            context: context,
+            builder: (BuildContext context){
+              return AlertDialog(
+                title: Text("Sign In Success"),
+                content: Text("Welcome " + userDetails.displayName + "!"),
+                actions:[
+                  FlatButton(
+                    child: Text("Proceed"),
+                    onPressed: () => Navigator.push(
+                      context,
+                      new MaterialPageRoute(
+                        builder: (context) => new Request(),
+                        //detailsUser: details
+                      ),
+                    ),
+                  )
+                ],
+              );
+            }
+        );
+
+
+      }
+
     });
+
+
+
+    print("Google Sign In Success");
+    return userDetails;
   }
+
+
+  void _value1Changed(bool value) => setState(() => _value1 = value);
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            RaisedButton(
-              onPressed: () => Navigator.of(context).push(
-                  new MaterialPageRoute(
-                      builder: (BuildContext context) =>
-                      new Login())),
-              child: Text(
-                'Login form'
+        backgroundColor: Colors.red,
+        body: Builder(
+          builder: (BuildContext context){
+            return Center(
+              child: Container(
+                child: Stack(
+                  fit: StackFit.loose,
+                  children: <Widget>[
+                    Positioned(
+                      top: 60,
+                      left: 0,
+                      right: 0,
+                      child: Container(
+                        height: 250.0,
+                        color: Colors.white,
+                        child: Image.asset('assets/logo.png', scale: 3,),
+                      ),
+                    ),
+                    Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Container(
+                            width: 300.0,
+                            height: 250.0,
+                            child: Material(
+                              elevation: 20.0,
+                              borderRadius: BorderRadius.circular(20.0),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: <Widget>[
+                                  Text(
+                                      'Please login using your google account'
+                                  ),
+                                  ImageButton(
+                                    children: <Widget>[],
+                                    width: 250.0,
+                                    height: 50.0,
+                                    paddingTop: 8.0,
+                                    pressedImage: Image.asset('assets/Button_google.png'),
+                                    unpressedImage: Image.asset('assets/Button_google.png'),
+                                    onTap: () => _signIn(context)
+                                        .then((FirebaseUser user) => print(user))
+                                        .catchError((e) => print(e)),
+                                  ),Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: <Widget>[
+                                      Checkbox(
+                                        value: _value1,
+                                        onChanged: _value1Changed,
+                                        checkColor: Colors.white,
+                                        activeColor: Colors.red,
+                                        focusColor: Colors.red,
+                                        hoverColor: Colors.red,
+                                      ),
+                                      Text(
+                                        'remember me',
+                                        style: TextStyle(color: Colors.red),
+                                      )
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    )
+                  ],
+                ),
               ),
-            ),RaisedButton(
-              onPressed: () => Navigator.of(context).push(
-                  new MaterialPageRoute(
-                      builder: (BuildContext context) =>
-                      new Request())),
-              child: Text(
-                  'Request form'
-              ),
-            ),RaisedButton(
-              onPressed: () => Navigator.of(context).push(
-                  new MaterialPageRoute(
-                      builder: (BuildContext context) =>
-                      new RequestDetail(approvalFormId: "11",))),
-              child: Text(
-                  'Request Detail form'
-              ),
-            ),
-          ],
-        ),
-      ),// This trailing comma makes auto-formatting nicer for build methods.
+            );
+          },
+        )
     );
   }
+}
+
+Future<LoginResponse> loginRequest(String idToken) async{
+  var dio = Dio();
+  String url = domain + "/api/v1/login";
+  FormData formData = new FormData.fromMap({
+    "id_token": idToken,
+  });
+  Response response = await dio.post(url, data: formData);
+  print(response.data);
+
+  LoginResponse loginResponse = loginResponseFromJson(response.toString());
+  return loginResponse;
 }

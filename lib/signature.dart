@@ -3,6 +3,7 @@ import 'dart:math';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
+import 'package:approvalproject/globals/variable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_signature_pad/flutter_signature_pad.dart';
@@ -103,6 +104,7 @@ class _SignatureFormState extends State<SignatureForm> {
                             base64.encode(data.buffer.asUint8List());
                         setState(() {
                           _img = data;
+                          data = ttd;
                         });
                         debugPrint("onPressed " + encoded);
                       },
