@@ -76,7 +76,10 @@ class _LoginState extends State<Login> {
                 actions:[
                   FlatButton(
                     child: Text("Proceed"),
-                    onPressed: () => Navigator.push(context, new MaterialPageRoute(builder: (context) => new Request(),
+                    onPressed: () => Navigator.push(
+                      context,
+                      new MaterialPageRoute(
+                        builder: (context) => new Request(),
                         //detailsUser: details
                       ),
                     ),
@@ -146,8 +149,9 @@ class _LoginState extends State<Login> {
                                   paddingTop: 8.0,
                                   pressedImage: Image.asset('assets/Button_google.png'),
                                   unpressedImage: Image.asset('assets/Button_google.png'),
-                                  onTap: () => Navigator.push(context, new MaterialPageRoute(builder: (context) => new Request(),),),
-                                      //() => _signIn(context).then((FirebaseUser user) => print(user)).catchError((e) => print(e)),
+                                  onTap: () => _signIn(context)
+                                      .then((FirebaseUser user) => print(user))
+                                      .catchError((e) => print(e)),
                                 ),Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
