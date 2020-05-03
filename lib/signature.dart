@@ -99,15 +99,16 @@ class _SignatureFormState extends State<SignatureForm> {
                         final image = await sign.getData();
                         var data = await image.toByteData(
                             format: ui.ImageByteFormat.png);
-
                         sign.clear();
                         final encoded =
-                            base64.encode(data.buffer.asUint8List());
+                        base64.encode(data.buffer.asUint8List());
                         setState(() {
                           _img = data;
-                          data = ttd;
                         });
-                        debugPrint("onPressed " + encoded);
+                        final code = base64Decode(encoded);
+                        Uint8List _toImage = code;
+                        ttd = _toImage;
+                        debugPrint("onPressed " + code.toString());
                       },
                       child: Text("Save",
                       style: TextStyle(color: Colors.white),),),

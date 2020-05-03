@@ -1,10 +1,12 @@
+import 'dart:typed_data';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 
 String domain = "http://f1.wiradipa.com";
 
 UserDetails globalUserDetails;
-ByteData ttd;
+Uint8List ttd;
 
 class UserDetails {
   final String providerDetails;

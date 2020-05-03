@@ -212,13 +212,26 @@ class _RequestDetailState extends State<RequestDetail> {
                                 children: <Widget>[
                                   Container(
                                     width: 100.0,
-                                  ),GestureDetector(
+                                  ),
+                                  ttd == null
+                                      ? GestureDetector(
                                     onTap: () => Navigator.of(context).push(
                                         new MaterialPageRoute(
                                             builder: (BuildContext context) =>
                                             new SignatureForm())),
                                     child: Container(
                                       width: 100.0,
+                                      height: 50.0,
+                                      child: Text('TTD masih kosong '),
+                                    ),
+                                  ) : GestureDetector(
+                                    onTap: () => Navigator.of(context).push(
+                                        new MaterialPageRoute(
+                                            builder: (BuildContext context) =>
+                                            new SignatureForm())),
+                                    child: Container(
+                                      width: 100.0,
+                                      height: 50.0,
                                       child: Image.memory(ttd.buffer.asUint8List()),
                                     ),
                                   )
