@@ -1,17 +1,25 @@
 import 'dart:convert';
+import 'dart:io';
 import 'dart:math';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
 import 'package:approvalproject/globals/variable.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_signature_pad/flutter_signature_pad.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
+import 'package:path_provider/path_provider.dart';
+
+import 'api_response_model/form_signature.dart';
 
 class SignatureForm extends StatefulWidget {
-  SignatureForm({Key key}) : super(key: key);
+  final String approvalFormId;
+
+  SignatureForm({Key key, this.approvalFormId}) : super(key: key);
   @override
-  _SignatureFormState createState() => _SignatureFormState();
+  _SignatureFormState createState() => _SignatureFormState(approvalFormId);
 }
 
 class _WatermarkPaint extends CustomPainter {
@@ -44,6 +52,9 @@ class _WatermarkPaint extends CustomPainter {
 }
 
 class _SignatureFormState extends State<SignatureForm> {
+  String approvalFormId;
+  _SignatureFormState(this.approvalFormId);
+
   ByteData _img = ByteData(0);
   var color = Colors.black;
   var strokeWidth = 3.0;
@@ -51,6 +62,7 @@ class _SignatureFormState extends State<SignatureForm> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: Column(
         children: <Widget>[
@@ -108,7 +120,11 @@ class _SignatureFormState extends State<SignatureForm> {
                         final code = base64Decode(encoded);
                         Uint8List _toImage = code;
                         ttd = _toImage;
-                        debugPrint("onPressed " + code.toString());
+
+                        signForm(approvalFormId, data.buffer.asUint8List()).then((task){
+                          Navigator.of(context).pop();
+                        });
+
                       },
                       child: Text("Save",
                       style: TextStyle(color: Colors.white),),),
@@ -159,5 +175,26 @@ class _SignatureFormState extends State<SignatureForm> {
         ],
       ),
     );
+  }
+
+
+  Future<FormSignature> signForm(String formId, var signature) async{
+    var dio = Dio();
+    print("signature form id = " + formId);
+    String url = domain + "/api/v1/sign_form?form_id=" + formId;
+    dio.options.headers[HttpHeaders.authorizationHeader] = 'Bearer ' + globalUserDetails.idToken;
+
+    var formData = FormData();
+    formData.files.addAll([
+    MapEntry(
+    "signature",
+    MultipartFile.fromBytes(signature, filename: "signature.png"),
+    )]);
+
+    Response response = await dio.post(url, data: formData);
+    print(response.data);
+
+    FormSignature newResponse = formSignatureFromJson(response.toString());
+    return newResponse;
   }
 }

@@ -24,7 +24,8 @@ dependencies:
   dio: ^3.0.9
   google_sign_in: ^4.4.4
   intl: "^0.15.6"
-
+  path_provider: ^1.6.7
+  image_gallery_saver: ^1.2.2
 
   firebase_auth: ^0.16.0
 

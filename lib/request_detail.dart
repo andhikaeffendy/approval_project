@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:approvalproject/api_response_model/detail_approval_form.dart';
 import 'package:approvalproject/api_response_model/form_approve.dart';
@@ -15,7 +16,7 @@ import 'globals/variable.dart';
 class RequestDetail extends StatefulWidget {
   final String approvalFormId;
 
-  const RequestDetail({Key key, this.approvalFormId}) : super(key : key);
+  const RequestDetail({Key key, @required this.approvalFormId}) : super(key : key);
 
   @override
   _RequestDetailState createState() => _RequestDetailState(approvalFormId);
@@ -218,7 +219,7 @@ class _RequestDetailState extends State<RequestDetail> {
                                     onTap: () => Navigator.of(context).push(
                                         new MaterialPageRoute(
                                             builder: (BuildContext context) =>
-                                            new SignatureForm())),
+                                            new SignatureForm(approvalFormId: approvalFormId))),
                                     child: Container(
                                       width: 100.0,
                                       height: 50.0,
@@ -228,7 +229,7 @@ class _RequestDetailState extends State<RequestDetail> {
                                     onTap: () => Navigator.of(context).push(
                                         new MaterialPageRoute(
                                             builder: (BuildContext context) =>
-                                            new SignatureForm())),
+                                            new SignatureForm(approvalFormId: approvalFormId))),
                                     child: Container(
                                       width: 100.0,
                                       height: 50.0,
@@ -473,22 +474,6 @@ class _RequestDetailState extends State<RequestDetail> {
     print(response.data);
 
     FormReject newResponse = formRejectFromJson(response.toString());
-    return newResponse;
-  }
-
-  Future<FormSignature> signForm(String formId) async{
-    var dio = Dio();
-    String url = domain + "/api/v1/reject_form?form_id=" + formId;
-    dio.options.headers[HttpHeaders.authorizationHeader] = 'Bearer ' + globalUserDetails.idToken;
-
-    FormData formData = new FormData.fromMap({
-      "signature": " ",
-    });
-
-    Response response = await dio.post(url, data: formData);
-    print(response.data);
-
-    FormSignature newResponse = formSignatureFromJson(response.toString());
     return newResponse;
   }
 
