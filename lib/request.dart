@@ -200,12 +200,11 @@ class _RequestState extends State<Request> {
     );
     Widget continueButton = FlatButton(
       child: Text("Ya"),
-      onPressed:  () => Navigator.of(context).push(
-          new MaterialPageRoute(
-              builder: (BuildContext context) =>
-              new MyApp()
-          )
-      ),
+      onPressed: ()=> logoutRequest().then((task){
+        if(task.status=='success'){
+          Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new MyApp()));
+        }
+      }),
     );
 
     // set up the AlertDialog
