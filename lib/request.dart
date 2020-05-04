@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:approvalproject/api_response_model/list_approval_form.dart';
+import 'package:approvalproject/api_response_model/logout_response.dart';
 import 'package:approvalproject/request_detail.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -190,6 +191,18 @@ class _RequestState extends State<Request> {
     String dummyResponse = '{"data": [ {   "id": 11,"name": "F1 Form Approval Application 2",    "form_date": "2020-04-06",    "document_number": "11/F1-/April-IV/2020",    "cost_allocation": "Capex",    "purpose_of_issue": "New Contract",    "procurement_type": "Tender",    "issued_by": "Department Head IT",    "recurring_option": "Recurring",   "percentage": 0  }    ],    "status": "success",    "message": "Data Retrieved successfully"  }';
     ListApprovalForm newResponse = listApprovalFormFromJson(response.toString());
 
+
+    return newResponse;
+  }
+
+  Future<LogoutResponse> logoutRequest() async{
+    var dio = Dio();
+    String url = domain + "/api/v1/logout";
+    dio.options.headers[HttpHeaders.authorizationHeader] = 'Bearer ' + globalUserDetails.idToken;
+    Response response = await dio.post(url);
+    print("response : "+response.toString());
+    String dummyResponse = '{"data": [ {   "id": 11,"name": "F1 Form Approval Application 2",    "form_date": "2020-04-06",    "document_number": "11/F1-/April-IV/2020",    "cost_allocation": "Capex",    "purpose_of_issue": "New Contract",    "procurement_type": "Tender",    "issued_by": "Department Head IT",    "recurring_option": "Recurring",   "percentage": 0  }    ],    "status": "success",    "message": "Data Retrieved successfully"  }';
+    LogoutResponse newResponse = logoutResponseFromJson(response.toString());
 
     return newResponse;
   }
