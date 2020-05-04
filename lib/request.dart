@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:approvalproject/api_response_model/list_approval_form.dart';
 import 'package:approvalproject/api_response_model/logout_response.dart';
+import 'package:approvalproject/main.dart';
 import 'package:approvalproject/request_detail.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +29,14 @@ class _RequestState extends State<Request> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Requests'),
+        actions: <Widget>[
+          FlatButton(
+            textColor: Colors.white,
+            onPressed: () {_showAlertDialog(context);},
+            child: Text("Logout"),
+            shape: CircleBorder(side: BorderSide(color: Colors.transparent)),
+          ),
+        ],
       ),
       body: Container(
         margin: const EdgeInsets.all(16.0),
@@ -179,6 +188,42 @@ class _RequestState extends State<Request> {
           ],
         ),
       ),
+    );
+  }
+
+  _showAlertDialog(BuildContext context) {
+
+    // set up the buttons
+    Widget cancelButton = FlatButton(
+      child: Text("Tidak"),
+      onPressed:  () {},
+    );
+    Widget continueButton = FlatButton(
+      child: Text("Ya"),
+      onPressed:  () => Navigator.of(context).push(
+          new MaterialPageRoute(
+              builder: (BuildContext context) =>
+              new MyApp()
+          )
+      ),
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text("Logout"),
+      content: Text("Anda ingin logout?"),
+      actions: [
+        cancelButton,
+        continueButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
     );
   }
 
