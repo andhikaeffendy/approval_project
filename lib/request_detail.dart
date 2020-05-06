@@ -5,6 +5,7 @@ import 'package:approvalproject/api_response_model/detail_approval_form.dart';
 import 'package:approvalproject/api_response_model/form_approve.dart';
 import 'package:approvalproject/api_response_model/form_reject.dart';
 import 'package:approvalproject/api_response_model/form_signature.dart';
+import 'package:approvalproject/request.dart';
 import 'package:approvalproject/signature.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -287,7 +288,7 @@ class _RequestDetailState extends State<RequestDetail> {
                                     actions:[
                                       FlatButton(
                                           child: Text("Close"),
-                                          onPressed: () => Navigator.of(context).pop()
+                                          onPressed: () => Navigator.push(context, new MaterialPageRoute(builder: (context) => new Request()))
                                       )
                                     ],
                                   );
@@ -404,7 +405,7 @@ class _RequestDetailState extends State<RequestDetail> {
                                       actions:[
                                         FlatButton(
                                           child: Text("Close"),
-                                          onPressed: () => Navigator.of(context).pop()
+                                          onPressed: () => Navigator.push(context, new MaterialPageRoute(builder: (context) => new Request()))
                                         )
                                       ],
                                     );

@@ -26,6 +26,7 @@ dependencies:
   intl: "^0.15.6"
   path_provider: ^1.6.7
   image_gallery_saver: ^1.2.2
+  pull_to_refresh: ^1.5.8
 
   firebase_auth: ^0.16.0
 
