@@ -36,7 +36,21 @@ class _RequestDetailState extends State<RequestDetail> {
     print("app id = " + approvalFormId);
     return Scaffold(
       appBar: AppBar(
-        title: Text('Request Detail'),
+        title: Row(
+          children: <Widget>[
+            ImageButton(
+              children: <Widget>[],
+              width: 23,
+              height: 23,
+              pressedImage: Image.asset('assets/request.png'),
+              unpressedImage: Image.asset('assets/request.png'),
+            ),SizedBox(
+              width: 8.0,
+            ),Text(
+                'Request Detail'
+            )
+          ],
+        )
       ),
       body: FutureBuilder(
         future: getDetailApproval(approvalFormId),
@@ -297,15 +311,6 @@ class _RequestDetailState extends State<RequestDetail> {
                               );
                             }
                           }),
-                        ),
-                        ImageButton(
-                          children: <Widget>[],
-                          width: 100.0,
-                          height: 50.0,
-                          paddingTop: 8.0,
-                          pressedImage: Image.asset('assets/Button_tinjau.png'),
-                          unpressedImage: Image.asset('assets/Button_tinjau.png'),
-                          onTap: () {}
                         ),
                         ImageButton(
                           children: <Widget>[],

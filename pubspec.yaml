@@ -58,6 +58,11 @@ flutter:
     - assets/Button_tinjau.png
     - assets/Button_tolak.png
     - assets/logo.png
+    - assets/approved.png
+    - assets/detail.png
+    - assets/Log_out.png
+    - assets/Reject.png
+    - assets/request.png
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
