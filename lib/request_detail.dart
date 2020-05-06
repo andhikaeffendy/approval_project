@@ -144,7 +144,7 @@ class _RequestDetailState extends State<RequestDetail> {
                                   ),
                                   Container(
                                     child: Text(
-                                      "Rp. " + detailApprovalForm.value.toString(),
+                                      detailApprovalForm.value.toString(),
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           color: Colors.black),
@@ -261,42 +261,10 @@ class _RequestDetailState extends State<RequestDetail> {
                           paddingTop: 8.0,
                           pressedImage: Image.asset('assets/Button_approve.png'),
                           unpressedImage: Image.asset('assets/Button_approve.png'),
-                          onTap: () => approveForm(approvalFormId).then((task){
-                            if(task.status=="fail"){
-                              showDialog(
-                                  context: context,
-                                  builder: (BuildContext context){
-                                    return AlertDialog(
-                                      title: Text("Approve Fail"),
-                                      content: Text(task.message),
-                                      actions:[
-                                        FlatButton(
-                                            child: Text("Close"),
-                                            onPressed: () => Navigator.of(context).pop()
-                                        )
-                                      ],
-                                    );
-                                  }
-                              );
-                            }else{
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context){
-                                  return AlertDialog(
-                                    title: Text("Approve Success"),
-                                    content: Text(task.message),
-                                    actions:[
-                                      FlatButton(
-                                          child: Text("Close"),
-                                          onPressed: () => Navigator.push(context, new MaterialPageRoute(builder: (context) => new Request()))
-                                      )
-                                    ],
-                                  );
-                                },
-
-                              );
-                            }
-                          }),
+                          onTap: () => Navigator.of(context).push(
+                              new MaterialPageRoute(
+                                  builder: (BuildContext context) =>
+                                  new SignatureForm(approvalFormId: approvalFormId))),
                         ),
                         ImageButton(
                           children: <Widget>[],

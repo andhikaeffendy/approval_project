@@ -99,26 +99,12 @@ class _MyHomePageState extends State<MyHomePage> {
       }else{
 
         globalUserDetails = details;
-        showDialog(
-            context: context,
-            builder: (BuildContext context){
-              return AlertDialog(
-                title: Text("Sign In Success"),
-                content: Text("Welcome " + userDetails.displayName + "!"),
-                actions:[
-                  FlatButton(
-                    child: Text("Proceed"),
-                    onPressed: () => Navigator.push(
-                      context,
-                      new MaterialPageRoute(
-                        builder: (context) => new Request(googleSignIn: _googlSignIn, firebaseAuth: _firebaseAuth),
-                        //detailsUser: details
-                      ),
-                    ),
-                  )
-                ],
-              );
-            }
+        Navigator.push(
+          context,
+          new MaterialPageRoute(
+            builder: (context) => new Request(googleSignIn: _googlSignIn, firebaseAuth: _firebaseAuth),
+            //detailsUser: details
+          ),
         );
 
 

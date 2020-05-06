@@ -5,6 +5,7 @@ import 'dart:typed_data';
 import 'dart:ui' as ui;
 
 import 'package:approvalproject/globals/variable.dart';
+import 'package:approvalproject/request.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -12,6 +13,7 @@ import 'package:flutter_signature_pad/flutter_signature_pad.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:path_provider/path_provider.dart';
 
+import 'api_response_model/form_approve.dart';
 import 'api_response_model/form_signature.dart';
 
 class SignatureForm extends StatefulWidget {
@@ -121,8 +123,44 @@ class _SignatureFormState extends State<SignatureForm> {
                         Uint8List _toImage = code;
                         ttd = _toImage;
 
+
                         signForm(approvalFormId, data.buffer.asUint8List()).then((task){
-                          Navigator.of(context).pop();
+                          approveForm(approvalFormId).then((task){
+                            if(task.status=="fail"){
+                              showDialog(
+                                  context: context,
+                                  builder: (BuildContext context){
+                                    return AlertDialog(
+                                      title: Text("Approve Fail"),
+                                      content: Text(task.message),
+                                      actions:[
+                                        FlatButton(
+                                            child: Text("Close"),
+                                            onPressed: () => Navigator.of(context).pop()
+                                        )
+                                      ],
+                                    );
+                                  }
+                              );
+                            }else{
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context){
+                                  return AlertDialog(
+                                    title: Text("Approve Success"),
+                                    content: Text(task.message),
+                                    actions:[
+                                      FlatButton(
+                                          child: Text("Close"),
+                                          onPressed: () => Navigator.push(context, new MaterialPageRoute(builder: (context) => new Request()))
+                                      )
+                                    ],
+                                  );
+                                },
+
+                              );
+                            }
+                          });
                         });
 
                       },
@@ -197,4 +235,18 @@ class _SignatureFormState extends State<SignatureForm> {
     FormSignature newResponse = formSignatureFromJson(response.toString());
     return newResponse;
   }
+
+  approveForm(String formId) async{
+    var dio = Dio();
+    String url = domain + "/api/v1/approve_form?form_id=" + formId;
+    dio.options.headers[HttpHeaders.authorizationHeader] = 'Bearer ' + globalUserDetails.idToken;
+
+    Response response = await dio.post(url);
+    print(response.data);
+    String dummyResponse = '{"data":[{"id":11,"name":"F1 Form Approval Application 2","form_date":"2020-04-06","document_number":"11/F1-/April-IV/2020","cost_allocation":"Capex","purpose_of_issue":"New Contract","procurement_type":"Tender","issued_by":"Department Head IT","recurring_option":"Recurring","percentage":0.0},{"id":13,"name":"F1 Form Approval Application 3","form_date":"2020-04-08","document_number":"13/F1-/April-IV/2020","cost_allocation":"Capex","purpose_of_issue":"New Contract","procurement_type":"Tender","issued_by":"Department Head IT","recurring_option":"Recurring","percentage":0.0},{"id":15,"name":"F1 Form Approval System","form_date":"2020-04-27","document_number":"15/F1-/April-IV/2020","cost_allocation":"Capex","purpose_of_issue":"New Contract","procurement_type":"Comparison","issued_by":"Department Head IT","recurring_option":"Non Recurring","percentage":0.0}],"status":"success","message":"Data Retrieved successfully"}';
+
+    FormApprove newResponse = formApproveFromJson(response.data);
+    return newResponse;
+  }
+
 }
