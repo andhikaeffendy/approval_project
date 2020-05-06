@@ -18,6 +18,7 @@ class _LoginState extends State<Login> {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final GoogleSignIn _googlSignIn = new GoogleSignIn();
 
+
   Future<FirebaseUser> _signIn(BuildContext context) async{
     Scaffold.of(context).showSnackBar(new SnackBar(
       content: new Text('Sign in'),
@@ -26,8 +27,14 @@ class _LoginState extends State<Login> {
     final GoogleSignInAccount googleUser = await _googlSignIn.signIn();
     final GoogleSignInAuthentication googleAuth =await googleUser.authentication;
 
-    print("google acc token : " + googleAuth.accessToken);
-    print("go0gle id token : " + googleAuth.idToken);
+    print("googleSignIn : " + _googlSignIn.toString());
+    print("FireBaseAuth : " + _firebaseAuth.toString());
+
+    globalGoogleSignIn = _googlSignIn;
+    globalFirebaseAuth = _firebaseAuth;
+
+    print("globGoogleSignIn = " + globalGoogleSignIn.toString());
+    print("globFirebase = " + globalFirebaseAuth.toString());
 
     final AuthCredential credential = GoogleAuthProvider.getCredential(
       accessToken: googleAuth.accessToken,
@@ -46,12 +53,12 @@ class _LoginState extends State<Login> {
     providerData.add(providerInfo);
 
     UserDetails details = new UserDetails(
-      userDetails.providerId,
-      userDetails.displayName,
-      userDetails.photoUrl,
-      userDetails.email,
-      providerData,
-      googleIdToken.token
+        userDetails.providerId,
+        userDetails.displayName,
+        userDetails.photoUrl,
+        userDetails.email,
+        providerData,
+        googleIdToken.token
     );
 
     loginRequest(googleIdToken.token).then((task){
@@ -66,6 +73,7 @@ class _LoginState extends State<Login> {
             }
         );
       }else{
+
         globalUserDetails = details;
         showDialog(
             context: context,
@@ -79,7 +87,7 @@ class _LoginState extends State<Login> {
                     onPressed: () => Navigator.push(
                       context,
                       new MaterialPageRoute(
-                        builder: (context) => new Request(),
+                        builder: (context) => new Request(googleSignIn: _googlSignIn, firebaseAuth: _firebaseAuth),
                         //detailsUser: details
                       ),
                     ),
@@ -99,6 +107,7 @@ class _LoginState extends State<Login> {
     print("Google Sign In Success");
     return userDetails;
   }
+
 
 
   void _value1Changed(bool value) => setState(() => _value1 = value);

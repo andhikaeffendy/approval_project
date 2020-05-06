@@ -51,8 +51,14 @@ class _MyHomePageState extends State<MyHomePage> {
     final GoogleSignInAccount googleUser = await _googlSignIn.signIn();
     final GoogleSignInAuthentication googleAuth =await googleUser.authentication;
 
-    print("google acc token : " + googleAuth.accessToken);
-    print("go0gle id token : " + googleAuth.idToken);
+    print("googleSignIn : " + _googlSignIn.toString());
+    print("FireBaseAuth : " + _firebaseAuth.toString());
+
+    globalGoogleSignIn = _googlSignIn;
+    globalFirebaseAuth = _firebaseAuth;
+
+    print("globGoogleSignIn = " + globalGoogleSignIn.toString());
+    print("globFirebase = " + globalFirebaseAuth.toString());
 
     final AuthCredential credential = GoogleAuthProvider.getCredential(
       accessToken: googleAuth.accessToken,
@@ -91,6 +97,7 @@ class _MyHomePageState extends State<MyHomePage> {
             }
         );
       }else{
+
         globalUserDetails = details;
         showDialog(
             context: context,
@@ -104,7 +111,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     onPressed: () => Navigator.push(
                       context,
                       new MaterialPageRoute(
-                        builder: (context) => new Request(),
+                        builder: (context) => new Request(googleSignIn: _googlSignIn, firebaseAuth: _firebaseAuth),
                         //detailsUser: details
                       ),
                     ),

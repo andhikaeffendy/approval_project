@@ -5,7 +5,9 @@ import 'package:approvalproject/api_response_model/logout_response.dart';
 import 'package:approvalproject/main.dart';
 import 'package:approvalproject/request_detail.dart';
 import 'package:dio/dio.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:imagebutton/imagebutton.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:intl/intl.dart';
@@ -14,15 +16,25 @@ import 'globals/variable.dart';
 
 class Request extends StatefulWidget {
 
+  final GoogleSignIn googleSignIn;
+  final FirebaseAuth firebaseAuth;
+
+  const Request({Key key, @required this.googleSignIn, this.firebaseAuth}) : super(key : key);
 
   @override
-  _RequestState createState() => _RequestState();
+  _RequestState createState() => _RequestState(googleSignIn, firebaseAuth);
 }
 
 class _RequestState extends State<Request> {
+  GoogleSignIn googleSignIn;
+  FirebaseAuth firebaseAuth;
+  _RequestState(this.googleSignIn, this.firebaseAuth);
+
   List<String> listitem = ['atu', 'dua', 'tiga','empat','lima'];
 
   DateFormat dateFormat = new DateFormat('yyyy-MM-dd');
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -195,14 +207,19 @@ class _RequestState extends State<Request> {
 
     // set up the buttons
     Widget cancelButton = FlatButton(
-      child: Text("Tidak"),
-      onPressed:  () {},
+      child: Text("No"),
+      onPressed:  () {
+        Navigator.of(context).pop();
+      },
     );
     Widget continueButton = FlatButton(
-      child: Text("Ya"),
+      child: Text("Yes"),
       onPressed: ()=> logoutRequest().then((task){
         if(task.status=='success'){
-          Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new MyApp()));
+          googleSignOut().then((task){
+            print("task = " + task.toString());
+            Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new MyApp()));
+          });
         }
       }),
     );
@@ -210,7 +227,7 @@ class _RequestState extends State<Request> {
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
       title: Text("Logout"),
-      content: Text("Anda ingin logout?"),
+      content: Text("Do you want to Logout?"),
       actions: [
         cancelButton,
         continueButton,
@@ -244,10 +261,27 @@ class _RequestState extends State<Request> {
     String url = domain + "/api/v1/logout";
     dio.options.headers[HttpHeaders.authorizationHeader] = 'Bearer ' + globalUserDetails.idToken;
     Response response = await dio.post(url);
-    print("response : "+response.toString());
+    print("response logout: "+response.toString());
     String dummyResponse = '{"data": [ {   "id": 11,"name": "F1 Form Approval Application 2",    "form_date": "2020-04-06",    "document_number": "11/F1-/April-IV/2020",    "cost_allocation": "Capex",    "purpose_of_issue": "New Contract",    "procurement_type": "Tender",    "issued_by": "Department Head IT",    "recurring_option": "Recurring",   "percentage": 0  }    ],    "status": "success",    "message": "Data Retrieved successfully"  }';
     LogoutResponse newResponse = logoutResponseFromJson(response.toString());
 
     return newResponse;
   }
+
+  Future googleSignOut() async{
+
+    try{
+      print("check null" + globalFirebaseAuth.toString());
+      globalFirebaseAuth.signOut().then((task){
+        globalGoogleSignIn.signOut();
+      });
+      print("firebase signout sukses");
+    }catch(e){
+      print(e.toString());
+      return null;
+    }
+
+  }
+
+
 }

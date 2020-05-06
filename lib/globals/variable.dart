@@ -1,8 +1,15 @@
 import 'dart:typed_data';
 
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+
 String domain = "http://f1.wiradipa.com";
 
 UserDetails globalUserDetails;
+
+GoogleSignIn globalGoogleSignIn;
+FirebaseAuth globalFirebaseAuth;
+
 Uint8List ttd;
 
 class UserDetails {
