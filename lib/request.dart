@@ -1,8 +1,10 @@
 import 'dart:io';
+import 'dart:ui';
 
 import 'package:approvalproject/api_response_model/list_approval_form.dart';
 import 'package:approvalproject/api_response_model/logout_response.dart';
 import 'package:approvalproject/main.dart';
+import 'package:approvalproject/new_request_detail.dart';
 import 'package:approvalproject/request_detail.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -15,11 +17,11 @@ import 'package:intl/intl.dart';
 import 'globals/variable.dart';
 
 class Request extends StatefulWidget {
-
   final GoogleSignIn googleSignIn;
   final FirebaseAuth firebaseAuth;
 
-  const Request({Key key, @required this.googleSignIn, this.firebaseAuth}) : super(key : key);
+  const Request({Key key, @required this.googleSignIn, this.firebaseAuth})
+      : super(key: key);
 
   @override
   _RequestState createState() => _RequestState(googleSignIn, firebaseAuth);
@@ -30,25 +32,50 @@ class _RequestState extends State<Request> {
   FirebaseAuth firebaseAuth;
   _RequestState(this.googleSignIn, this.firebaseAuth);
 
-  List<String> listitem = ['atu', 'dua', 'tiga','empat','lima'];
+  List<String> listitem = ['atu', 'dua', 'tiga', 'empat', 'lima'];
 
   DateFormat dateFormat = new DateFormat('yyyy-MM-dd');
 
-  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = new GlobalKey<RefreshIndicatorState>();
+  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
+      new GlobalKey<RefreshIndicatorState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Requests'),
+        title: Row(
+          children: <Widget>[
+            ImageButton(
+              children: <Widget>[],
+              width: 23,
+              height: 23,
+              pressedImage: Image.asset('assets/request.png'),
+              unpressedImage: Image.asset('assets/request.png'),
+            ),SizedBox(
+              width: 8.0,
+            ),Text(
+              'Request',
+              style: TextStyle(fontSize: 18.0),
+            )
+          ],
+        ),
         actions: <Widget>[
-          FlatButton(
-            textColor: Colors.white,
-            onPressed: () {_showAlertDialog(context);},
-            child: Text("Logout"),
-            shape: CircleBorder(side: BorderSide(color: Colors.transparent)),
-          ),
-        ],
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.only(right: 8.0),
+              child: ImageButton(
+                children: <Widget>[],
+                width: 23,
+                height: 23,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                pressedImage: Image.asset('assets/Log_out.png'),
+                unpressedImage: Image.asset('assets/Log_out.png'),
+                onTap: (){_showAlertDialog(context);},
+              ),
+            ),
+          )
+        ],leading: new Container(),
       ),
       body: Container(
         margin: const EdgeInsets.all(16.0),
@@ -74,15 +101,15 @@ class _RequestState extends State<Request> {
             ),
             FutureBuilder(
               future: getListApproval(),
-              builder: (context, snapshot){
-                if(snapshot.data==null){
+              builder: (context, snapshot) {
+                if (snapshot.data == null) {
                   return Container();
-                }else{
+                } else {
                   List<Datum> listApproval = snapshot.data.data;
                   return Expanded(
                     child: RefreshIndicator(
                       key: _refreshIndicatorKey,
-                      onRefresh: () => getListApproval().then((task){
+                      onRefresh: () => getListApproval().then((task) {
                         setState(() {
                           print("refresing");
                           listApproval = task.data;
@@ -91,14 +118,12 @@ class _RequestState extends State<Request> {
                       child: ListView.builder(
                         physics: const AlwaysScrollableScrollPhysics(),
                         itemCount: listApproval.length,
-                        itemBuilder: (BuildContext context, int index){
+                        itemBuilder: (BuildContext context, int index) {
                           return GestureDetector(
                             onTap: () => Navigator.of(context).push(
                                 new MaterialPageRoute(
                                     builder: (BuildContext context) =>
-                                    new RequestDetail(approvalFormId: listApproval[index].id.toString())
-                                )
-                            ),
+                                        new NewRequestDetail())),
                             child: Container(
                               margin: const EdgeInsets.only(bottom: 16.0),
                               child: Material(
@@ -106,17 +131,22 @@ class _RequestState extends State<Request> {
                                 child: Container(
                                   margin: const EdgeInsets.all(16.0),
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: <Widget>[
                                       Row(
-                                        crossAxisAlignment: CrossAxisAlignment.center,
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
                                         children: <Widget>[
                                           Container(
                                             child: Text(
-                                              dateFormat.format(listApproval[index].formDate),
-                                              style: TextStyle(color: Colors.pinkAccent),
+                                              dateFormat.format(
+                                                  listApproval[index].formDate),
+                                              style: TextStyle(
+                                                  color: Colors.pinkAccent),
                                             ),
                                           ),
                                           Row(
@@ -126,8 +156,10 @@ class _RequestState extends State<Request> {
                                                 width: 50.0,
                                                 height: 25.0,
                                                 paddingTop: 8.0,
-                                                pressedImage: Image.asset('assets/Button_recc.png'),
-                                                unpressedImage: Image.asset('assets/Button_recc.png'),
+                                                pressedImage: Image.asset(
+                                                    'assets/Button_recc.png'),
+                                                unpressedImage: Image.asset(
+                                                    'assets/Button_recc.png'),
                                                 onTap: () {},
                                               ),
                                               SizedBox(
@@ -138,8 +170,10 @@ class _RequestState extends State<Request> {
                                                 width: 50.0,
                                                 height: 25.0,
                                                 paddingTop: 8.0,
-                                                pressedImage: Image.asset('assets/Button_capex.png'),
-                                                unpressedImage: Image.asset('assets/Button_capex.png'),
+                                                pressedImage: Image.asset(
+                                                    'assets/Button_capex.png'),
+                                                unpressedImage: Image.asset(
+                                                    'assets/Button_capex.png'),
                                                 onTap: () {},
                                               )
                                             ],
@@ -162,8 +196,10 @@ class _RequestState extends State<Request> {
                                         height: 32.0,
                                       ),
                                       Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
                                         children: <Widget>[
                                           LinearPercentIndicator(
                                             width: 180.0,
@@ -173,8 +209,10 @@ class _RequestState extends State<Request> {
                                             progressColor: Colors.green,
                                           ),
                                           Column(
-                                            mainAxisAlignment: MainAxisAlignment.end,
-                                            crossAxisAlignment: CrossAxisAlignment.end,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.end,
                                             children: <Widget>[
                                               Container(
                                                 child: Text(
@@ -214,21 +252,21 @@ class _RequestState extends State<Request> {
   }
 
   _showAlertDialog(BuildContext context) {
-
     // set up the buttons
     Widget cancelButton = FlatButton(
       child: Text("No"),
-      onPressed:  () {
+      onPressed: () {
         Navigator.of(context).pop();
       },
     );
     Widget continueButton = FlatButton(
       child: Text("Yes"),
-      onPressed: ()=> logoutRequest().then((task){
-        if(task.status=='success'){
-          googleSignOut().then((task){
+      onPressed: () => logoutRequest().then((task) {
+        if (task.status == 'success') {
+          googleSignOut().then((task) {
             print("task = " + task.toString());
-            Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new MyApp()));
+            Navigator.of(context).push(new MaterialPageRoute(
+                builder: (BuildContext context) => new MyApp()));
           });
         }
       }),
@@ -256,42 +294,42 @@ class _RequestState extends State<Request> {
   Future<ListApprovalForm> getListApproval() async {
     var dio = Dio();
     String url = domain + "/api/v1/approval_forms";
-    dio.options.headers[HttpHeaders.authorizationHeader] = 'Bearer ' + globalUserDetails.idToken;
+    dio.options.headers[HttpHeaders.authorizationHeader] =
+        'Bearer ' + globalUserDetails.idToken;
     Response response = await dio.get(url);
-    print("response : "+response.toString());
-    String dummyResponse = '{"data": [ {   "id": 11,"name": "F1 Form Approval Application 2",    "form_date": "2020-04-06",    "document_number": "11/F1-/April-IV/2020",    "cost_allocation": "Capex",    "purpose_of_issue": "New Contract",    "procurement_type": "Tender",    "issued_by": "Department Head IT",    "recurring_option": "Recurring",   "percentage": 0  }    ],    "status": "success",    "message": "Data Retrieved successfully"  }';
-    ListApprovalForm newResponse = listApprovalFormFromJson(response.toString());
-
+    print("response : " + response.toString());
+    String dummyResponse =
+        '{"data": [ {   "id": 11,"name": "F1 Form Approval Application 2",    "form_date": "2020-04-06",    "document_number": "11/F1-/April-IV/2020",    "cost_allocation": "Capex",    "purpose_of_issue": "New Contract",    "procurement_type": "Tender",    "issued_by": "Department Head IT",    "recurring_option": "Recurring",   "percentage": 0  }    ],    "status": "success",    "message": "Data Retrieved successfully"  }';
+    ListApprovalForm newResponse =
+        listApprovalFormFromJson(response.toString());
 
     return newResponse;
   }
 
-  Future<LogoutResponse> logoutRequest() async{
+  Future<LogoutResponse> logoutRequest() async {
     var dio = Dio();
     String url = domain + "/api/v1/logout";
-    dio.options.headers[HttpHeaders.authorizationHeader] = 'Bearer ' + globalUserDetails.idToken;
+    dio.options.headers[HttpHeaders.authorizationHeader] =
+        'Bearer ' + globalUserDetails.idToken;
     Response response = await dio.post(url);
-    print("response logout: "+response.toString());
-    String dummyResponse = '{"data": [ {   "id": 11,"name": "F1 Form Approval Application 2",    "form_date": "2020-04-06",    "document_number": "11/F1-/April-IV/2020",    "cost_allocation": "Capex",    "purpose_of_issue": "New Contract",    "procurement_type": "Tender",    "issued_by": "Department Head IT",    "recurring_option": "Recurring",   "percentage": 0  }    ],    "status": "success",    "message": "Data Retrieved successfully"  }';
+    print("response logout: " + response.toString());
+    String dummyResponse =
+        '{"data": [ {   "id": 11,"name": "F1 Form Approval Application 2",    "form_date": "2020-04-06",    "document_number": "11/F1-/April-IV/2020",    "cost_allocation": "Capex",    "purpose_of_issue": "New Contract",    "procurement_type": "Tender",    "issued_by": "Department Head IT",    "recurring_option": "Recurring",   "percentage": 0  }    ],    "status": "success",    "message": "Data Retrieved successfully"  }';
     LogoutResponse newResponse = logoutResponseFromJson(response.toString());
 
     return newResponse;
   }
 
-  Future googleSignOut() async{
-
-    try{
+  Future googleSignOut() async {
+    try {
       print("check null" + globalFirebaseAuth.toString());
-      globalFirebaseAuth.signOut().then((task){
+      globalFirebaseAuth.signOut().then((task) {
         globalGoogleSignIn.signOut();
       });
       print("firebase signout sukses");
-    }catch(e){
+    } catch (e) {
       print(e.toString());
       return null;
     }
-
   }
-
-
 }

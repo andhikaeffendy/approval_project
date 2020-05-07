@@ -1,4 +1,5 @@
 import 'package:approvalproject/api_response_model/login_response.dart';
+import 'package:approvalproject/new_request_detail.dart';
 import 'package:approvalproject/request.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.red,
       ),
       home: MyHomePage(),
     );
