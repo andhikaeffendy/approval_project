@@ -19,14 +19,11 @@ class DetailApprovalForm {
     this.message,
   });
 
-  factory DetailApprovalForm.fromJson(Map<String, dynamic> json) {
-    print("DetailfromJson jalan");
-    return DetailApprovalForm(
-      data: Data.fromJson(json["data"]),
-      status: json["status"],
-      message: json["message"],
-    );
-  }
+  factory DetailApprovalForm.fromJson(Map<String, dynamic> json) => DetailApprovalForm(
+    data: Data.fromJson(json["data"]),
+    status: json["status"],
+    message: json["message"],
+  );
 
   Map<String, dynamic> toJson() => {
     "data": data.toJson(),
@@ -45,12 +42,14 @@ class Data {
   String procurementType;
   String issuedBy;
   String recurringOption;
-  double value;
+  String value;
   String supplier;
   String summary;
   String summaryTerm;
   String justification;
   DateTime createdAt;
+  List<Detail> details;
+  List<dynamic> documents;
 
   Data({
     this.id,
@@ -68,27 +67,93 @@ class Data {
     this.summaryTerm,
     this.justification,
     this.createdAt,
+    this.details,
+    this.documents,
   });
 
   factory Data.fromJson(Map<String, dynamic> json) {
-    print("Data From json Jalan");
-    return Data(
-      id: json["id"],
-      name: json["name"],
-      formDate: DateTime.parse(json["form_date"]),
-      documentNumber: json["document_number"],
-      costAllocation: json["cost_allocation"],
-      purposeOfIssue: json["purpose_of_issue"],
-      procurementType: json["procurement_type"],
-      issuedBy: json["issued_by"],
-      recurringOption: json["recurring_option"],
-      value: json["value"],
-      supplier: json["supplier"],
-      summary: json["summary"],
-      summaryTerm: json["summary_term"],
-      justification: json["justification"],
-      createdAt: DateTime.parse(json["created_at"]),
-    );
+    if(json["documents"]==null){
+      print("doc null");
+      return Data(
+        id: json["id"],
+        name: json["name"],
+        formDate: DateTime.parse(json["form_date"]),
+        documentNumber: json["document_number"],
+        costAllocation: json["cost_allocation"],
+        purposeOfIssue: json["purpose_of_issue"],
+        procurementType: json["procurement_type"],
+        issuedBy: json["issued_by"],
+        recurringOption: json["recurring_option"],
+        value: json["value"],
+        supplier: json["supplier"],
+        summary: json["summary"],
+        summaryTerm: json["summary_term"],
+        justification: json["justification"],
+        createdAt: DateTime.parse(json["created_at"]),
+        details: List<Detail>.from(json["details"].map((x) => Detail.fromJson(x))),
+      );
+    }else if(json["details"]==null){
+      print("details null");
+      return Data(
+        id: json["id"],
+        name: json["name"],
+        formDate: DateTime.parse(json["form_date"]),
+        documentNumber: json["document_number"],
+        costAllocation: json["cost_allocation"],
+        purposeOfIssue: json["purpose_of_issue"],
+        procurementType: json["procurement_type"],
+        issuedBy: json["issued_by"],
+        recurringOption: json["recurring_option"],
+        value: json["value"],
+        supplier: json["supplier"],
+        summary: json["summary"],
+        summaryTerm: json["summary_term"],
+        justification: json["justification"],
+        createdAt: DateTime.parse(json["created_at"]),
+        details: List<Detail>.from(json["details"].map((x) => Detail.fromJson(x))),
+        documents: List<dynamic>.from(json["documents"].map((x) => x)),
+      );
+    }else if(json["details"]==null && json["documents"]==null){
+      print("both null");
+      return Data(
+        id: json["id"],
+        name: json["name"],
+        formDate: DateTime.parse(json["form_date"]),
+        documentNumber: json["document_number"],
+        costAllocation: json["cost_allocation"],
+        purposeOfIssue: json["purpose_of_issue"],
+        procurementType: json["procurement_type"],
+        issuedBy: json["issued_by"],
+        recurringOption: json["recurring_option"],
+        value: json["value"],
+        supplier: json["supplier"],
+        summary: json["summary"],
+        summaryTerm: json["summary_term"],
+        justification: json["justification"],
+        createdAt: DateTime.parse(json["created_at"])
+      );
+    }else{
+      print("detail normal");
+      return Data(
+        id: json["id"],
+        name: json["name"],
+        formDate: DateTime.parse(json["form_date"]),
+        documentNumber: json["document_number"],
+        costAllocation: json["cost_allocation"],
+        purposeOfIssue: json["purpose_of_issue"],
+        procurementType: json["procurement_type"],
+        issuedBy: json["issued_by"],
+        recurringOption: json["recurring_option"],
+        value: json["value"],
+        supplier: json["supplier"],
+        summary: json["summary"],
+        summaryTerm: json["summary_term"],
+        justification: json["justification"],
+        createdAt: DateTime.parse(json["created_at"]),
+        details: List<Detail>.from(json["details"].map((x) => Detail.fromJson(x))),
+        documents: List<dynamic>.from(json["documents"].map((x) => x)),
+      );
+    }
   }
 
   Map<String, dynamic> toJson() => {
@@ -107,5 +172,35 @@ class Data {
     "summary_term": summaryTerm,
     "justification": justification,
     "created_at": createdAt.toIso8601String(),
+    "details": List<dynamic>.from(details.map((x) => x.toJson())),
+    "documents": List<dynamic>.from(documents.map((x) => x)),
+  };
+}
+
+class Detail {
+  String item;
+  String value;
+  int quantity;
+  String subTotal;
+
+  Detail({
+    this.item,
+    this.value,
+    this.quantity,
+    this.subTotal,
+  });
+
+  factory Detail.fromJson(Map<String, dynamic> json) => Detail(
+    item: json["item"],
+    value: json["value"],
+    quantity: json["quantity"],
+    subTotal: json["sub_total"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "item": item,
+    "value": value,
+    "quantity": quantity,
+    "sub_total": subTotal,
   };
 }

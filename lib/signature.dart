@@ -125,42 +125,62 @@ class _SignatureFormState extends State<SignatureForm> {
 
 
                         signForm(approvalFormId, data.buffer.asUint8List()).then((task){
-                          approveForm(approvalFormId).then((task){
-                            if(task.status=="fail"){
-                              showDialog(
+                          print("sign = " + task.status);
+                          if(task.status=="success"){
+                            approveForm(approvalFormId).then((task){
+                              if(task.status=="fail"){
+                                showDialog(
+                                    context: context,
+                                    builder: (BuildContext context){
+                                      return AlertDialog(
+                                        title: Text("Approve Fail"),
+                                        content: Text(task.message),
+                                        actions:[
+                                          FlatButton(
+                                              child: Text("Close"),
+                                              onPressed: () => Navigator.of(context).pop()
+                                          )
+                                        ],
+                                      );
+                                    }
+                                );
+                              }else{
+                                showDialog(
                                   context: context,
                                   builder: (BuildContext context){
                                     return AlertDialog(
-                                      title: Text("Approve Fail"),
+                                      title: Text("Approve Success"),
                                       content: Text(task.message),
                                       actions:[
                                         FlatButton(
                                             child: Text("Close"),
-                                            onPressed: () => Navigator.of(context).pop()
+                                            onPressed: () => Navigator.push(context, new MaterialPageRoute(builder: (context) => new Request()))
                                         )
                                       ],
                                     );
-                                  }
-                              );
-                            }else{
-                              showDialog(
+                                  },
+
+                                );
+                              }
+                            });
+                          }else{
+                            showDialog(
                                 context: context,
                                 builder: (BuildContext context){
                                   return AlertDialog(
-                                    title: Text("Approve Success"),
+                                    title: Text("Sign Fail"),
                                     content: Text(task.message),
                                     actions:[
                                       FlatButton(
                                           child: Text("Close"),
-                                          onPressed: () => Navigator.push(context, new MaterialPageRoute(builder: (context) => new Request()))
+                                          onPressed: () => Navigator.of(context).pop()
                                       )
                                     ],
                                   );
-                                },
+                                }
+                            );
+                          }
 
-                              );
-                            }
-                          });
                         });
 
                       },
@@ -232,20 +252,23 @@ class _SignatureFormState extends State<SignatureForm> {
     Response response = await dio.post(url, data: formData);
     print(response.data);
 
+    String dummyResponse = '{"status": "success", "message": "Sign Form Successful"}';
     FormSignature newResponse = formSignatureFromJson(response.toString());
     return newResponse;
   }
 
   approveForm(String formId) async{
     var dio = Dio();
+    print("masuk approve");
     String url = domain + "/api/v1/approve_form?form_id=" + formId;
     dio.options.headers[HttpHeaders.authorizationHeader] = 'Bearer ' + globalUserDetails.idToken;
 
     Response response = await dio.post(url);
     print(response.data);
-    String dummyResponse = '{"data":[{"id":11,"name":"F1 Form Approval Application 2","form_date":"2020-04-06","document_number":"11/F1-/April-IV/2020","cost_allocation":"Capex","purpose_of_issue":"New Contract","procurement_type":"Tender","issued_by":"Department Head IT","recurring_option":"Recurring","percentage":0.0},{"id":13,"name":"F1 Form Approval Application 3","form_date":"2020-04-08","document_number":"13/F1-/April-IV/2020","cost_allocation":"Capex","purpose_of_issue":"New Contract","procurement_type":"Tender","issued_by":"Department Head IT","recurring_option":"Recurring","percentage":0.0},{"id":15,"name":"F1 Form Approval System","form_date":"2020-04-27","document_number":"15/F1-/April-IV/2020","cost_allocation":"Capex","purpose_of_issue":"New Contract","procurement_type":"Comparison","issued_by":"Department Head IT","recurring_option":"Non Recurring","percentage":0.0}],"status":"success","message":"Data Retrieved successfully"}';
 
-    FormApprove newResponse = formApproveFromJson(response.data);
+    String dummyResponse = '{"status": "success", "message": "Sign Form Successful"}';
+
+    FormApprove newResponse = formApproveFromJson(response.toString());
     return newResponse;
   }
 
