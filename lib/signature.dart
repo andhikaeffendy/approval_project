@@ -184,10 +184,10 @@ class _SignatureFormState extends State<SignatureForm> {
                         });
 
                       },
-                      child: Text("Save",
+                      child: Text("Submit",
                       style: TextStyle(color: Colors.white),),),
                   MaterialButton(
-                      color: Colors.red,
+                      color: Colors.blue,
                       onPressed: () {
                         final sign = _sign.currentState;
                         sign.clear();
@@ -196,8 +196,14 @@ class _SignatureFormState extends State<SignatureForm> {
                         });
                         debugPrint("cleared");
                       },
-                      child: Text("Clear",
-                      style: TextStyle(color: Colors.white),)),
+                      child: Text("Clear", style: TextStyle(color: Colors.white))),
+                  MaterialButton(
+                    color: Colors.red,
+                    child: Text("Cancel", style: TextStyle(color: Colors.white)),
+                    onPressed: (){
+                      Navigator.of(context).pop();
+                    },
+                  )
                 ],
               ),
               SizedBox(

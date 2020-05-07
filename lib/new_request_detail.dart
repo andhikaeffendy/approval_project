@@ -332,13 +332,18 @@ class _NewRequestDetailState extends State<NewRequestDetail> {
               builder: (BuildContext context) =>
               new SignatureForm(approvalFormId: approvalFormId))),
     );
+    Widget cancelButton = FlatButton(
+      child: Text("Cancel"),
+      onPressed: () => Navigator.of(context).pop()
+    );
 
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
       title: Text("Signature"),
       content: Text("You must sign first to approve"),
       actions: [
-        okButton,
+        cancelButton,
+        okButton
       ],
     );
 
