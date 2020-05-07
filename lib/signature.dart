@@ -155,7 +155,7 @@ class _SignatureFormState extends State<SignatureForm> {
                                       actions:[
                                         FlatButton(
                                             child: Text("Close"),
-                                            onPressed: () => Navigator.push(context, new MaterialPageRoute(builder: (context) => new NewRequestDetail(approvalFormId: approvalFormId, newApprovalStatus: 1)))
+                                            onPressed: () => Navigator.push(context, new MaterialPageRoute(builder: (context) => new NewRequestDetail(approvalFormId: approvalFormId, newApprovalStatus: "1")))
                                         )
                                       ],
                                     );

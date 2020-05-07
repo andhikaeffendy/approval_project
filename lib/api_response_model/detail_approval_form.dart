@@ -47,7 +47,7 @@ class Data {
   String summary;
   String summaryTerm;
   String justification;
-  int myApprovalStatus;
+  String myApprovalStatus;
   DateTime createdAt;
   List<Detail> details;
   List<Document> documents;
@@ -91,7 +91,6 @@ class Data {
         summary: json["summary"],
         summaryTerm: json["summary_term"],
         justification: json["justification"],
-        myApprovalStatus: json["my_approval_status"],
         createdAt: DateTime.parse(json["created_at"]),
         details: List<Detail>.from(json["details"].map((x) => Detail.fromJson(x))),
       );
@@ -112,7 +111,6 @@ class Data {
         summary: json["summary"],
         summaryTerm: json["summary_term"],
         justification: json["justification"],
-        myApprovalStatus: json["my_approval_status"],
         createdAt: DateTime.parse(json["created_at"]),
         documents: List<Document>.from(json["documents"].map((x) => Document.fromJson(x))),
       );
@@ -132,12 +130,11 @@ class Data {
           supplier: json["supplier"],
           summary: json["summary"],
           summaryTerm: json["summary_term"],
-          myApprovalStatus: json["my_approval_status"],
           justification: json["justification"],
           createdAt: DateTime.parse(json["created_at"])
       );
     }else{
-      print("detail doc normal");
+      print("detail normal");
       return Data(
         id: json["id"],
         name: json["name"],
@@ -153,7 +150,6 @@ class Data {
         summary: json["summary"],
         summaryTerm: json["summary_term"],
         justification: json["justification"],
-        myApprovalStatus: json["my_approval_status"],
         createdAt: DateTime.parse(json["created_at"]),
         details: List<Detail>.from(json["details"].map((x) => Detail.fromJson(x))),
         documents: List<Document>.from(json["documents"].map((x) => Document.fromJson(x))),
@@ -230,6 +226,7 @@ class Document {
     "file": file,
   };
 }
+
 
 
 /*
