@@ -15,21 +15,23 @@ import 'globals/variable.dart';
 
 class NewRequestDetail extends StatefulWidget {
   final String approvalFormId;
+  final int newApprovalStatus;
 
-  const NewRequestDetail({Key key, this.approvalFormId}) : super(key: key);
+  const NewRequestDetail({Key key, this.approvalFormId, this.newApprovalStatus}) : super(key: key);
   @override
-  _NewRequestDetailState createState() => _NewRequestDetailState(approvalFormId);
+  _NewRequestDetailState createState() => _NewRequestDetailState(approvalFormId, newApprovalStatus);
 }
 
 class _NewRequestDetailState extends State<NewRequestDetail> {
   List<String> listItem = ['satu', 'dua', 'tiga'];
   String approvalFormId;
+  int newApprovalStatus = 0;
 
   TextEditingController rejectionText = TextEditingController();
 
   DateFormat dateFormat = new DateFormat('yyyy-MM-dd');
 
-  _NewRequestDetailState(this.approvalFormId);
+  _NewRequestDetailState(this.approvalFormId, this.newApprovalStatus);
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +46,7 @@ class _NewRequestDetailState extends State<NewRequestDetail> {
             return Container();
           }else{
             Data detailRequest = snapshot.data.data;
-            //detailRequest.myApprovalStatus = 1;
+            detailRequest.myApprovalStatus = newApprovalStatus;
             print("myapprovalstatus : " + detailRequest.myApprovalStatus.toString());
             if(detailRequest.myApprovalStatus != 0){
               return SingleChildScrollView(

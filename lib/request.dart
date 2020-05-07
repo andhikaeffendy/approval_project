@@ -123,7 +123,7 @@ class _RequestState extends State<Request> {
                             onTap: () => Navigator.of(context).push(
                                 new MaterialPageRoute(
                                     builder: (BuildContext context) =>
-                                        new NewRequestDetail(approvalFormId: listApproval[index].id.toString()))),
+                                        new NewRequestDetail(approvalFormId: listApproval[index].id.toString(), newApprovalStatus: 0))),
                             child: Container(
                               margin: const EdgeInsets.only(bottom: 16.0),
                               child: Material(

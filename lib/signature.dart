@@ -5,6 +5,7 @@ import 'dart:typed_data';
 import 'dart:ui' as ui;
 
 import 'package:approvalproject/globals/variable.dart';
+import 'package:approvalproject/new_request_detail.dart';
 import 'package:approvalproject/request.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -154,7 +155,7 @@ class _SignatureFormState extends State<SignatureForm> {
                                       actions:[
                                         FlatButton(
                                             child: Text("Close"),
-                                            onPressed: () => Navigator.push(context, new MaterialPageRoute(builder: (context) => new Request()))
+                                            onPressed: () => Navigator.push(context, new MaterialPageRoute(builder: (context) => new NewRequestDetail(approvalFormId: approvalFormId, newApprovalStatus: 1)))
                                         )
                                       ],
                                     );
