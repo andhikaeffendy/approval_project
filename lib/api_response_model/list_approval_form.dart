@@ -19,11 +19,20 @@ class ListApprovalForm {
     this.message,
   });
 
-  factory ListApprovalForm.fromJson(Map<String, dynamic> json) => ListApprovalForm(
-    data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
-    status: json["status"],
-    message: json["message"],
-  );
+  factory ListApprovalForm.fromJson(Map<String, dynamic> json) {
+    if(json["data"]==null){
+      return ListApprovalForm(
+        status: json["status"],
+        message: json["message"],
+      );
+    }else{
+      return ListApprovalForm(
+        data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+        status: json["status"],
+        message: json["message"],
+      );
+    }
+  }
 
   Map<String, dynamic> toJson() => {
     "data": List<dynamic>.from(data.map((x) => x.toJson())),

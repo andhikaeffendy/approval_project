@@ -100,6 +100,7 @@ class _RequestState extends State<Request> {
               height: 16.0,
             ),
             FutureBuilder(
+              future: getListApproval(),
               builder: (context, snapshot) {
                 if (snapshot.data == null) {
                   return Container();
@@ -292,6 +293,7 @@ class _RequestState extends State<Request> {
 
   Future<ListApprovalForm> getListApproval() async {
     var dio = Dio();
+    print("masuk get list 2");
     String url = domain + "/api/v1/approval_forms";
     dio.options.headers[HttpHeaders.authorizationHeader] =
         'Bearer ' + globalUserDetails.idToken;
