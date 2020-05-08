@@ -64,293 +64,286 @@ class _NewRequestDetailState extends State<NewRequestDetail> {
                           child: Material(
                             elevation: 10.0,
                             borderRadius: BorderRadius.circular(14.0),
-                            child: Padding(
-                              padding: const EdgeInsets.all(16.0),
-                              child: Column(
-                                children: <Widget>[
-                                  Text(
-                                    detailRequest.name,
-                                    style: TextStyle(
-                                        fontSize: 16.0,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black),
-                                  ),
-                                  SizedBox(
-                                    height: 18.0,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: <Widget>[
-                                      Text(
-                                        "Form Date : "+dateFormat.format(detailRequest.formDate),
-                                        style: TextStyle(
-                                            fontSize: 14.0,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.black),
-                                      ),
-                                      Container()
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 12.0,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: <Widget>[
-                                      Text(
-                                        "Document Number : "+detailRequest.documentNumber,
-                                        style: TextStyle(
-                                            fontSize: 14.0,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.black),
-                                      ),
-                                      Container()
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 12.0,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: <Widget>[
-                                      Text(
-                                        "Cost Allocacation : "+detailRequest.costAllocation,
-                                        style: TextStyle(
-                                            fontSize: 14.0,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.black),
-                                      ),
-                                      Container()
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 12.0,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: <Widget>[
-                                      Text(
-                                        "Purposed of Issue : "+detailRequest.purposeOfIssue,
-                                        style: TextStyle(
-                                            fontSize: 14.0,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.black),
-                                      ),
-                                      Container()
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 12.0,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: <Widget>[
-                                      Text(
-                                        "Procurement Type : "+detailRequest.procurementType,
-                                        style: TextStyle(
-                                            fontSize: 14.0,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.black),
-                                      ),
-                                      Container()
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 12.0,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: <Widget>[
-                                      Text(
-                                        "Recurring Option : "+detailRequest.recurringOption,
-                                        style: TextStyle(
-                                            fontSize: 14.0,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.black),
-                                      ),
-                                      Container()
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 12.0,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: <Widget>[
-                                      Text(
-                                        "Issued By : "+detailRequest.issuedBy,
-                                        style: TextStyle(
-                                            fontSize: 14.0,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.black),
-                                      ),
-                                      Container()
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 12.0,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: <Widget>[
-                                      Text(
-                                        "Grand Total : " + detailRequest.value,
-                                        style: TextStyle(
-                                            fontSize: 14.0,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.black),
-                                      ),
-                                      Container()
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 12.0,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: <Widget>[
-                                      Text(
-                                        "Supplier : "+detailRequest.supplier,
-                                        style: TextStyle(
-                                            fontSize: 14.0,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.black),
-                                      ),
-                                      Container()
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 24.0,
-                                  ),
-                                  Text(
-                                    'List Of Detail',
-                                    style: TextStyle(
-                                        fontSize: 16.0,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black),
-                                  ),
-                                  SizedBox(
-                                    height: 18,
-                                  ),
-                                  Expanded(
-                                    flex: 2,
-                                    child: Column(
+                            child: SingleChildScrollView(
+                              child: Padding(
+                                padding: const EdgeInsets.all(16.0),
+                                child: Column(
+                                  children: <Widget>[
+                                    Text(
+                                      detailRequest.name,
+                                      style: TextStyle(
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black),
+                                    ),
+                                    SizedBox(
+                                      height: 18.0,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
                                       children: <Widget>[
-                                        Flexible(
-                                          flex: 1,
-                                          child: ListView.builder(
-                                              scrollDirection: Axis.vertical,
-                                              itemCount: detailRequest.details.length,
-                                              itemBuilder: (BuildContext context, int index) {
-                                                Detail detailsItemList = detailRequest.details[index];
-                                                return Column(
-                                                  mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                                  crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                                  children: <Widget>[
-                                                    Row(
-                                                      mainAxisAlignment:
-                                                      MainAxisAlignment.spaceBetween,
-                                                      crossAxisAlignment:
-                                                      CrossAxisAlignment.center,
-                                                      children: <Widget>[
-                                                        Text(
-                                                          detailsItemList.item,
-                                                          style: TextStyle(
-                                                              fontSize: 14.0,
-                                                              color: Colors.black),
-                                                        ),
-                                                        Text(
-                                                          detailsItemList.value,
-                                                          style: TextStyle(
-                                                              fontSize: 14.0,
-                                                              color: Colors.black),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    SizedBox(
-                                                      height: 12.0,
-                                                    )
-                                                  ],
-                                                );
-                                              }),
-                                        ),
                                         Text(
-                                          'List Of Document',
+                                          "Form Date : "+dateFormat.format(detailRequest.formDate),
                                           style: TextStyle(
-                                              fontSize: 16.0,
+                                              fontSize: 14.0,
                                               fontWeight: FontWeight.bold,
                                               color: Colors.black),
                                         ),
-                                        SizedBox(
-                                          height: 16.0,
-                                        ),
-                                        Flexible(
-                                          flex: 2,
-                                          child: ListView.builder(
-                                              scrollDirection: Axis.vertical,
-                                              itemCount: detailRequest.documents.length,
-                                              itemBuilder: (BuildContext context, int index) {
-                                                Document document = detailRequest.documents[index];
-                                                return Column(
-                                                  mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                                  crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                                  children: <Widget>[
-                                                    Row(
-                                                      mainAxisAlignment:
-                                                      MainAxisAlignment.spaceBetween,
-                                                      crossAxisAlignment:
-                                                      CrossAxisAlignment.center,
-                                                      children: <Widget>[
-                                                        Text(
-                                                          document.title,
-                                                          style: TextStyle(
-                                                              fontSize: 14.0,
-                                                              color: Colors.black),
-                                                        ),
-                                                        ButtonTheme(
-                                                          height: 30.0,
-                                                          child: FlatButton(
-                                                            color: Color(0xFF00bbb9),
-                                                            shape: RoundedRectangleBorder(
-                                                                borderRadius: BorderRadius.circular(10.0),
-                                                                side: BorderSide(color: Color(0xFF00bbb9))
-                                                            ),
-                                                            onPressed: (){
-                                                              print("Launch Url Jalan");
-                                                              String url = document.file;
-                                                              launchUrl(url);
-                                                            },
-                                                            child: Text(
-                                                              'Download',
-                                                              style: TextStyle(
-                                                                  color: Colors.white
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        )
-                                                      ],
-                                                    ),
-                                                  ],
-                                                );
-                                              }),
-                                        )
+                                        Container()
                                       ],
                                     ),
-                                  ),
-                                ],
+                                    SizedBox(
+                                      height: 12.0,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: <Widget>[
+                                        Text(
+                                          "Document Number : "+detailRequest.documentNumber,
+                                          style: TextStyle(
+                                              fontSize: 14.0,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black),
+                                        ),
+                                        Container()
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 12.0,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: <Widget>[
+                                        Text(
+                                          "Cost Allocacation : "+detailRequest.costAllocation,
+                                          style: TextStyle(
+                                              fontSize: 14.0,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black),
+                                        ),
+                                        Container()
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 12.0,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: <Widget>[
+                                        Text(
+                                          "Purposed of Issue : "+detailRequest.purposeOfIssue,
+                                          style: TextStyle(
+                                              fontSize: 14.0,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black),
+                                        ),
+                                        Container()
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 12.0,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: <Widget>[
+                                        Text(
+                                          "Procurement Type : "+detailRequest.procurementType,
+                                          style: TextStyle(
+                                              fontSize: 14.0,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black),
+                                        ),
+                                        Container()
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 12.0,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: <Widget>[
+                                        Text(
+                                          "Recurring Option : "+detailRequest.recurringOption,
+                                          style: TextStyle(
+                                              fontSize: 14.0,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black),
+                                        ),
+                                        Container()
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 12.0,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: <Widget>[
+                                        Text(
+                                          "Issued By : "+detailRequest.issuedBy,
+                                          style: TextStyle(
+                                              fontSize: 14.0,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black),
+                                        ),
+                                        Container()
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 12.0,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: <Widget>[
+                                        Text(
+                                          "Grand Total : " + detailRequest.value,
+                                          style: TextStyle(
+                                              fontSize: 14.0,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black),
+                                        ),
+                                        Container()
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 12.0,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: <Widget>[
+                                        Text(
+                                          "Supplier : "+detailRequest.supplier,
+                                          style: TextStyle(
+                                              fontSize: 14.0,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black),
+                                        ),
+                                        Container()
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 24.0,
+                                    ),
+                                    Text(
+                                      'List Of Detail',
+                                      style: TextStyle(
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black),
+                                    ),
+                                    SizedBox(
+                                      height: 18,
+                                    ),ListView.builder(
+                                        shrinkWrap: true,
+                                        scrollDirection: Axis.vertical,
+                                        itemCount: detailRequest.details.length,
+                                        itemBuilder: (BuildContext context, int index) {
+                                          Detail detailsItemList = detailRequest.details[index];
+                                          return Column(
+                                            mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                            crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                            children: <Widget>[
+                                              Row(
+                                                mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                                crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                                children: <Widget>[
+                                                  Text(
+                                                    detailsItemList.item,
+                                                    style: TextStyle(
+                                                        fontSize: 14.0,
+                                                        color: Colors.black),
+                                                  ),
+                                                  Text(
+                                                    detailsItemList.value,
+                                                    style: TextStyle(
+                                                        fontSize: 14.0,
+                                                        color: Colors.black),
+                                                  ),
+                                                ],
+                                              ),
+                                              SizedBox(
+                                                height: 12.0,
+                                              )
+                                            ],
+                                          );
+                                        }),
+                                    SizedBox(
+                                      height: 16.0,
+                                    ),
+                                    Text(
+                                      'List Of Document',
+                                      style: TextStyle(
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black),
+                                    ),
+                                    SizedBox(
+                                      height: 16.0,
+                                    ),
+                                    ListView.builder(
+                                        shrinkWrap: true,
+                                        scrollDirection: Axis.vertical,
+                                        itemCount: detailRequest.documents.length,
+                                        itemBuilder: (BuildContext context, int index) {
+                                          Document document = detailRequest.documents[index];
+                                          return Column(
+                                            mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                            crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                            children: <Widget>[
+                                              Row(
+                                                mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                                crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                                children: <Widget>[
+                                                  Text(
+                                                    document.title,
+                                                    style: TextStyle(
+                                                        fontSize: 14.0,
+                                                        color: Colors.black),
+                                                  ),
+                                                  ButtonTheme(
+                                                    height: 30.0,
+                                                    child: FlatButton(
+                                                      color: Color(0xFF00bbb9),
+                                                      shape: RoundedRectangleBorder(
+                                                          borderRadius: BorderRadius.circular(10.0),
+                                                          side: BorderSide(color: Color(0xFF00bbb9))
+                                                      ),
+                                                      onPressed: (){
+                                                        print("Launch Url Jalan");
+                                                        String url = document.file;
+                                                        launchUrl(url);
+                                                      },
+                                                      child: Text(
+                                                        'Download',
+                                                        style: TextStyle(
+                                                            color: Colors.white
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                            ],
+                                          );
+                                        })
+                                  ],
+                                ),
                               ),
                             ),
                           ),
@@ -378,293 +371,284 @@ class _NewRequestDetailState extends State<NewRequestDetail> {
                           child: Material(
                             elevation: 10.0,
                             borderRadius: BorderRadius.circular(14.0),
-                            child: Padding(
-                              padding: const EdgeInsets.all(16.0),
-                              child: Column(
-                                children: <Widget>[
-                                  Text(
-                                    detailRequest.name,
-                                    style: TextStyle(
-                                        fontSize: 16.0,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black),
-                                  ),
-                                  SizedBox(
-                                    height: 18.0,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: <Widget>[
-                                      Text(
-                                        "Form Date : "+dateFormat.format(detailRequest.formDate),
-                                        style: TextStyle(
-                                            fontSize: 14.0,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.black),
-                                      ),
-                                      Container()
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 12.0,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: <Widget>[
-                                      Text(
-                                        "Document Number : "+detailRequest.documentNumber,
-                                        style: TextStyle(
-                                            fontSize: 14.0,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.black),
-                                      ),
-                                      Container()
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 12.0,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: <Widget>[
-                                      Text(
-                                        "Cost Allocacation : "+detailRequest.costAllocation,
-                                        style: TextStyle(
-                                            fontSize: 14.0,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.black),
-                                      ),
-                                      Container()
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 12.0,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: <Widget>[
-                                      Text(
-                                        "Purposed of Issue : "+detailRequest.purposeOfIssue,
-                                        style: TextStyle(
-                                            fontSize: 14.0,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.black),
-                                      ),
-                                      Container()
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 12.0,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: <Widget>[
-                                      Text(
-                                        "Procurement Type : "+detailRequest.procurementType,
-                                        style: TextStyle(
-                                            fontSize: 14.0,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.black),
-                                      ),
-                                      Container()
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 12.0,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: <Widget>[
-                                      Text(
-                                        "Recurring Option : "+detailRequest.recurringOption,
-                                        style: TextStyle(
-                                            fontSize: 14.0,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.black),
-                                      ),
-                                      Container()
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 12.0,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: <Widget>[
-                                      Text(
-                                        "Issued By : "+detailRequest.issuedBy,
-                                        style: TextStyle(
-                                            fontSize: 14.0,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.black),
-                                      ),
-                                      Container()
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 12.0,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: <Widget>[
-                                      Text(
-                                        "Grand Total : " + detailRequest.value,
-                                        style: TextStyle(
-                                            fontSize: 14.0,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.black),
-                                      ),
-                                      Container()
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 12.0,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: <Widget>[
-                                      Text(
-                                        "Supplier : "+detailRequest.supplier,
-                                        style: TextStyle(
-                                            fontSize: 14.0,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.black),
-                                      ),
-                                      Container()
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 24.0,
-                                  ),
-                                  Text(
-                                    'List Of Detail',
-                                    style: TextStyle(
-                                        fontSize: 16.0,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black),
-                                  ),
-                                  SizedBox(
-                                    height: 18,
-                                  ),
-                                  Expanded(
-                                    flex: 2,
-                                    child: Column(
+                            child: SingleChildScrollView(
+                              child: Padding(
+                                padding: const EdgeInsets.all(16.0),
+                                child: Column(
+                                  children: <Widget>[
+                                    Text(
+                                      detailRequest.name,
+                                      style: TextStyle(
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black),
+                                    ),
+                                    SizedBox(
+                                      height: 18.0,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
                                       children: <Widget>[
-                                        Flexible(
-                                          flex: 1,
-                                          child: ListView.builder(
-                                              scrollDirection: Axis.vertical,
-                                              itemCount: detailRequest.details.length,
-                                              itemBuilder: (BuildContext context, int index) {
-                                                Detail detailsItemList = detailRequest.details[index];
-                                                return Column(
-                                                  mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                                  crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                                  children: <Widget>[
-                                                    Row(
-                                                      mainAxisAlignment:
-                                                      MainAxisAlignment.spaceBetween,
-                                                      crossAxisAlignment:
-                                                      CrossAxisAlignment.center,
-                                                      children: <Widget>[
-                                                        Text(
-                                                          detailsItemList.item,
-                                                          style: TextStyle(
-                                                              fontSize: 14.0,
-                                                              color: Colors.black),
-                                                        ),
-                                                        Text(
-                                                          detailsItemList.value,
-                                                          style: TextStyle(
-                                                              fontSize: 14.0,
-                                                              color: Colors.black),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    SizedBox(
-                                                      height: 12.0,
-                                                    )
-                                                  ],
-                                                );
-                                              }),
-                                        ),
                                         Text(
-                                          'List Of Document',
+                                          "Form Date : "+dateFormat.format(detailRequest.formDate),
                                           style: TextStyle(
-                                              fontSize: 16.0,
+                                              fontSize: 14.0,
                                               fontWeight: FontWeight.bold,
                                               color: Colors.black),
                                         ),
-                                        SizedBox(
-                                          height: 16.0,
-                                        ),
-                                        Flexible(
-                                          flex: 2,
-                                          child: ListView.builder(
-                                              scrollDirection: Axis.vertical,
-                                              itemCount: detailRequest.documents.length,
-                                              itemBuilder: (BuildContext context, int index) {
-                                                Document document = detailRequest.documents[index];
-                                                return Column(
-                                                  mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                                  crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                                  children: <Widget>[
-                                                    Row(
-                                                      mainAxisAlignment:
-                                                      MainAxisAlignment.spaceBetween,
-                                                      crossAxisAlignment:
-                                                      CrossAxisAlignment.center,
-                                                      children: <Widget>[
-                                                        Text(
-                                                          document.title,
-                                                          style: TextStyle(
-                                                              fontSize: 14.0,
-                                                              color: Colors.black),
-                                                        ),
-                                                        ButtonTheme(
-                                                          height: 30.0,
-                                                          child: FlatButton(
-                                                            color: Color(0xFF00bbb9),
-                                                            shape: RoundedRectangleBorder(
-                                                                borderRadius: BorderRadius.circular(10.0),
-                                                                side: BorderSide(color: Color(0xFF00bbb9))
-                                                            ),
-                                                            onPressed: (){
-                                                              print("Launch Url Jalan");
-                                                              String url = document.file;
-                                                              launchUrl(url);
-                                                            },
-                                                            child: Text(
-                                                              'Download',
-                                                              style: TextStyle(
-                                                                  color: Colors.white
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        )
-                                                      ],
-                                                    ),
-                                                  ],
-                                                );
-                                              }),
-                                        )
+                                        Container()
                                       ],
                                     ),
-                                  ),
-                                ],
+                                    SizedBox(
+                                      height: 12.0,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: <Widget>[
+                                        Text(
+                                          "Document Number : "+detailRequest.documentNumber,
+                                          style: TextStyle(
+                                              fontSize: 14.0,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black),
+                                        ),
+                                        Container()
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 12.0,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: <Widget>[
+                                        Text(
+                                          "Cost Allocacation : "+detailRequest.costAllocation,
+                                          style: TextStyle(
+                                              fontSize: 14.0,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black),
+                                        ),
+                                        Container()
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 12.0,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: <Widget>[
+                                        Text(
+                                          "Purposed of Issue : "+detailRequest.purposeOfIssue,
+                                          style: TextStyle(
+                                              fontSize: 14.0,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black),
+                                        ),
+                                        Container()
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 12.0,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: <Widget>[
+                                        Text(
+                                          "Procurement Type : "+detailRequest.procurementType,
+                                          style: TextStyle(
+                                              fontSize: 14.0,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black),
+                                        ),
+                                        Container()
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 12.0,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: <Widget>[
+                                        Text(
+                                          "Recurring Option : "+detailRequest.recurringOption,
+                                          style: TextStyle(
+                                              fontSize: 14.0,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black),
+                                        ),
+                                        Container()
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 12.0,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: <Widget>[
+                                        Text(
+                                          "Issued By : "+detailRequest.issuedBy,
+                                          style: TextStyle(
+                                              fontSize: 14.0,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black),
+                                        ),
+                                        Container()
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 12.0,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: <Widget>[
+                                        Text(
+                                          "Grand Total : " + detailRequest.value,
+                                          style: TextStyle(
+                                              fontSize: 14.0,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black),
+                                        ),
+                                        Container()
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 12.0,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: <Widget>[
+                                        Text(
+                                          "Supplier : "+detailRequest.supplier,
+                                          style: TextStyle(
+                                              fontSize: 14.0,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black),
+                                        ),
+                                        Container()
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 24.0,
+                                    ),
+                                    Text(
+                                      'List Of Detail',
+                                      style: TextStyle(
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black),
+                                    ),
+                                    SizedBox(
+                                      height: 18,
+                                    ),ListView.builder(
+                                        shrinkWrap: true,
+                                        scrollDirection: Axis.vertical,
+                                        itemCount: detailRequest.details.length,
+                                        itemBuilder: (BuildContext context, int index) {
+                                          Detail detailsItemList = detailRequest.details[index];
+                                          return Column(
+                                            mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                            crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                            children: <Widget>[
+                                              Row(
+                                                mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                                crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                                children: <Widget>[
+                                                  Text(
+                                                    detailsItemList.item,
+                                                    style: TextStyle(
+                                                        fontSize: 14.0,
+                                                        color: Colors.black),
+                                                  ),
+                                                  Text(
+                                                    detailsItemList.value,
+                                                    style: TextStyle(
+                                                        fontSize: 14.0,
+                                                        color: Colors.black),
+                                                  ),
+                                                ],
+                                              ),
+                                              SizedBox(
+                                                height: 12.0,
+                                              )
+                                            ],
+                                          );
+                                        }),
+                                    SizedBox(
+                                      height: 18.0,
+                                    ),Text(
+                                      'List Of Document',
+                                      style: TextStyle(
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black),
+                                    ),
+                                    SizedBox(
+                                      height: 16.0,
+                                    ),ListView.builder(
+                                        shrinkWrap: true,
+                                        scrollDirection: Axis.vertical,
+                                        itemCount: detailRequest.documents.length,
+                                        itemBuilder: (BuildContext context, int index) {
+                                          Document document = detailRequest.documents[index];
+                                          return Column(
+                                            mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                            crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                            children: <Widget>[
+                                              Row(
+                                                mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                                crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                                children: <Widget>[
+                                                  Text(
+                                                    document.title,
+                                                    style: TextStyle(
+                                                        fontSize: 14.0,
+                                                        color: Colors.black),
+                                                  ),
+                                                  ButtonTheme(
+                                                    height: 30.0,
+                                                    child: FlatButton(
+                                                      color: Color(0xFF00bbb9),
+                                                      shape: RoundedRectangleBorder(
+                                                          borderRadius: BorderRadius.circular(10.0),
+                                                          side: BorderSide(color: Color(0xFF00bbb9))
+                                                      ),
+                                                      onPressed: (){
+                                                        print("Launch Url Jalan");
+                                                        String url = document.file;
+                                                        launchUrl(url);
+                                                      },
+                                                      child: Text(
+                                                        'Download',
+                                                        style: TextStyle(
+                                                            color: Colors.white
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                            ],
+                                          );
+                                        })
+                                  ],
+                                ),
                               ),
                             ),
                           ),
