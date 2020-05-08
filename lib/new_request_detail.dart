@@ -84,13 +84,18 @@ class _NewRequestDetailState extends State<NewRequestDetail> {
                                       crossAxisAlignment: CrossAxisAlignment.center,
                                       children: <Widget>[
                                         Text(
-                                          "Form Date : "+dateFormat.format(detailRequest.formDate),
+                                          "Form Date : ",
                                           style: TextStyle(
-                                              fontSize: 14.0,
-                                              fontWeight: FontWeight.bold,
+                                              fontSize: 12.0,
                                               color: Colors.black),
                                         ),
-                                        Container()
+                                        Text(
+                                          dateFormat.format(detailRequest.formDate),
+                                          style: TextStyle(
+                                              fontSize: 12.0,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black),
+                                        )
                                       ],
                                     ),
                                     SizedBox(
@@ -101,13 +106,18 @@ class _NewRequestDetailState extends State<NewRequestDetail> {
                                       crossAxisAlignment: CrossAxisAlignment.center,
                                       children: <Widget>[
                                         Text(
-                                          "Document Number : "+detailRequest.documentNumber,
+                                          "Document Number : ",
                                           style: TextStyle(
-                                              fontSize: 14.0,
+                                              fontSize: 12.0,
+                                              color: Colors.black),
+                                        ),
+                                        Text(
+                                          detailRequest.documentNumber,
+                                          style: TextStyle(
+                                              fontSize: 12.0,
                                               fontWeight: FontWeight.bold,
                                               color: Colors.black),
                                         ),
-                                        Container()
                                       ],
                                     ),
                                     SizedBox(
@@ -118,13 +128,18 @@ class _NewRequestDetailState extends State<NewRequestDetail> {
                                       crossAxisAlignment: CrossAxisAlignment.center,
                                       children: <Widget>[
                                         Text(
-                                          "Cost Allocacation : "+detailRequest.costAllocation,
+                                          "Cost Allocacation : ",
                                           style: TextStyle(
-                                              fontSize: 14.0,
-                                              fontWeight: FontWeight.bold,
+                                              fontSize: 12.0,
                                               color: Colors.black),
                                         ),
-                                        Container()
+                                        Text(
+                                          detailRequest.costAllocation,
+                                          style: TextStyle(
+                                              fontSize: 12.0,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black),
+                                        )
                                       ],
                                     ),
                                     SizedBox(
@@ -135,13 +150,18 @@ class _NewRequestDetailState extends State<NewRequestDetail> {
                                       crossAxisAlignment: CrossAxisAlignment.center,
                                       children: <Widget>[
                                         Text(
-                                          "Purposed of Issue : "+detailRequest.purposeOfIssue,
+                                          "Purposed of Issue : ",
                                           style: TextStyle(
-                                              fontSize: 14.0,
-                                              fontWeight: FontWeight.bold,
+                                              fontSize: 12.0,
                                               color: Colors.black),
                                         ),
-                                        Container()
+                                        Text(
+                                          detailRequest.purposeOfIssue,
+                                          style: TextStyle(
+                                              fontSize: 12.0,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black),
+                                        )
                                       ],
                                     ),
                                     SizedBox(
@@ -152,13 +172,18 @@ class _NewRequestDetailState extends State<NewRequestDetail> {
                                       crossAxisAlignment: CrossAxisAlignment.center,
                                       children: <Widget>[
                                         Text(
-                                          "Procurement Type : "+detailRequest.procurementType,
+                                          "Procurement Type : ",
                                           style: TextStyle(
-                                              fontSize: 14.0,
-                                              fontWeight: FontWeight.bold,
+                                              fontSize: 12.0,
                                               color: Colors.black),
                                         ),
-                                        Container()
+                                        Text(
+                                          detailRequest.procurementType,
+                                          style: TextStyle(
+                                              fontSize: 12.0,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black),
+                                        )
                                       ],
                                     ),
                                     SizedBox(
@@ -169,13 +194,18 @@ class _NewRequestDetailState extends State<NewRequestDetail> {
                                       crossAxisAlignment: CrossAxisAlignment.center,
                                       children: <Widget>[
                                         Text(
-                                          "Recurring Option : "+detailRequest.recurringOption,
+                                          "Recurring Option : ",
                                           style: TextStyle(
-                                              fontSize: 14.0,
-                                              fontWeight: FontWeight.bold,
+                                              fontSize: 12.0,
                                               color: Colors.black),
                                         ),
-                                        Container()
+                                        Text(
+                                          detailRequest.recurringOption,
+                                          style: TextStyle(
+                                              fontSize: 12.0,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black),
+                                        )
                                       ],
                                     ),
                                     SizedBox(
@@ -186,13 +216,18 @@ class _NewRequestDetailState extends State<NewRequestDetail> {
                                       crossAxisAlignment: CrossAxisAlignment.center,
                                       children: <Widget>[
                                         Text(
-                                          "Issued By : "+detailRequest.issuedBy,
+                                          "Issued By : ",
                                           style: TextStyle(
-                                              fontSize: 14.0,
-                                              fontWeight: FontWeight.bold,
+                                              fontSize: 12.0,
                                               color: Colors.black),
                                         ),
-                                        Container()
+                                        Text(
+                                          detailRequest.issuedBy,
+                                          style: TextStyle(
+                                              fontSize: 12.0,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black),
+                                        )
                                       ],
                                     ),
                                     SizedBox(
@@ -203,13 +238,18 @@ class _NewRequestDetailState extends State<NewRequestDetail> {
                                       crossAxisAlignment: CrossAxisAlignment.center,
                                       children: <Widget>[
                                         Text(
-                                          "Grand Total : " + detailRequest.value,
+                                          "Grand Total : ",
                                           style: TextStyle(
-                                              fontSize: 14.0,
-                                              fontWeight: FontWeight.bold,
+                                              fontSize: 12.0,
                                               color: Colors.black),
                                         ),
-                                        Container()
+                                        Text(
+                                          detailRequest.value,
+                                          style: TextStyle(
+                                              fontSize: 12.0,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black),
+                                        )
                                       ],
                                     ),
                                     SizedBox(
@@ -220,13 +260,18 @@ class _NewRequestDetailState extends State<NewRequestDetail> {
                                       crossAxisAlignment: CrossAxisAlignment.center,
                                       children: <Widget>[
                                         Text(
-                                          "Supplier : "+detailRequest.supplier,
+                                          "Supplier : ",
                                           style: TextStyle(
-                                              fontSize: 14.0,
-                                              fontWeight: FontWeight.bold,
+                                              fontSize: 12.0,
                                               color: Colors.black),
                                         ),
-                                        Container()
+                                        Text(
+                                          detailRequest.supplier,
+                                          style: TextStyle(
+                                              fontSize: 12.0,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black),
+                                        )
                                       ],
                                     ),
                                     SizedBox(
@@ -260,15 +305,16 @@ class _NewRequestDetailState extends State<NewRequestDetail> {
                                                 CrossAxisAlignment.center,
                                                 children: <Widget>[
                                                   Text(
-                                                    detailsItemList.item,
+                                                    detailsItemList.item+' :',
                                                     style: TextStyle(
-                                                        fontSize: 14.0,
+                                                        fontSize: 12.0,
                                                         color: Colors.black),
                                                   ),
                                                   Text(
                                                     detailsItemList.value,
                                                     style: TextStyle(
-                                                        fontSize: 14.0,
+                                                        fontSize: 12.0,
+                                                        fontWeight: FontWeight.bold,
                                                         color: Colors.black),
                                                   ),
                                                 ],
@@ -391,13 +437,18 @@ class _NewRequestDetailState extends State<NewRequestDetail> {
                                       crossAxisAlignment: CrossAxisAlignment.center,
                                       children: <Widget>[
                                         Text(
-                                          "Form Date : "+dateFormat.format(detailRequest.formDate),
+                                          "Form Date : ",
                                           style: TextStyle(
-                                              fontSize: 14.0,
-                                              fontWeight: FontWeight.bold,
+                                              fontSize: 12.0,
                                               color: Colors.black),
                                         ),
-                                        Container()
+                                        Text(
+                                          dateFormat.format(detailRequest.formDate),
+                                          style: TextStyle(
+                                              fontSize: 12.0,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black),
+                                        )
                                       ],
                                     ),
                                     SizedBox(
@@ -408,13 +459,18 @@ class _NewRequestDetailState extends State<NewRequestDetail> {
                                       crossAxisAlignment: CrossAxisAlignment.center,
                                       children: <Widget>[
                                         Text(
-                                          "Document Number : "+detailRequest.documentNumber,
+                                          "Document Number : ",
                                           style: TextStyle(
-                                              fontSize: 14.0,
+                                              fontSize: 12.0,
+                                              color: Colors.black),
+                                        ),
+                                        Text(
+                                          detailRequest.documentNumber,
+                                          style: TextStyle(
+                                              fontSize: 12.0,
                                               fontWeight: FontWeight.bold,
                                               color: Colors.black),
                                         ),
-                                        Container()
                                       ],
                                     ),
                                     SizedBox(
@@ -425,13 +481,18 @@ class _NewRequestDetailState extends State<NewRequestDetail> {
                                       crossAxisAlignment: CrossAxisAlignment.center,
                                       children: <Widget>[
                                         Text(
-                                          "Cost Allocacation : "+detailRequest.costAllocation,
+                                          "Cost Allocacation : ",
                                           style: TextStyle(
-                                              fontSize: 14.0,
-                                              fontWeight: FontWeight.bold,
+                                              fontSize: 12.0,
                                               color: Colors.black),
                                         ),
-                                        Container()
+                                        Text(
+                                          detailRequest.costAllocation,
+                                          style: TextStyle(
+                                              fontSize: 12.0,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black),
+                                        )
                                       ],
                                     ),
                                     SizedBox(
@@ -442,13 +503,18 @@ class _NewRequestDetailState extends State<NewRequestDetail> {
                                       crossAxisAlignment: CrossAxisAlignment.center,
                                       children: <Widget>[
                                         Text(
-                                          "Purposed of Issue : "+detailRequest.purposeOfIssue,
+                                          "Purposed of Issue : ",
                                           style: TextStyle(
-                                              fontSize: 14.0,
-                                              fontWeight: FontWeight.bold,
+                                              fontSize: 12.0,
                                               color: Colors.black),
                                         ),
-                                        Container()
+                                        Text(
+                                          detailRequest.purposeOfIssue,
+                                          style: TextStyle(
+                                              fontSize: 12.0,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black),
+                                        )
                                       ],
                                     ),
                                     SizedBox(
@@ -459,13 +525,17 @@ class _NewRequestDetailState extends State<NewRequestDetail> {
                                       crossAxisAlignment: CrossAxisAlignment.center,
                                       children: <Widget>[
                                         Text(
-                                          "Procurement Type : "+detailRequest.procurementType,
+                                          "Procurement Type : ",
                                           style: TextStyle(
-                                              fontSize: 14.0,
-                                              fontWeight: FontWeight.bold,
+                                              fontSize: 12.0,
                                               color: Colors.black),
                                         ),
-                                        Container()
+                                        Text(
+                                          detailRequest.procurementType,
+                                          style: TextStyle(
+                                              fontSize: 12.0,fontWeight: FontWeight.bold,
+                                              color: Colors.black),
+                                        )
                                       ],
                                     ),
                                     SizedBox(
@@ -476,13 +546,18 @@ class _NewRequestDetailState extends State<NewRequestDetail> {
                                       crossAxisAlignment: CrossAxisAlignment.center,
                                       children: <Widget>[
                                         Text(
-                                          "Recurring Option : "+detailRequest.recurringOption,
+                                          "Recurring Option : ",
                                           style: TextStyle(
-                                              fontSize: 14.0,
-                                              fontWeight: FontWeight.bold,
+                                              fontSize: 12.0,
                                               color: Colors.black),
                                         ),
-                                        Container()
+                                        Text(
+                                          detailRequest.recurringOption,
+                                          style: TextStyle(
+                                              fontSize: 12.0,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black),
+                                        )
                                       ],
                                     ),
                                     SizedBox(
@@ -493,13 +568,18 @@ class _NewRequestDetailState extends State<NewRequestDetail> {
                                       crossAxisAlignment: CrossAxisAlignment.center,
                                       children: <Widget>[
                                         Text(
-                                          "Issued By : "+detailRequest.issuedBy,
+                                          "Issued By : ",
                                           style: TextStyle(
-                                              fontSize: 14.0,
+                                              fontSize: 12.0,
+                                              color: Colors.black),
+                                        ),
+                                        Text(
+                                          detailRequest.issuedBy,
+                                          style: TextStyle(
+                                              fontSize: 12.0,
                                               fontWeight: FontWeight.bold,
                                               color: Colors.black),
                                         ),
-                                        Container()
                                       ],
                                     ),
                                     SizedBox(
@@ -510,13 +590,18 @@ class _NewRequestDetailState extends State<NewRequestDetail> {
                                       crossAxisAlignment: CrossAxisAlignment.center,
                                       children: <Widget>[
                                         Text(
-                                          "Grand Total : " + detailRequest.value,
+                                          "Grand Total : ",
                                           style: TextStyle(
-                                              fontSize: 14.0,
+                                              fontSize: 12.0,
+                                              color: Colors.black),
+                                        ),
+                                        Text(
+                                          detailRequest.value,
+                                          style: TextStyle(
+                                              fontSize: 12.0,
                                               fontWeight: FontWeight.bold,
                                               color: Colors.black),
                                         ),
-                                        Container()
                                       ],
                                     ),
                                     SizedBox(
@@ -527,13 +612,18 @@ class _NewRequestDetailState extends State<NewRequestDetail> {
                                       crossAxisAlignment: CrossAxisAlignment.center,
                                       children: <Widget>[
                                         Text(
-                                          "Supplier : "+detailRequest.supplier,
+                                          "Supplier : ",
                                           style: TextStyle(
-                                              fontSize: 14.0,
+                                              fontSize: 12.0,
+                                              color: Colors.black),
+                                        ),
+                                        Text(
+                                          detailRequest.supplier,
+                                          style: TextStyle(
+                                              fontSize: 12.0,
                                               fontWeight: FontWeight.bold,
                                               color: Colors.black),
                                         ),
-                                        Container()
                                       ],
                                     ),
                                     SizedBox(
@@ -567,15 +657,16 @@ class _NewRequestDetailState extends State<NewRequestDetail> {
                                                 CrossAxisAlignment.center,
                                                 children: <Widget>[
                                                   Text(
-                                                    detailsItemList.item,
+                                                    detailsItemList.item + ':',
                                                     style: TextStyle(
-                                                        fontSize: 14.0,
+                                                        fontSize: 12.0,
                                                         color: Colors.black),
                                                   ),
                                                   Text(
                                                     detailsItemList.value,
                                                     style: TextStyle(
-                                                        fontSize: 14.0,
+                                                        fontSize: 12.0,
+                                                        fontWeight: FontWeight.bold,
                                                         color: Colors.black),
                                                   ),
                                                 ],
