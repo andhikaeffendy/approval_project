@@ -9,6 +9,7 @@ import 'package:approvalproject/request_detail.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:imagebutton/imagebutton.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
@@ -41,193 +42,198 @@ class _RequestState extends State<Request> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Row(
-          children: <Widget>[
-            ImageButton(
-              children: <Widget>[],
-              width: 23,
-              height: 23,
-              pressedImage: Image.asset('assets/request.png'),
-              unpressedImage: Image.asset('assets/request.png'),
-            ),SizedBox(
-              width: 8.0,
-            ),Text(
-              'Request',
-              style: TextStyle(fontSize: 18.0),
-            )
-          ],
-        ),
-        actions: <Widget>[
-          Center(
-            child: Padding(
-              padding: const EdgeInsets.only(right: 8.0),
-              child: ImageButton(
+    return WillPopScope(
+      onWillPop: (){
+        return SystemNavigator.pop();
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: Row(
+            children: <Widget>[
+              ImageButton(
                 children: <Widget>[],
                 width: 23,
                 height: 23,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                pressedImage: Image.asset('assets/Log_out.png'),
-                unpressedImage: Image.asset('assets/Log_out.png'),
-                onTap: (){_showAlertDialog(context);},
+                pressedImage: Image.asset('assets/request.png'),
+                unpressedImage: Image.asset('assets/request.png'),
+              ),SizedBox(
+                width: 8.0,
+              ),Text(
+                'Request',
+                style: TextStyle(fontSize: 18.0),
+              )
+            ],
+          ),
+          actions: <Widget>[
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.only(right: 8.0),
+                child: ImageButton(
+                  children: <Widget>[],
+                  width: 23,
+                  height: 23,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  pressedImage: Image.asset('assets/Log_out.png'),
+                  unpressedImage: Image.asset('assets/Log_out.png'),
+                  onTap: (){_showAlertDialog(context);},
+                ),
               ),
-            ),
-          )
-        ],leading: new Container(),
-      ),
-      body: Container(
-        margin: const EdgeInsets.all(16.0),
-        child: Column(
-          children: <Widget>[
-            FutureBuilder(
-              future: getListApproval(),
-              builder: (context, snapshot) {
-                if (snapshot.data == null) {
-                  return Container();
-                } else {
-                  List<Datum> listApproval = snapshot.data.data;
-                  return Expanded(
-                    child: RefreshIndicator(
-                      key: _refreshIndicatorKey,
-                      onRefresh: () => getListApproval().then((task) {
-                        setState(() {
-                          print("refresing");
-                          listApproval = task.data;
-                        });
-                      }),
-                      child: ListView.builder(
-                        physics: const AlwaysScrollableScrollPhysics(),
-                        itemCount: listApproval.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return GestureDetector(
-                            onTap: () => Navigator.of(context).push(
-                                new MaterialPageRoute(
-                                    builder: (BuildContext context) =>
-                                        new NewRequestDetail(approvalFormId: listApproval[index].id.toString(), newApprovalStatus: "0"))),
-                            child: Container(
-                              margin: const EdgeInsets.only(bottom: 16.0),
-                              child: Material(
-                                elevation: 5.0,
-                                child: Container(
-                                  margin: const EdgeInsets.all(16.0),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: <Widget>[
-                                      Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: <Widget>[
-                                          Container(
-                                            child: Text(
-                                              dateFormat.format(
-                                                  listApproval[index].formDate),
-                                              style: TextStyle(
-                                                  color: Colors.pinkAccent),
+            )
+          ],leading: new Container(),
+        ),
+        body: Container(
+          margin: const EdgeInsets.all(16.0),
+          child: Column(
+            children: <Widget>[
+              FutureBuilder(
+                future: getListApproval(),
+                builder: (context, snapshot) {
+                  if (snapshot.data == null) {
+                    return Container();
+                  } else {
+                    List<Datum> listApproval = snapshot.data.data;
+                    return Expanded(
+                      child: RefreshIndicator(
+                        key: _refreshIndicatorKey,
+                        onRefresh: () => getListApproval().then((task) {
+                          setState(() {
+                            print("refresing");
+                            listApproval = task.data;
+                          });
+                        }),
+                        child: ListView.builder(
+                          physics: const AlwaysScrollableScrollPhysics(),
+                          itemCount: listApproval.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return GestureDetector(
+                              onTap: () => Navigator.of(context).push(
+                                  new MaterialPageRoute(
+                                      builder: (BuildContext context) =>
+                                      new NewRequestDetail(approvalFormId: listApproval[index].id.toString(), newApprovalStatus: "0"))),
+                              child: Container(
+                                margin: const EdgeInsets.only(bottom: 16.0),
+                                child: Material(
+                                  elevation: 5.0,
+                                  child: Container(
+                                    margin: const EdgeInsets.all(16.0),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: <Widget>[
+                                        Row(
+                                          crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                          children: <Widget>[
+                                            Container(
+                                              child: Text(
+                                                dateFormat.format(
+                                                    listApproval[index].formDate),
+                                                style: TextStyle(
+                                                    color: Colors.pinkAccent),
+                                              ),
                                             ),
-                                          ),
-                                          Row(
-                                            children: <Widget>[
-                                              ImageButton(
-                                                children: <Widget>[],
-                                                width: 50.0,
-                                                height: 25.0,
-                                                paddingTop: 8.0,
-                                                pressedImage: Image.asset(
-                                                    'assets/Button_recc.png'),
-                                                unpressedImage: Image.asset(
-                                                    'assets/Button_recc.png'),
-                                                onTap: () {},
-                                              ),
-                                              SizedBox(
-                                                width: 8.0,
-                                              ),
-                                              ImageButton(
-                                                children: <Widget>[],
-                                                width: 50.0,
-                                                height: 25.0,
-                                                paddingTop: 8.0,
-                                                pressedImage: Image.asset(
-                                                    'assets/Button_capex.png'),
-                                                unpressedImage: Image.asset(
-                                                    'assets/Button_capex.png'),
-                                                onTap: () {},
-                                              )
-                                            ],
-                                          )
-                                        ],
-                                      ),
-                                      SizedBox(
-                                        height: 12.0,
-                                      ),
-                                      Container(
-                                        child: Text(
-                                          listApproval[index].name,
-                                          style: TextStyle(
-                                              fontSize: 18.0,
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 32.0,
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: <Widget>[
-                                          LinearPercentIndicator(
-                                            width: 180.0,
-                                            lineHeight: 18.0,
-                                            percent: 0.5,
-                                            backgroundColor: Colors.greenAccent,
-                                            progressColor: Colors.green,
-                                          ),
-                                          Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.end,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.end,
-                                            children: <Widget>[
-                                              Container(
-                                                child: Text(
-                                                  'Request by :',
+                                            Row(
+                                              children: <Widget>[
+                                                ImageButton(
+                                                  children: <Widget>[],
+                                                  width: 50.0,
+                                                  height: 25.0,
+                                                  paddingTop: 8.0,
+                                                  pressedImage: Image.asset(
+                                                      'assets/Button_recc.png'),
+                                                  unpressedImage: Image.asset(
+                                                      'assets/Button_recc.png'),
+                                                  onTap: () {},
                                                 ),
-                                              ),
-                                              Container(
-                                                child: Text(
-                                                  listApproval[index].issuedBy,
-                                                  style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 14.0,
+                                                SizedBox(
+                                                  width: 8.0,
+                                                ),
+                                                ImageButton(
+                                                  children: <Widget>[],
+                                                  width: 50.0,
+                                                  height: 25.0,
+                                                  paddingTop: 8.0,
+                                                  pressedImage: Image.asset(
+                                                      'assets/Button_capex.png'),
+                                                  unpressedImage: Image.asset(
+                                                      'assets/Button_capex.png'),
+                                                  onTap: () {},
+                                                )
+                                              ],
+                                            )
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: 12.0,
+                                        ),
+                                        Container(
+                                          child: Text(
+                                            listApproval[index].name,
+                                            style: TextStyle(
+                                                fontSize: 18.0,
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: 32.0,
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                          crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                          children: <Widget>[
+                                            LinearPercentIndicator(
+                                              width: 180.0,
+                                              lineHeight: 18.0,
+                                              percent: 0.5,
+                                              backgroundColor: Colors.greenAccent,
+                                              progressColor: Colors.green,
+                                            ),
+                                            Column(
+                                              mainAxisAlignment:
+                                              MainAxisAlignment.end,
+                                              crossAxisAlignment:
+                                              CrossAxisAlignment.end,
+                                              children: <Widget>[
+                                                Container(
+                                                  child: Text(
+                                                    'Request by :',
                                                   ),
                                                 ),
-                                              )
-                                            ],
-                                          )
-                                        ],
-                                      )
-                                    ],
+                                                Container(
+                                                  child: Text(
+                                                    listApproval[index].issuedBy,
+                                                    style: TextStyle(
+                                                      fontWeight: FontWeight.bold,
+                                                      fontSize: 14.0,
+                                                    ),
+                                                  ),
+                                                )
+                                              ],
+                                            )
+                                          ],
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                          );
-                        },
+                            );
+                          },
+                        ),
                       ),
-                    ),
-                  );
-                }
-              },
-            )
-          ],
+                    );
+                  }
+                },
+              )
+            ],
+          ),
         ),
       ),
     );
