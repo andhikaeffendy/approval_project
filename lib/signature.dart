@@ -124,7 +124,7 @@ class _SignatureFormState extends State<SignatureForm> {
                         Uint8List _toImage = code;
                         ttd = _toImage;
 
-
+                        showCircular(context);
                         signForm(approvalFormId, data.buffer.asUint8List()).then((task){
                           print("sign = " + task.status);
                           if(task.status=="success"){
@@ -257,4 +257,13 @@ class _SignatureFormState extends State<SignatureForm> {
     return newResponse;
   }
 
+
+  showCircular(context){
+    showDialog(
+        context: context,
+        child: new Center(
+          child: new CircularProgressIndicator(),
+        )
+    );
+  }
 }

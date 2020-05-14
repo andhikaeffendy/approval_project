@@ -915,42 +915,31 @@ class _NewRequestDetailState extends State<NewRequestDetail> {
                           pressedImage: Image.asset('assets/Button_reject.png'),
                           unpressedImage:
                           Image.asset('assets/Button_reject.png'),
-                          onTap: () => rejectForm(approvalFormId, rejectionText.text).then((task){
-                            if(task.status=="fail"){
-                              showDialog(
-                                  context: context,
-                                  builder: (BuildContext context){
-                                    return AlertDialog(
-                                      title: Text("Rejection Fail"),
-                                      content: Text(task.message),
-                                      actions:[
-                                        FlatButton(
-                                            child: Text("Close"),
-                                            onPressed: () => Navigator.of(context).pop()
-                                        )
-                                      ],
-                                    );
-                                  }
-                              );
-                            }else{
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context){
-                                  return AlertDialog(
-                                    title: Text("Rejection Success"),
-                                    content: Text(task.message),
-                                    actions:[
-                                      FlatButton(
-                                          child: Text("Close"),
-                                          onPressed: () => Navigator.push(context, new MaterialPageRoute(builder: (context) => new Request()))
-                                      )
-                                    ],
-                                  );
-                                },
-
-                              );
-                            }
-                          }),
+                          onTap: () {
+                            showCircular(context);
+                            return rejectForm(approvalFormId, rejectionText.text).then((task){
+                              Navigator.of(context, rootNavigator: true).pop();
+                              if(task.status=="fail"){
+                                showDialog(
+                                    context: context,
+                                    builder: (BuildContext context){
+                                      return AlertDialog(
+                                        title: Text("Rejection Fail"),
+                                        content: Text(task.message),
+                                        actions:[
+                                          FlatButton(
+                                              child: Text("Close"),
+                                              onPressed: () => Navigator.of(context).pop()
+                                          )
+                                        ],
+                                      );
+                                    }
+                                );
+                              }else{
+                                Navigator.push(context, new MaterialPageRoute(builder: (context) => new Request()));
+                              }
+                            });
+                          },
                         ),
                         ImageButton(
                           children: <Widget>[],
@@ -998,6 +987,7 @@ class _NewRequestDetailState extends State<NewRequestDetail> {
 
     Response response = await dio.post(url, data: formData);
     print(response.data);
+    String dummyResponse = '{"status": "success", "message": "Sign Form Successful"}';
 
     FormReject newResponse = formRejectFromJson(response.toString());
     return newResponse;
@@ -1010,4 +1000,14 @@ class _NewRequestDetailState extends State<NewRequestDetail> {
       throw 'Could not launch $url';
     }
   }
+
+  showCircular(context){
+    showDialog(
+        context: context,
+        child: new Center(
+          child: new CircularProgressIndicator(),
+        )
+    );
+  }
+
 }

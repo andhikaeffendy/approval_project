@@ -85,8 +85,9 @@ class _MyHomePageState extends State<MyHomePage> {
         providerData,
         googleIdToken.token
     );
-
+    showCircular(context);
     loginRequest(googleIdToken.token).then((task){
+      Navigator.of(context, rootNavigator: true).pop();
       if(task.status == "fail"){
         showDialog(
             context: context,
@@ -98,7 +99,6 @@ class _MyHomePageState extends State<MyHomePage> {
             }
         );
       }else{
-
         globalUserDetails = details;
         Navigator.push(
           context,
@@ -204,6 +204,15 @@ class _MyHomePageState extends State<MyHomePage> {
         )
     );
   }
+}
+
+showCircular(context){
+  showDialog(
+      context: context,
+      child: new Center(
+        child: new CircularProgressIndicator(),
+      )
+  );
 }
 
 Future<LoginResponse> loginRequest(String idToken) async{
