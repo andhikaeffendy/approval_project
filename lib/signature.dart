@@ -146,22 +146,7 @@ class _SignatureFormState extends State<SignatureForm> {
                                     }
                                 );
                               }else{
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context){
-                                    return AlertDialog(
-                                      title: Text("Approve Success"),
-                                      content: Text(task.message),
-                                      actions:[
-                                        FlatButton(
-                                            child: Text("Close"),
-                                            onPressed: () => Navigator.push(context, new MaterialPageRoute(builder: (context) => new NewRequestDetail(approvalFormId: approvalFormId, newApprovalStatus: "1")))
-                                        )
-                                      ],
-                                    );
-                                  },
-
-                                );
+                                Navigator.push(context, new MaterialPageRoute(builder: (context) => new Request()));
                               }
                             });
                           }else{
@@ -198,13 +183,6 @@ class _SignatureFormState extends State<SignatureForm> {
                         debugPrint("cleared");
                       },
                       child: Text("Clear", style: TextStyle(color: Colors.white))),
-                  MaterialButton(
-                    color: Colors.red,
-                    child: Text("Cancel", style: TextStyle(color: Colors.white)),
-                    onPressed: (){
-                      Navigator.of(context).pop();
-                    },
-                  )
                 ],
               ),
               SizedBox(

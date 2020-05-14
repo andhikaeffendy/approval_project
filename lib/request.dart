@@ -81,24 +81,6 @@ class _RequestState extends State<Request> {
         margin: const EdgeInsets.all(16.0),
         child: Column(
           children: <Widget>[
-            Material(
-              elevation: 8.0,
-              borderRadius: BorderRadius.circular(20.0),
-              child: TextField(
-                decoration: InputDecoration(
-                    border: InputBorder.none,
-                    prefixIcon: Icon(
-                      Icons.search,
-                      color: Colors.black38,
-                      size: 25.0,
-                    ),
-                    contentPadding: EdgeInsets.only(left: 16.0, top: 12.0),
-                    hintText: 'Search'),
-              ),
-            ),
-            SizedBox(
-              height: 16.0,
-            ),
             FutureBuilder(
               future: getListApproval(),
               builder: (context, snapshot) {
@@ -301,8 +283,8 @@ class _RequestState extends State<Request> {
     print("response : " + response.toString());
     String dummyResponse =
         '{"data": [ {   "id": 11,"name": "F1 Form Approval Application 2",    "form_date": "2020-04-06",    "document_number": "11/F1-/April-IV/2020",    "cost_allocation": "Capex",    "purpose_of_issue": "New Contract",    "procurement_type": "Tender",    "issued_by": "Department Head IT",    "recurring_option": "Recurring",   "percentage": 0  }    ],    "status": "success",    "message": "Data Retrieved successfully"  }';
-    ListApprovalForm newResponse =
-        listApprovalFormFromJson(response.toString());
+    //ListApprovalForm newResponse = listApprovalFormFromJson(response.toString());
+    ListApprovalForm newResponse = listApprovalFormFromJson(dummyResponse);
 
     return newResponse;
   }

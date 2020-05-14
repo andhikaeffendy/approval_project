@@ -758,7 +758,10 @@ class _NewRequestDetailState extends State<NewRequestDetail> {
                                     borderRadius: BorderRadius.circular(5.0),
                                     side: BorderSide(color: Colors.blue)
                                 ),
-                                onPressed: (){showAlertDialog(context);},
+                                onPressed: () => Navigator.of(context).push(
+                                    new MaterialPageRoute(
+                                        builder: (BuildContext context) =>
+                                        new SignatureForm(approvalFormId: approvalFormId))),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
