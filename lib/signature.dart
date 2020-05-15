@@ -4,10 +4,12 @@ import 'dart:math';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
+import 'package:approvalproject/api_response_model/test_notif_response.dart';
 import 'package:approvalproject/globals/variable.dart';
 import 'package:approvalproject/new_request_detail.dart';
 import 'package:approvalproject/request.dart';
 import 'package:dio/dio.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_signature_pad/flutter_signature_pad.dart';
@@ -62,6 +64,7 @@ class _SignatureFormState extends State<SignatureForm> {
   var color = Colors.black;
   var strokeWidth = 3.0;
   final _sign = GlobalKey<SignatureState>();
+
 
   @override
   Widget build(BuildContext context) {
@@ -128,7 +131,7 @@ class _SignatureFormState extends State<SignatureForm> {
                         signForm(approvalFormId, data.buffer.asUint8List()).then((task){
                           print("sign = " + task.status);
                           if(task.status=="success"){
-                            approveForm(approvalFormId).then((task){
+                            approveForm(approvalFormId).then((task) async {
                               if(task.status=="fail"){
                                 showDialog(
                                     context: context,
@@ -146,6 +149,7 @@ class _SignatureFormState extends State<SignatureForm> {
                                     }
                                 );
                               }else{
+                                testNotif();
                                 Navigator.push(context, new MaterialPageRoute(builder: (context) => new Request()));
                               }
                             });
@@ -242,9 +246,11 @@ class _SignatureFormState extends State<SignatureForm> {
     return newResponse;
   }
 
+
+
   approveForm(String formId) async{
     var dio = Dio();
-    print("masuk approve");
+    print("masuk approve, form id = " + formId);
     String url = domain + "/api/v1/approve_form?form_id=" + formId;
     dio.options.headers[HttpHeaders.authorizationHeader] = 'Bearer ' + globalUserDetails.idToken;
 
@@ -254,6 +260,24 @@ class _SignatureFormState extends State<SignatureForm> {
     String dummyResponse = '{"status": "success", "message": "Sign Form Successful"}';
 
     FormApprove newResponse = formApproveFromJson(response.toString());
+    return newResponse;
+  }
+
+
+
+  testNotif() async{
+    var dio = Dio();
+    print("Test Notif masuk");
+    String url = domain + "/api/v1/test_notification";
+    dio.options.headers[HttpHeaders.authorizationHeader] = 'Bearer ' + globalUserDetails.idToken;
+
+    Response response = await dio.post(url);
+    print(response.data);
+    print("Test Notif Beres");
+
+    String dummyResponse = '{"status": "success", "message": "Sign Form Successful"}';
+
+    TestNotifResponse newResponse = testNotifResponseFromJson(response.toString());
     return newResponse;
   }
 

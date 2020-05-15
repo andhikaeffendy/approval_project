@@ -8,6 +8,7 @@ import 'package:approvalproject/new_request_detail.dart';
 import 'package:approvalproject/request_detail.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -34,14 +35,21 @@ class _RequestState extends State<Request> {
   _RequestState(this.googleSignIn, this.firebaseAuth);
 
   List<String> listitem = ['atu', 'dua', 'tiga', 'empat', 'lima'];
+  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+
 
   DateFormat dateFormat = new DateFormat('yyyy-MM-dd');
+
 
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
       new GlobalKey<RefreshIndicatorState>();
 
   @override
   Widget build(BuildContext context) {
+    _firebaseMessaging.getToken().then((token) {
+      regFCMToken(token);
+    });
+
     return WillPopScope(
       onWillPop: (){
         return SystemNavigator.pop();
@@ -285,7 +293,6 @@ class _RequestState extends State<Request> {
 
   Future<ListApprovalForm> getListApproval() async {
     var dio = Dio();
-    print("masuk get list 2");
     String url = domain + "/api/v1/approval_forms";
     dio.options.headers[HttpHeaders.authorizationHeader] =
         'Bearer ' + globalUserDetails.idToken;
@@ -293,8 +300,8 @@ class _RequestState extends State<Request> {
     print("response : " + response.toString());
     String dummyResponse =
         '{"data": [ {   "id": 11,"name": "F1 Form Approval Application 2",    "form_date": "2020-04-06",    "document_number": "11/F1-/April-IV/2020",    "cost_allocation": "Capex",    "purpose_of_issue": "New Contract",    "procurement_type": "Tender",    "issued_by": "Department Head IT",    "recurring_option": "Recurring",   "percentage": 0  }    ],    "status": "success",    "message": "Data Retrieved successfully"  }';
-    //ListApprovalForm newResponse = listApprovalFormFromJson(response.toString());
-    ListApprovalForm newResponse = listApprovalFormFromJson(dummyResponse);
+    ListApprovalForm newResponse = listApprovalFormFromJson(response.toString());
+    //ListApprovalForm newResponse = listApprovalFormFromJson(dummyResponse);
 
     return newResponse;
   }
@@ -325,4 +332,24 @@ class _RequestState extends State<Request> {
       return null;
     }
   }
+
+  regFCMToken(String fcmToken) async{
+    var dio = Dio();
+    String url = domain + "/api/v1/register_token";
+    dio.options.headers[HttpHeaders.authorizationHeader] = 'Bearer ' + globalUserDetails.idToken;
+    FormData formData = new FormData.fromMap({
+      "fcm_token": fcmToken,
+    });
+
+    Response response = await dio.post(url, data: formData);
+    print("fcm token response = " + response.toString());
+  }
 }
+
+/*
+
+                          setState((){
+                            print("refresing");
+                          });
+                        }
+ */

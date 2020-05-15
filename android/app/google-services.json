@@ -1,58 +1,42 @@
 {
   "project_info": {
-    "project_number": "608616078334",
-    "firebase_url": "https://f1-form-approval.firebaseio.com",
-    "project_id": "f1-form-approval",
-    "storage_bucket": "f1-form-approval.appspot.com"
+    "project_number": "774609929640",
+    "firebase_url": "https://wiradipa-f1-form.firebaseio.com",
+    "project_id": "wiradipa-f1-form",
+    "storage_bucket": "wiradipa-f1-form.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:608616078334:android:1e9d124644f2fd263fbeaf",
+        "mobilesdk_app_id": "1:774609929640:android:4caaef67415e7429a5099d",
         "android_client_info": {
           "package_name": "com.test.approvalproject"
         }
       },
       "oauth_client": [
         {
-          "client_id": "608616078334-nhce77pr4eljptq1ks47h6tdruesjd9b.apps.googleusercontent.com",
+          "client_id": "774609929640-9prn5b24alh8s4n19e8s31ptsdcr1b4b.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.test.approvalproject",
-            "certificate_hash": "fa371371cf6dc435b73ac1fb4707457a58cfd52b"
+            "certificate_hash": "8f3e4a2b861188afeae2326de567dad09d65d5f1"
           }
         },
         {
-          "client_id": "608616078334-2eaqgh6a164imvm7f619912qnbvtj3td.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.test.approvalproject",
-            "certificate_hash": "b5436759daed969f43dffc0a8d5f34c70d00c66a"
-          }
-        },
-        {
-          "client_id": "608616078334-tebt20hvj0m6r65m93rs2abqk891b57d.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.test.approvalproject",
-            "certificate_hash": "4cb8a8bb1bf61d54f54f36a533eb8ee4be7e6f46"
-          }
-        },
-        {
-          "client_id": "608616078334-blsfs1ud398q71c9q2m3pa2h1p7aldg4.apps.googleusercontent.com",
+          "client_id": "774609929640-5d57jd3ek8ctisvmqet6p9q2mj4479n2.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCoAHpi-GEk88HdelkmiH-KhGBPSX8xwLA"
+          "current_key": "AIzaSyC77TNZmvj1KIScPGdL8j3A9NlseEfRRdg"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "608616078334-blsfs1ud398q71c9q2m3pa2h1p7aldg4.apps.googleusercontent.com",
+              "client_id": "774609929640-5d57jd3ek8ctisvmqet6p9q2mj4479n2.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

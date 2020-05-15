@@ -2,6 +2,7 @@ import 'package:approvalproject/api_response_model/login_response.dart';
 import 'package:approvalproject/new_request_detail.dart';
 import 'package:approvalproject/request.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:imagebutton/imagebutton.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -44,6 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final GoogleSignIn _googlSignIn = new GoogleSignIn();
 
+
   Future<FirebaseUser> _signIn(BuildContext context) async{
     Scaffold.of(context).showSnackBar(new SnackBar(
       content: new Text('Sign in'),
@@ -51,6 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     final GoogleSignInAccount googleUser = await _googlSignIn.signIn();
     final GoogleSignInAuthentication googleAuth =await googleUser.authentication;
+
 
     print("googleSignIn : " + _googlSignIn.toString());
     print("FireBaseAuth : " + _firebaseAuth.toString());

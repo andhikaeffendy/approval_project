@@ -28,7 +28,7 @@ dependencies:
   image_gallery_saver: ^1.2.2
   pull_to_refresh: ^1.5.8
   url_launcher: ^5.4.5
-
+  firebase_messaging: ^6.0.15
   firebase_auth: ^0.16.0
 
   # The following adds the Cupertino Icons font to your application.
