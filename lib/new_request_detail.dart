@@ -59,8 +59,8 @@ class _NewRequestDetailState extends State<NewRequestDetail> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         Container(
-                          width: 320.0,
-                          height: 500.0,
+                          width: MediaQuery.of(context).size.width*1,
+                          height: MediaQuery.of(context).size.height*0.70,
                           child: Material(
                             elevation: 10.0,
                             borderRadius: BorderRadius.circular(14.0),
@@ -412,8 +412,8 @@ class _NewRequestDetailState extends State<NewRequestDetail> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         Container(
-                          width: 320.0,
-                          height: 500.0,
+                          width: MediaQuery.of(context).size.width*1,
+                          height: MediaQuery.of(context).size.height*0.70,
                           child: Material(
                             elevation: 10.0,
                             borderRadius: BorderRadius.circular(14.0),

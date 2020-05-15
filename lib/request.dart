@@ -198,18 +198,20 @@ class _RequestState extends State<Request> {
                                           crossAxisAlignment:
                                           CrossAxisAlignment.center,
                                           children: <Widget>[
-                                            LinearPercentIndicator(
-                                              width: 180.0,
-                                              lineHeight: 18.0,
-                                              percent: 0.5,
-                                              backgroundColor: Colors.greenAccent,
-                                              progressColor: Colors.green,
+                                            Container(
+                                              child: LinearPercentIndicator(
+                                                width: MediaQuery.of(context).size.width*0.50,
+                                                lineHeight: 18.0,
+                                                percent: 0.5,
+                                                backgroundColor: Colors.greenAccent,
+                                                progressColor: Colors.green,
+                                              ),
                                             ),
                                             Column(
                                               mainAxisAlignment:
-                                              MainAxisAlignment.end,
+                                              MainAxisAlignment.center,
                                               crossAxisAlignment:
-                                              CrossAxisAlignment.end,
+                                              CrossAxisAlignment.center,
                                               children: <Widget>[
                                                 Container(
                                                   child: Text(
@@ -217,11 +219,14 @@ class _RequestState extends State<Request> {
                                                   ),
                                                 ),
                                                 Container(
-                                                  child: Text(
-                                                    listApproval[index].issuedBy,
-                                                    style: TextStyle(
-                                                      fontWeight: FontWeight.bold,
-                                                      fontSize: 14.0,
+                                                  width: MediaQuery.of(context).size.width*0.30,
+                                                  child: Center(
+                                                    child: Text(
+                                                      listApproval[index].issuedBy,
+                                                      style: TextStyle(
+                                                        fontWeight: FontWeight.bold,
+                                                        fontSize: 14.0,
+                                                      ),
                                                     ),
                                                   ),
                                                 )
