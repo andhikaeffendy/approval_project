@@ -52,6 +52,7 @@ class Datum {
   String issuedBy;
   String recurringOption;
   double percentage;
+  String type;
 
   Datum({
     this.id,
@@ -64,6 +65,7 @@ class Datum {
     this.issuedBy,
     this.recurringOption,
     this.percentage,
+    this.type
   });
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
@@ -77,6 +79,7 @@ class Datum {
     issuedBy: json["issued_by"],
     recurringOption: json["recurring_option"],
     percentage: json["percentage"].toDouble(),
+    type: json['type'],
   );
 
   Map<String, dynamic> toJson() => {
@@ -90,5 +93,6 @@ class Datum {
     "issued_by": issuedBy,
     "recurring_option": recurringOption,
     "percentage": percentage,
+    'value': type,
   };
 }

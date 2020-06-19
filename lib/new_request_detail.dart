@@ -885,7 +885,7 @@ class _NewRequestDetailState extends State<NewRequestDetail> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     Text(
-                      'Evaluation Analisis (Rejection)',
+                      'Evaluation Analisis (Optional)',
                       style: TextStyle(fontSize: 16.0),
                     ),
                     SizedBox(

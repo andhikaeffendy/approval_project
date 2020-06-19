@@ -37,9 +37,7 @@ class _RequestState extends State<Request> {
   List<String> listitem = ['atu', 'dua', 'tiga', 'empat', 'lima'];
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
 
-
   DateFormat dateFormat = new DateFormat('yyyy-MM-dd');
-
 
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
       new GlobalKey<RefreshIndicatorState>();
@@ -51,7 +49,7 @@ class _RequestState extends State<Request> {
     });
 
     return WillPopScope(
-      onWillPop: (){
+      onWillPop: () {
         return SystemNavigator.pop();
       },
       child: Scaffold(
@@ -64,9 +62,11 @@ class _RequestState extends State<Request> {
                 height: 23,
                 pressedImage: Image.asset('assets/request.png'),
                 unpressedImage: Image.asset('assets/request.png'),
-              ),SizedBox(
+              ),
+              SizedBox(
                 width: 8.0,
-              ),Text(
+              ),
+              Text(
                 'Request',
                 style: TextStyle(fontSize: 18.0),
               )
@@ -84,11 +84,14 @@ class _RequestState extends State<Request> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   pressedImage: Image.asset('assets/Log_out.png'),
                   unpressedImage: Image.asset('assets/Log_out.png'),
-                  onTap: (){_showAlertDialog(context);},
+                  onTap: () {
+                    _showAlertDialog(context);
+                  },
                 ),
               ),
             )
-          ],leading: new Container(),
+          ],
+          leading: new Container(),
         ),
         body: Container(
           margin: const EdgeInsets.all(16.0),
@@ -120,7 +123,12 @@ class _RequestState extends State<Request> {
                               onTap: () => Navigator.of(context).push(
                                   new MaterialPageRoute(
                                       builder: (BuildContext context) =>
-                                      new NewRequestDetail(approvalFormId: listApproval[index].id.toString(), newApprovalStatus: "0"))),
+                                          new NewRequestDetail(
+                                              approvalFormId:
+                                                  listApproval[index]
+                                                      .id
+                                                      .toString(),
+                                              newApprovalStatus: "0"))),
                               child: Container(
                                 margin: const EdgeInsets.only(bottom: 16.0),
                                 child: Material(
@@ -129,36 +137,64 @@ class _RequestState extends State<Request> {
                                     margin: const EdgeInsets.all(16.0),
                                     child: Column(
                                       crossAxisAlignment:
-                                      CrossAxisAlignment.start,
-                                      mainAxisAlignment: MainAxisAlignment.start,
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
                                       children: <Widget>[
                                         Row(
                                           crossAxisAlignment:
-                                          CrossAxisAlignment.center,
+                                              CrossAxisAlignment.center,
                                           mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                              MainAxisAlignment.spaceBetween,
                                           children: <Widget>[
                                             Container(
                                               child: Text(
                                                 dateFormat.format(
-                                                    listApproval[index].formDate),
+                                                    listApproval[index]
+                                                        .formDate),
                                                 style: TextStyle(
                                                     color: Colors.pinkAccent),
                                               ),
                                             ),
                                             Row(
                                               children: <Widget>[
-                                                ImageButton(
-                                                  children: <Widget>[],
-                                                  width: 50.0,
-                                                  height: 25.0,
-                                                  paddingTop: 8.0,
-                                                  pressedImage: Image.asset(
-                                                      'assets/Button_recc.png'),
-                                                  unpressedImage: Image.asset(
-                                                      'assets/Button_recc.png'),
-                                                  onTap: () {},
-                                                ),
+                                                listApproval[index].type ==
+                                                        "NON"
+                                                    ? Container(
+                                                        padding:
+                                                            EdgeInsets.only(
+                                                                left: 8.0,
+                                                                right: 8.0,
+                                                                top: 6.0,
+                                                                bottom: 6.0),
+                                                        child: (Text(
+                                                          'NON',
+                                                          style: TextStyle(
+                                                              color: Color(
+                                                                  0XFFffffff),
+                                                              fontSize: 12.0),
+                                                        )),
+                                                        decoration: BoxDecoration(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        4),
+                                                          color:
+                                                          Color(0XFFf7bc1d),),
+                                                      )
+                                                    : Text(''),
+
+//                                                    : ImageButton(
+//                                                  children: <Widget>[],
+//                                                  width: 50.0,
+//                                                  height: 25.0,
+//                                                  paddingTop: 8.0,
+//                                                  pressedImage: Image.asset(
+//                                                      'assets/Button_recc.png'),
+//                                                  unpressedImage: Image.asset(
+//                                                      'assets/Button_recc.png'),
+//                                                  onTap: () {},
+//                                                ),
                                                 SizedBox(
                                                   width: 8.0,
                                                 ),
@@ -194,24 +230,28 @@ class _RequestState extends State<Request> {
                                         ),
                                         Row(
                                           mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                              MainAxisAlignment.spaceBetween,
                                           crossAxisAlignment:
-                                          CrossAxisAlignment.center,
+                                              CrossAxisAlignment.center,
                                           children: <Widget>[
                                             Container(
                                               child: LinearPercentIndicator(
-                                                width: MediaQuery.of(context).size.width*0.50,
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.50,
                                                 lineHeight: 18.0,
                                                 percent: 0.5,
-                                                backgroundColor: Colors.greenAccent,
+                                                backgroundColor:
+                                                    Colors.greenAccent,
                                                 progressColor: Colors.green,
                                               ),
                                             ),
                                             Column(
                                               mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                                  MainAxisAlignment.center,
                                               crossAxisAlignment:
-                                              CrossAxisAlignment.center,
+                                                  CrossAxisAlignment.center,
                                               children: <Widget>[
                                                 Container(
                                                   child: Text(
@@ -219,12 +259,17 @@ class _RequestState extends State<Request> {
                                                   ),
                                                 ),
                                                 Container(
-                                                  width: MediaQuery.of(context).size.width*0.30,
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                      0.30,
                                                   child: Center(
                                                     child: Text(
-                                                      listApproval[index].issuedBy,
+                                                      listApproval[index]
+                                                          .issuedBy,
                                                       style: TextStyle(
-                                                        fontWeight: FontWeight.bold,
+                                                        fontWeight:
+                                                            FontWeight.bold,
                                                         fontSize: 14.0,
                                                       ),
                                                     ),
@@ -253,8 +298,6 @@ class _RequestState extends State<Request> {
       ),
     );
   }
-
-
 
   _showAlertDialog(BuildContext context) {
     // set up the buttons
@@ -304,8 +347,9 @@ class _RequestState extends State<Request> {
     Response response = await dio.get(url);
     print("response : " + response.toString());
     String dummyResponse =
-        '{"data": [ {   "id": 11,"name": "F1 Form Approval Application 2",    "form_date": "2020-04-06",    "document_number": "11/F1-/April-IV/2020",    "cost_allocation": "Capex",    "purpose_of_issue": "New Contract",    "procurement_type": "Tender",    "issued_by": "Department Head IT",    "recurring_option": "Recurring",   "percentage": 0  }    ],    "status": "success",    "message": "Data Retrieved successfully"  }';
-    ListApprovalForm newResponse = listApprovalFormFromJson(response.toString());
+        '{"data": [ {   "id": 11,"name": "F1 Form Approval Application 2",    "form_date": "2020-04-06",    "document_number": "11/F1-/April-IV/2020",    "cost_allocation": "Capex",    "purpose_of_issue": "New Contract",    "procurement_type": "Tender",    "issued_by": "Department Head IT",    "recurring_option": "Recurring",   "percentage": 0  , "value": 1}    ],    "status": "success",    "message": "Data Retrieved successfully"  }';
+    ListApprovalForm newResponse =
+        listApprovalFormFromJson(response.toString());
     //ListApprovalForm newResponse = listApprovalFormFromJson(dummyResponse);
 
     return newResponse;
@@ -338,10 +382,11 @@ class _RequestState extends State<Request> {
     }
   }
 
-  regFCMToken(String fcmToken) async{
+  regFCMToken(String fcmToken) async {
     var dio = Dio();
     String url = domain + "/api/v1/register_token";
-    dio.options.headers[HttpHeaders.authorizationHeader] = 'Bearer ' + globalUserDetails.idToken;
+    dio.options.headers[HttpHeaders.authorizationHeader] =
+        'Bearer ' + globalUserDetails.idToken;
     FormData formData = new FormData.fromMap({
       "fcm_token": fcmToken,
     });

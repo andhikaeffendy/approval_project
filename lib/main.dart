@@ -143,7 +143,25 @@ class _MyHomePageState extends State<MyHomePage> {
                       child: Container(
                         height: 250.0,
                         color: Colors.white,
-                        child: Image.asset('assets/logo.png', scale: 3,),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Image.asset('assets/logo.png', scale: 3,),
+                            SizedBox(
+                              height: 16.0,
+                            ),
+                            Container(
+                              child: Text(
+                                'F1 APPROVAL',
+                                style: TextStyle(
+                                    fontSize: 26.0,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.red
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                     ),
                     Center(
@@ -174,24 +192,25 @@ class _MyHomePageState extends State<MyHomePage> {
                                     onTap: () => _signIn(context)
                                         .then((FirebaseUser user) => print(user))
                                         .catchError((e) => print(e)),
-                                  ),Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: <Widget>[
-                                      Checkbox(
-                                        value: _value1,
-                                        onChanged: _value1Changed,
-                                        checkColor: Colors.white,
-                                        activeColor: Colors.red,
-                                        focusColor: Colors.red,
-                                        hoverColor: Colors.red,
-                                      ),
-                                      Text(
-                                        'remember me',
-                                        style: TextStyle(color: Colors.red),
-                                      )
-                                    ],
-                                  )
+                                  ),
+//                                  Row(
+//                                    mainAxisAlignment: MainAxisAlignment.center,
+//                                    crossAxisAlignment: CrossAxisAlignment.center,
+//                                    children: <Widget>[
+//                                      Checkbox(
+//                                        value: _value1,
+//                                        onChanged: _value1Changed,
+//                                        checkColor: Colors.white,
+//                                        activeColor: Colors.red,
+//                                        focusColor: Colors.red,
+//                                        hoverColor: Colors.red,
+//                                      ),
+//                                      Text(
+//                                        'remember me',
+//                                        style: TextStyle(color: Colors.red),
+//                                      )
+//                                    ],
+//                                  )
                                 ],
                               ),
                             ),
