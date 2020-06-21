@@ -131,7 +131,7 @@ class _SignatureFormState extends State<SignatureForm> {
                         signForm(approvalFormId, data.buffer.asUint8List()).then((task){
                           print("sign = " + task.status);
                           if(task.status=="success"){
-                            approveForm(approvalFormId).then((task) async {
+                            approveForm(approvalFormId, data.buffer.asUint8List()).then((task) async {
                               if(task.status=="fail"){
                                 showDialog(
                                     context: context,
@@ -248,13 +248,20 @@ class _SignatureFormState extends State<SignatureForm> {
 
 
 
-  approveForm(String formId) async{
+  approveForm(String formId, var signature) async{
     var dio = Dio();
     print("masuk approve, form id = " + formId);
     String url = domain + "/api/v1/approve_form?form_id=" + formId;
     dio.options.headers[HttpHeaders.authorizationHeader] = 'Bearer ' + globalUserDetails.idToken;
 
-    Response response = await dio.post(url);
+    var formData = FormData();
+    formData.files.addAll([
+      MapEntry(
+        "signature",
+        MultipartFile.fromBytes(signature, filename: "signature.png"),
+      )]);
+
+    Response response = await dio.post(url, data: formData);
     print(response.data);
 
     String dummyResponse = '{"status": "success", "message": "Sign Form Successful"}';
