@@ -72,126 +72,112 @@ class _SignatureFormState extends State<SignatureForm> {
     return Scaffold(
       body: Column(
         children: <Widget>[
-          Expanded(
-            child: Container(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Signature(
-                  color: color,
-                  key: _sign,
-                  onSign: () {
-                    final sign = _sign.currentState;
-                    debugPrint('${sign.points.length} points in the signature');
-                  },
-                  backgroundPainter: _WatermarkPaint("2.0", "2.0"),
-                  strokeWidth: strokeWidth,
-                ),
-              ),
-              color: Colors.black12,
-            ),
-          ),
-          _img.buffer.lengthInBytes == 0
-              ? Container()
-              : LimitedBox(
-                  maxHeight: 200.0,
-                  child: Image.memory(_img.buffer.asUint8List())),
-          Column(
-            children: <Widget>[
-              SizedBox(
-                height: 16.0,
-              ),Text(
-                'Please sign here',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.black),
-              ),
-              SizedBox(
-                height: 16.0,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  MaterialButton(
-                      color: Colors.green,
-                      onPressed: () async {
-                        final sign = _sign.currentState;
-                        //set image datanya disini, mau di sep lokal atau ngirim ke server
-                        final image = await sign.getData();
-                        var data = await image.toByteData(
-                            format: ui.ImageByteFormat.png);
-                        sign.clear();
-                        final encoded =
-                        base64.encode(data.buffer.asUint8List());
-                        setState(() {
-                          _img = data;
-                        });
-                        final code = base64Decode(encoded);
-                        Uint8List _toImage = code;
-                        ttd = _toImage;
-
-                        showCircular(context);
-                        signForm(approvalFormId, data.buffer.asUint8List()).then((task){
-                          print("sign = " + task.status);
-                          if(task.status=="success"){
-                            approveForm(approvalFormId, data.buffer.asUint8List()).then((task) async {
-                              if(task.status=="fail"){
-                                showDialog(
-                                    context: context,
-                                    builder: (BuildContext context){
-                                      return AlertDialog(
-                                        title: Text("Approve Fail"),
-                                        content: Text(task.message),
-                                        actions:[
-                                          FlatButton(
-                                              child: Text("Close"),
-                                              onPressed: () => Navigator.of(context).pop()
-                                          )
-                                        ],
-                                      );
-                                    }
-                                );
-                              }else{
-                                testNotif();
-                                Navigator.push(context, new MaterialPageRoute(builder: (context) => new Request()));
-                              }
+          Container(
+            padding: EdgeInsets.only(top: 28.0,bottom: 16.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    RotatedBox(
+                      quarterTurns: 1,
+                      child: MaterialButton(
+                          color: Colors.blue,
+                          onPressed: () {
+                            final sign = _sign.currentState;
+                            sign.clear();
+                            setState(() {
+                              _img = ByteData(0);
                             });
-                          }else{
-                            showDialog(
-                                context: context,
-                                builder: (BuildContext context){
-                                  return AlertDialog(
-                                    title: Text("Sign Fail"),
-                                    content: Text(task.message),
-                                    actions:[
-                                      FlatButton(
-                                          child: Text("Close"),
-                                          onPressed: () => Navigator.of(context).pop()
-                                      )
-                                    ],
+                            debugPrint("cleared");
+                          },
+                          child: Text("Clear", style: TextStyle(color: Colors.white))),
+                    ),
+                    RotatedBox(
+                      quarterTurns: 1,
+                      child: MaterialButton(
+                        color: Colors.green,
+                        onPressed: () async {
+                          final sign = _sign.currentState;
+                          //set image datanya disini, mau di sep lokal atau ngirim ke server
+                          final image = await sign.getData();
+                          var data = await image.toByteData(
+                              format: ui.ImageByteFormat.png);
+                          sign.clear();
+                          final encoded =
+                          base64.encode(data.buffer.asUint8List());
+                          setState(() {
+                            _img = data;
+                          });
+                          final code = base64Decode(encoded);
+                          Uint8List _toImage = code;
+                          ttd = _toImage;
+
+                          showCircular(context);
+                          signForm(approvalFormId, data.buffer.asUint8List()).then((task){
+                            print("sign = " + task.status);
+                            if(task.status=="success"){
+                              approveForm(approvalFormId, data.buffer.asUint8List()).then((task) async {
+                                if(task.status=="fail"){
+                                  showDialog(
+                                      context: context,
+                                      builder: (BuildContext context){
+                                        return AlertDialog(
+                                          title: Text("Approve Fail"),
+                                          content: Text(task.message),
+                                          actions:[
+                                            FlatButton(
+                                                child: Text("Close"),
+                                                onPressed: () => Navigator.of(context).pop()
+                                            )
+                                          ],
+                                        );
+                                      }
                                   );
+                                }else{
+                                  testNotif();
+                                  Navigator.push(context, new MaterialPageRoute(builder: (context) => new Request()));
                                 }
-                            );
-                          }
+                              });
+                            }else{
+                              showDialog(
+                                  context: context,
+                                  builder: (BuildContext context){
+                                    return AlertDialog(
+                                      title: Text("Sign Fail"),
+                                      content: Text(task.message),
+                                      actions:[
+                                        FlatButton(
+                                            child: Text("Close"),
+                                            onPressed: () => Navigator.of(context).pop()
+                                        )
+                                      ],
+                                    );
+                                  }
+                              );
+                            }
 
-                        });
+                          });
 
-                      },
-                      child: Text("Submit",
-                      style: TextStyle(color: Colors.white),),),
-                  MaterialButton(
-                      color: Colors.blue,
-                      onPressed: () {
-                        final sign = _sign.currentState;
-                        sign.clear();
-                        setState(() {
-                          _img = ByteData(0);
-                        });
-                        debugPrint("cleared");
-                      },
-                      child: Text("Clear", style: TextStyle(color: Colors.white))),
-                ],
-              ),
-              SizedBox(
-                height: 18.0,
-              )
+                        },
+                        child: Text("Submit",
+                          style: TextStyle(color: Colors.white),),),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  width: 18.0,
+                ),
+                RotatedBox(
+                  quarterTurns: 1,
+                  child: Text(
+                    'Please sign here',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.black),
+                  ),
+                ),
+
 
 //              Row(
 //                mainAxisAlignment: MainAxisAlignment.center,
@@ -217,8 +203,33 @@ class _SignatureFormState extends State<SignatureForm> {
 //                      child: Text("Change stroke width")),
 //                ],
 //              ),
-            ],
-          )
+              ],
+            ),
+          ),
+          Expanded(
+            child: Container(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Signature(
+                  color: color,
+                  key: _sign,
+                  onSign: () {
+                    final sign = _sign.currentState;
+                    debugPrint('${sign.points.length} points in the signature');
+                  },
+                  backgroundPainter: _WatermarkPaint("2.0", "2.0"),
+                  strokeWidth: strokeWidth,
+                ),
+              ),
+              color: Colors.black12,
+            ),
+          ),
+          _img.buffer.lengthInBytes == 0
+              ? Container()
+              : LimitedBox(
+                  maxHeight: 200.0,
+                  child: Image.memory(_img.buffer.asUint8List())),
+
         ],
       ),
     );
