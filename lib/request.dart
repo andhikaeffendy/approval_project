@@ -102,9 +102,44 @@ class _RequestState extends State<Request> {
                 builder: (context, snapshot) {
                   if (snapshot.data == null) {
                     return Center(
-                      child: new CircularProgressIndicator(),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.max,
+                        children: <Widget>[
+                          SizedBox(
+                            height: 16.0,
+                          ),
+                          Image.asset(
+                            'assets/logo.png',
+                            width: 200.0,
+                            height: 100.0,
+                          ),
+                          SizedBox(
+                            height: 24.0,
+                          ),
+                          Image.asset(
+                            'assets/404.png',
+                            width: 120.0,
+                            height: 100.0,
+                          ),
+                          SizedBox(
+                            height: 24.0,
+                          ),
+                          Container(
+                            child: Text(
+                              'No F1 Request Approval Right Now',
+                              style: TextStyle(
+                                  fontSize: 18.0,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          )
+                        ],
+                      ),
                     );
-                  } else {
+                  }
+                  else {
                     List<Datum> listApproval = snapshot.data.data;
                     return Expanded(
                       child: RefreshIndicator(
@@ -174,13 +209,14 @@ class _RequestState extends State<Request> {
                                                                   0XFFffffff),
                                                               fontSize: 12.0),
                                                         )),
-                                                        decoration: BoxDecoration(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        4),
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(4),
                                                           color:
-                                                          Color(0XFFf7bc1d),),
+                                                              Color(0XFFf7bc1d),
+                                                        ),
                                                       )
                                                     : Text(''),
 //                                                    : ImageButton(

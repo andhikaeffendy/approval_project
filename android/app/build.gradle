@@ -48,7 +48,7 @@ android {
         applicationId "com.test.approvalproject"
         minSdkVersion 16
         targetSdkVersion 28
-        versionCode 8
+        versionCode 9
         versionName '1.0.3'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
