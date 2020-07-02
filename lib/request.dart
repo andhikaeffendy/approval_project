@@ -101,124 +101,127 @@ class _RequestState extends State<Request> {
                 future: getListApproval(),
                 builder: (context, snapshot) {
                   if (snapshot.data == null) {
-                    return Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisSize: MainAxisSize.max,
-                        children: <Widget>[
-                          SizedBox(
-                            height: 16.0,
-                          ),
-                          Image.asset(
-                            'assets/logo.png',
-                            width: 200.0,
-                            height: 100.0,
-                          ),
-                          SizedBox(
-                            height: 24.0,
-                          ),
-                          Image.asset(
-                            'assets/404.png',
-                            width: 120.0,
-                            height: 100.0,
-                          ),
-                          SizedBox(
-                            height: 24.0,
-                          ),
-                          Container(
-                            child: Text(
-                              'No F1 Request Approval Right Now',
-                              style: TextStyle(
-                                  fontSize: 18.0,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          )
-                        ],
-                      ),
-                    );
+                    return Container();
                   }
                   else {
                     List<Datum> listApproval = snapshot.data.data;
-                    return Expanded(
-                      child: RefreshIndicator(
-                        key: _refreshIndicatorKey,
-                        onRefresh: () => getListApproval().then((task) {
-                          setState(() {
-                            print("refresing");
-                            listApproval = task.data;
-                          });
-                        }),
-                        child: ListView.builder(
-                          physics: const AlwaysScrollableScrollPhysics(),
-                          itemCount: listApproval.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            return GestureDetector(
-                              onTap: () => Navigator.of(context).push(
-                                  new MaterialPageRoute(
-                                      builder: (BuildContext context) =>
-                                          new NewRequestDetail(
-                                              approvalFormId:
-                                                  listApproval[index]
-                                                      .id
-                                                      .toString(),
-                                              newApprovalStatus: "0"))),
-                              child: Container(
-                                margin: const EdgeInsets.only(bottom: 16.0),
-                                child: Material(
-                                  elevation: 5.0,
-                                  child: Container(
-                                    margin: const EdgeInsets.all(16.0),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: <Widget>[
-                                        Row(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: <Widget>[
-                                            Container(
-                                              child: Text(
-                                                dateFormat.format(
-                                                    listApproval[index]
-                                                        .formDate),
-                                                style: TextStyle(
-                                                    color: Colors.pinkAccent),
+                    if(listApproval.isEmpty){
+                      return Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.max,
+                          children: <Widget>[
+                            SizedBox(
+                              height: 16.0,
+                            ),
+                            Image.asset(
+                              'assets/logo.png',
+                              width: 200.0,
+                              height: 100.0,
+                            ),
+                            SizedBox(
+                              height: 24.0,
+                            ),
+                            Image.asset(
+                              'assets/404.png',
+                              width: 120.0,
+                              height: 100.0,
+                            ),
+                            SizedBox(
+                              height: 24.0,
+                            ),
+                            Container(
+                              child: Text(
+                                'No F1 Request Approval Right Now',
+                                style: TextStyle(
+                                    fontSize: 18.0,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            )
+                          ],
+                        ),
+                      );
+                    }else{
+                      return Expanded(
+                        child: RefreshIndicator(
+                          key: _refreshIndicatorKey,
+                          onRefresh: () => getListApproval().then((task) {
+                            setState(() {
+                              print("refresing");
+                              listApproval = task.data;
+                            });
+                          }),
+                          child: ListView.builder(
+                            physics: const AlwaysScrollableScrollPhysics(),
+                            itemCount: listApproval.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return GestureDetector(
+                                onTap: () => Navigator.of(context).push(
+                                    new MaterialPageRoute(
+                                        builder: (BuildContext context) =>
+                                        new NewRequestDetail(
+                                            approvalFormId:
+                                            listApproval[index]
+                                                .id
+                                                .toString(),
+                                            newApprovalStatus: "0"))),
+                                child: Container(
+                                  margin: const EdgeInsets.only(bottom: 16.0),
+                                  child: Material(
+                                    elevation: 5.0,
+                                    child: Container(
+                                      margin: const EdgeInsets.all(16.0),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.start,
+                                        children: <Widget>[
+                                          Row(
+                                            crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                            mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                            children: <Widget>[
+                                              Container(
+                                                child: Text(
+                                                  dateFormat.format(
+                                                      listApproval[index]
+                                                          .formDate),
+                                                  style: TextStyle(
+                                                      color: Colors.pinkAccent),
+                                                ),
                                               ),
-                                            ),
-                                            Row(
-                                              children: <Widget>[
-                                                listApproval[index].type ==
-                                                        "NON"
-                                                    ? Container(
-                                                        padding:
-                                                            EdgeInsets.only(
-                                                                left: 8.0,
-                                                                right: 8.0,
-                                                                top: 6.0,
-                                                                bottom: 6.0),
-                                                        child: (Text(
-                                                          'NON',
-                                                          style: TextStyle(
-                                                              color: Color(
-                                                                  0XFFffffff),
-                                                              fontSize: 12.0),
-                                                        )),
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(4),
-                                                          color:
-                                                              Color(0XFFf7bc1d),
-                                                        ),
-                                                      )
-                                                    : Text(''),
+                                              Row(
+                                                children: <Widget>[
+                                                  listApproval[index].type ==
+                                                      "NON"
+                                                      ? Container(
+                                                    padding:
+                                                    EdgeInsets.only(
+                                                        left: 8.0,
+                                                        right: 8.0,
+                                                        top: 6.0,
+                                                        bottom: 6.0),
+                                                    child: (Text(
+                                                      'NON',
+                                                      style: TextStyle(
+                                                          color: Color(
+                                                              0XFFffffff),
+                                                          fontSize: 12.0),
+                                                    )),
+                                                    decoration:
+                                                    BoxDecoration(
+                                                      borderRadius:
+                                                      BorderRadius
+                                                          .circular(4),
+                                                      color:
+                                                      Color(0XFFf7bc1d),
+                                                    ),
+                                                  )
+                                                      : Text(''),
 //                                                    : ImageButton(
 //                                                  children: <Widget>[],
 //                                                  width: 50.0,
@@ -230,100 +233,102 @@ class _RequestState extends State<Request> {
 //                                                      'assets/Button_recc.png'),
 //                                                  onTap: () {},
 //                                                ),
-                                                SizedBox(
-                                                  width: 8.0,
-                                                ),
-                                                ImageButton(
-                                                  children: <Widget>[],
-                                                  width: 50.0,
-                                                  height: 25.0,
-                                                  paddingTop: 8.0,
-                                                  pressedImage: Image.asset(
-                                                      'assets/Button_capex.png'),
-                                                  unpressedImage: Image.asset(
-                                                      'assets/Button_capex.png'),
-                                                  onTap: () {},
-                                                )
-                                              ],
-                                            )
-                                          ],
-                                        ),
-                                        SizedBox(
-                                          height: 12.0,
-                                        ),
-                                        Container(
-                                          child: Text(
-                                            listApproval[index].name,
-                                            style: TextStyle(
-                                                fontSize: 18.0,
-                                                color: Colors.black,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: 32.0,
-                                        ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: <Widget>[
-                                            Container(
-                                              child: LinearPercentIndicator(
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.50,
-                                                lineHeight: 18.0,
-                                                percent: 0.5,
-                                                backgroundColor:
-                                                    Colors.greenAccent,
-                                                progressColor: Colors.green,
-                                              ),
-                                            ),
-                                            Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              children: <Widget>[
-                                                Container(
-                                                  child: Text(
-                                                    'Request by :',
+                                                  SizedBox(
+                                                    width: 8.0,
                                                   ),
-                                                ),
-                                                Container(
+                                                  ImageButton(
+                                                    children: <Widget>[],
+                                                    width: 50.0,
+                                                    height: 25.0,
+                                                    paddingTop: 8.0,
+                                                    pressedImage: Image.asset(
+                                                        'assets/Button_capex.png'),
+                                                    unpressedImage: Image.asset(
+                                                        'assets/Button_capex.png'),
+                                                    onTap: () {},
+                                                  )
+                                                ],
+                                              )
+                                            ],
+                                          ),
+                                          SizedBox(
+                                            height: 12.0,
+                                          ),
+                                          Container(
+                                            child: Text(
+                                              listApproval[index].name,
+                                              style: TextStyle(
+                                                  fontSize: 18.0,
+                                                  color: Colors.black,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: 32.0,
+                                          ),
+                                          Row(
+                                            mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                            crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                            children: <Widget>[
+                                              Container(
+                                                child: LinearPercentIndicator(
                                                   width: MediaQuery.of(context)
-                                                          .size
-                                                          .width *
-                                                      0.30,
-                                                  child: Center(
+                                                      .size
+                                                      .width *
+                                                      0.50,
+                                                  lineHeight: 18.0,
+                                                  percent: 0.5,
+                                                  backgroundColor:
+                                                  Colors.greenAccent,
+                                                  progressColor: Colors.green,
+                                                ),
+                                              ),
+                                              Column(
+                                                mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                                crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                                children: <Widget>[
+                                                  Container(
                                                     child: Text(
-                                                      listApproval[index]
-                                                          .issuedBy,
-                                                      style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        fontSize: 14.0,
-                                                      ),
+                                                      'Request by :',
                                                     ),
                                                   ),
-                                                )
-                                              ],
-                                            )
-                                          ],
-                                        )
-                                      ],
+                                                  Container(
+                                                    width: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                        0.30,
+                                                    child: Center(
+                                                      child: Text(
+                                                        listApproval[index]
+                                                            .issuedBy,
+                                                        style: TextStyle(
+                                                          fontWeight:
+                                                          FontWeight.bold,
+                                                          fontSize: 14.0,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  )
+                                                ],
+                                              )
+                                            ],
+                                          )
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            );
-                          },
+                              );
+                            },
+                          ),
                         ),
-                      ),
-                    );
+                      );
+                    }
+
                   }
                 },
               )
