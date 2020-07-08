@@ -3,12 +3,14 @@ import 'dart:ui';
 
 import 'package:approvalproject/api_response_model/list_approval_form.dart';
 import 'package:approvalproject/api_response_model/logout_response.dart';
+import 'package:approvalproject/history.dart';
 import 'package:approvalproject/main.dart';
 import 'package:approvalproject/new_request_detail.dart';
 import 'package:approvalproject/request_detail.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -75,18 +77,38 @@ class _RequestState extends State<Request> {
           actions: <Widget>[
             Center(
               child: Padding(
-                padding: const EdgeInsets.only(right: 8.0),
-                child: ImageButton(
-                  children: <Widget>[],
-                  width: 23,
-                  height: 23,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  pressedImage: Image.asset('assets/Log_out.png'),
-                  unpressedImage: Image.asset('assets/Log_out.png'),
-                  onTap: () {
-                    _showAlertDialog(context);
-                  },
+                padding: EdgeInsets.only(right: 20.0),
+                child: Row(
+                  children: <Widget>[
+                    SizedBox(
+                      width: 12.0,
+                    ),
+                    InkWell(
+                      onTap: (){
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => History()),
+                        );
+                      },
+                      child: Icon(Icons.history,
+                      size: 35.0,),
+                    ),
+                    SizedBox(
+                      width: 16.0,
+                    ),
+                    ImageButton(
+                      children: <Widget>[],
+                      width: 23,
+                      height: 23,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      pressedImage: Image.asset('assets/Log_out.png'),
+                      unpressedImage: Image.asset('assets/Log_out.png'),
+                      onTap: () {
+                        _showAlertDialog(context);
+                      },
+                    )
+                  ],
                 ),
               ),
             )
@@ -102,10 +124,9 @@ class _RequestState extends State<Request> {
                 builder: (context, snapshot) {
                   if (snapshot.data == null) {
                     return Container();
-                  }
-                  else {
+                  } else {
                     List<Datum> listApproval = snapshot.data.data;
-                    if(listApproval.isEmpty){
+                    if (listApproval.isEmpty) {
                       return Center(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -143,7 +164,7 @@ class _RequestState extends State<Request> {
                           ],
                         ),
                       );
-                    }else{
+                    } else {
                       return Expanded(
                         child: RefreshIndicator(
                           key: _refreshIndicatorKey,
@@ -161,12 +182,12 @@ class _RequestState extends State<Request> {
                                 onTap: () => Navigator.of(context).push(
                                     new MaterialPageRoute(
                                         builder: (BuildContext context) =>
-                                        new NewRequestDetail(
-                                            approvalFormId:
-                                            listApproval[index]
-                                                .id
-                                                .toString(),
-                                            newApprovalStatus: "0"))),
+                                            new NewRequestDetail(
+                                                approvalFormId:
+                                                    listApproval[index]
+                                                        .id
+                                                        .toString(),
+                                                newApprovalStatus: "0"))),
                                 child: Container(
                                   margin: const EdgeInsets.only(bottom: 16.0),
                                   child: Material(
@@ -175,15 +196,15 @@ class _RequestState extends State<Request> {
                                       margin: const EdgeInsets.all(16.0),
                                       child: Column(
                                         crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                            CrossAxisAlignment.start,
                                         mainAxisAlignment:
-                                        MainAxisAlignment.start,
+                                            MainAxisAlignment.start,
                                         children: <Widget>[
                                           Row(
                                             crossAxisAlignment:
-                                            CrossAxisAlignment.center,
+                                                CrossAxisAlignment.center,
                                             mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                                MainAxisAlignment.spaceBetween,
                                             children: <Widget>[
                                               Container(
                                                 child: Text(
@@ -197,30 +218,31 @@ class _RequestState extends State<Request> {
                                               Row(
                                                 children: <Widget>[
                                                   listApproval[index].type ==
-                                                      "NON"
+                                                          "NON"
                                                       ? Container(
-                                                    padding:
-                                                    EdgeInsets.only(
-                                                        left: 8.0,
-                                                        right: 8.0,
-                                                        top: 6.0,
-                                                        bottom: 6.0),
-                                                    child: (Text(
-                                                      'NON',
-                                                      style: TextStyle(
-                                                          color: Color(
-                                                              0XFFffffff),
-                                                          fontSize: 12.0),
-                                                    )),
-                                                    decoration:
-                                                    BoxDecoration(
-                                                      borderRadius:
-                                                      BorderRadius
-                                                          .circular(4),
-                                                      color:
-                                                      Color(0XFFf7bc1d),
-                                                    ),
-                                                  )
+                                                          padding:
+                                                              EdgeInsets.only(
+                                                                  left: 8.0,
+                                                                  right: 8.0,
+                                                                  top: 6.0,
+                                                                  bottom: 6.0),
+                                                          child: (Text(
+                                                            'NON',
+                                                            style: TextStyle(
+                                                                color: Color(
+                                                                    0XFFffffff),
+                                                                fontSize: 12.0),
+                                                          )),
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        4),
+                                                            color: Color(
+                                                                0XFFf7bc1d),
+                                                          ),
+                                                        )
                                                       : Text(''),
 //                                                    : ImageButton(
 //                                                  children: <Widget>[],
@@ -268,28 +290,28 @@ class _RequestState extends State<Request> {
                                           ),
                                           Row(
                                             mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                                MainAxisAlignment.spaceBetween,
                                             crossAxisAlignment:
-                                            CrossAxisAlignment.center,
+                                                CrossAxisAlignment.center,
                                             children: <Widget>[
                                               Container(
                                                 child: LinearPercentIndicator(
                                                   width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
+                                                          .size
+                                                          .width *
                                                       0.50,
                                                   lineHeight: 18.0,
                                                   percent: 0.5,
                                                   backgroundColor:
-                                                  Colors.greenAccent,
+                                                      Colors.greenAccent,
                                                   progressColor: Colors.green,
                                                 ),
                                               ),
                                               Column(
                                                 mainAxisAlignment:
-                                                MainAxisAlignment.center,
+                                                    MainAxisAlignment.center,
                                                 crossAxisAlignment:
-                                                CrossAxisAlignment.center,
+                                                    CrossAxisAlignment.center,
                                                 children: <Widget>[
                                                   Container(
                                                     child: Text(
@@ -297,17 +319,18 @@ class _RequestState extends State<Request> {
                                                     ),
                                                   ),
                                                   Container(
-                                                    width: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                        0.30,
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width *
+                                                            0.30,
                                                     child: Center(
                                                       child: Text(
                                                         listApproval[index]
                                                             .issuedBy,
                                                         style: TextStyle(
                                                           fontWeight:
-                                                          FontWeight.bold,
+                                                              FontWeight.bold,
                                                           fontSize: 14.0,
                                                         ),
                                                       ),
@@ -328,7 +351,6 @@ class _RequestState extends State<Request> {
                         ),
                       );
                     }
-
                   }
                 },
               )
