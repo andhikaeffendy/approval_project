@@ -48,8 +48,8 @@ android {
         applicationId "com.abl.f1"
         minSdkVersion 16
         targetSdkVersion 28
-        versionCode 11
-        versionName '1.0.5'
+        versionCode 12
+        versionName '1.1.0'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
