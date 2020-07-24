@@ -84,14 +84,16 @@ class _RequestState extends State<Request> {
                       width: 12.0,
                     ),
                     InkWell(
-                      onTap: (){
+                      onTap: () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) => History()),
                         );
                       },
-                      child: Icon(Icons.history,
-                      size: 35.0,),
+                      child: Icon(
+                        Icons.history,
+                        size: 35.0,
+                      ),
                     ),
                     SizedBox(
                       width: 16.0,
@@ -258,17 +260,39 @@ class _RequestState extends State<Request> {
                                                   SizedBox(
                                                     width: 8.0,
                                                   ),
-                                                  ImageButton(
-                                                    children: <Widget>[],
-                                                    width: 50.0,
-                                                    height: 25.0,
-                                                    paddingTop: 8.0,
-                                                    pressedImage: Image.asset(
-                                                        'assets/Button_capex.png'),
-                                                    unpressedImage: Image.asset(
-                                                        'assets/Button_capex.png'),
-                                                    onTap: () {},
-                                                  )
+                                                  Container(
+                                                    padding: EdgeInsets.only(
+                                                        left: 8.0,
+                                                        right: 8.0,
+                                                        top: 6.0,
+                                                        bottom: 6.0),
+                                                    child: (Text(
+                                                      listApproval[index]
+                                                          .costAllocation,
+                                                      style: TextStyle(
+                                                        fontWeight: FontWeight.bold,
+                                                          color:
+                                                              Color(0XFFffffff),
+                                                          fontSize: 12.0),
+                                                    )),
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              4),
+                                                      color: Color(0XFF008000),
+                                                    ),
+                                                  ),
+//                                                  ImageButton(
+//                                                    children: <Widget>[],
+//                                                    width: 50.0,
+//                                                    height: 25.0,
+//                                                    paddingTop: 8.0,
+//                                                    pressedImage: Image.asset(
+//                                                        'assets/Button_capex.png'),
+//                                                    unpressedImage: Image.asset(
+//                                                        'assets/Button_capex.png'),
+//                                                    onTap: () {},
+//                                                  )
                                                 ],
                                               )
                                             ],
