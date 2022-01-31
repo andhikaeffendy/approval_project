@@ -84,6 +84,15 @@ class _SignatureFormState extends State<SignatureForm> {
                     RotatedBox(
                       quarterTurns: 1,
                       child: MaterialButton(
+                          color: Colors.red,
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: Text("Back", style: TextStyle(color: Colors.white))),
+                    ),
+                    RotatedBox(
+                      quarterTurns: 1,
+                      child: MaterialButton(
                           color: Colors.blue,
                           onPressed: () {
                             final sign = _sign.currentState;
@@ -303,9 +312,11 @@ class _SignatureFormState extends State<SignatureForm> {
   showCircular(context){
     showDialog(
         context: context,
-        child: new Center(
-          child: new CircularProgressIndicator(),
-        )
+        builder: (BuildContext context) {
+          return new Center(
+            child: new CircularProgressIndicator(),
+          );
+        }
     );
   }
 }

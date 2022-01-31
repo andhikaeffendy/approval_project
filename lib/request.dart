@@ -19,6 +19,7 @@ import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:intl/intl.dart';
 
 import 'globals/variable.dart';
+import 'globals/session.dart';
 
 class Request extends StatefulWidget {
   final GoogleSignIn googleSignIn;
@@ -29,6 +30,10 @@ class Request extends StatefulWidget {
 
   @override
   _RequestState createState() => _RequestState(googleSignIn, firebaseAuth);
+}
+
+Future<dynamic> myBackgroundMessageHandler(Map<String, dynamic> message) {
+  print("onLaunch: $message");
 }
 
 class _RequestState extends State<Request> {
@@ -42,13 +47,37 @@ class _RequestState extends State<Request> {
   DateFormat dateFormat = new DateFormat('yyyy-MM-dd');
 
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
-      new GlobalKey<RefreshIndicatorState>();
+  new GlobalKey<RefreshIndicatorState>();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    _firebaseMessaging.configure(
+      onMessage: (Map<String, dynamic> message) async {
+        print("onMessage: $message");
+      },
+      onBackgroundMessage: myBackgroundMessageHandler,
+      onLaunch: (Map<String, dynamic> message) async {
+        print("onLaunch: $message");
+      },
+      onResume: (Map<String, dynamic> message) async {
+        print("onResume: $message");
+      },
+    );
+    _firebaseMessaging.requestNotificationPermissions(
+      const IosNotificationSettings(sound: true, badge: true, alert: true, provisional: false),
+    );
+    _firebaseMessaging.onIosSettingsRegistered.listen((settings) {
+      debugPrint('Settings registered: $settings');
+    });
+    _firebaseMessaging.getToken().then((token) {
+      // regFCMToken(token);
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    _firebaseMessaging.getToken().then((token) {
-      regFCMToken(token);
-    });
 
     return WillPopScope(
       onWillPop: () {
@@ -397,9 +426,10 @@ class _RequestState extends State<Request> {
       child: Text("Yes"),
       onPressed: () => logoutRequest().then((task) {
         if (task.status == 'success') {
+          destroySession();
           googleSignOut().then((task) {
             print("task = " + task.toString());
-            Navigator.of(context).push(new MaterialPageRoute(
+            Navigator.of(context, rootNavigator: true).push(new MaterialPageRoute(
                 builder: (BuildContext context) => new MyApp()));
           });
         }

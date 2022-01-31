@@ -51,6 +51,8 @@ class Data {
   DateTime createdAt;
   List<Detail> details;
   List<Document> documents;
+  String companyName;
+  String background;
 
   Data({
     this.id,
@@ -71,6 +73,8 @@ class Data {
     this.createdAt,
     this.details,
     this.documents,
+    this.companyName,
+    this.background,
   });
 
   factory Data.fromJson(Map<String, dynamic> json) {
@@ -92,6 +96,8 @@ class Data {
         summaryTerm: json["summary_term"],
         justification: json["justification"],
         createdAt: DateTime.parse(json["created_at"]),
+        companyName: json["company_name"],
+        background: json["background"],
         details: List<Detail>.from(json["details"].map((x) => Detail.fromJson(x))),
       );
     }else if(json["details"]==null){
@@ -112,6 +118,8 @@ class Data {
         summaryTerm: json["summary_term"],
         justification: json["justification"],
         createdAt: DateTime.parse(json["created_at"]),
+        companyName: json["company_name"],
+        background: json["background"],
         documents: List<Document>.from(json["documents"].map((x) => Document.fromJson(x))),
       );
     }else if(json["details"]==null && json["documents"]==null){
@@ -131,7 +139,9 @@ class Data {
           summary: json["summary"],
           summaryTerm: json["summary_term"],
           justification: json["justification"],
-          createdAt: DateTime.parse(json["created_at"])
+          createdAt: DateTime.parse(json["created_at"]),
+          companyName: json["company_name"],
+          background: json["background"]
       );
     }else{
       print("detail normal");
@@ -151,6 +161,8 @@ class Data {
         summaryTerm: json["summary_term"],
         justification: json["justification"],
         createdAt: DateTime.parse(json["created_at"]),
+        companyName: json["company_name"],
+        background: json["background"],
         details: List<Detail>.from(json["details"].map((x) => Detail.fromJson(x))),
         documents: List<Document>.from(json["documents"].map((x) => Document.fromJson(x))),
       );
@@ -174,6 +186,8 @@ class Data {
     "justification": justification,
     "my_approval_status": myApprovalStatus,
     "created_at": createdAt.toIso8601String(),
+    "company_name": companyName,
+    "background": background,
     "details": List<dynamic>.from(details.map((x) => x.toJson())),
     "documents": List<dynamic>.from(documents.map((x) => x.toJson())),
   };

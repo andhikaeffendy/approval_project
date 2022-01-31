@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:approvalproject/draft_request.dart';
 import 'package:approvalproject/request.dart';
 import 'package:approvalproject/signature.dart';
 import 'package:dio/dio.dart';
@@ -42,6 +43,7 @@ class _NewRequestDetailState extends State<NewRequestDetail> {
           title: Text('Request Detail'),
         ),
         body: FutureBuilder(
+          // test with id : 293
           future: getDetailApproval(approvalFormId),
           builder: (context, snapshot){
             if(snapshot.data==null){
@@ -50,7 +52,7 @@ class _NewRequestDetailState extends State<NewRequestDetail> {
               Data detailRequest = snapshot.data.data;
               detailRequest.myApprovalStatus = newApprovalStatus;
               print("myapprovalstatus : " + detailRequest.myApprovalStatus.toString());
-              if(detailRequest.myApprovalStatus != "0"){
+
                 return SingleChildScrollView(
                   child: Container(
                     margin: const EdgeInsets.all(16.0),
@@ -84,13 +86,13 @@ class _NewRequestDetailState extends State<NewRequestDetail> {
                                       crossAxisAlignment: CrossAxisAlignment.center,
                                       children: <Widget>[
                                         Text(
-                                          "Form Date : ",
+                                          "Company Name : ",
                                           style: TextStyle(
                                               fontSize: 12.0,
                                               color: Colors.black),
                                         ),
                                         Text(
-                                          dateFormat.format(detailRequest.formDate),
+                                          detailRequest.companyName,
                                           style: TextStyle(
                                               fontSize: 12.0,
                                               fontWeight: FontWeight.bold,
@@ -100,337 +102,6 @@ class _NewRequestDetailState extends State<NewRequestDetail> {
                                     ),
                                     SizedBox(
                                       height: 12.0,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      children: <Widget>[
-                                        Text(
-                                          "Document Number : ",
-                                          style: TextStyle(
-                                              fontSize: 12.0,
-                                              color: Colors.black),
-                                        ),
-                                        Text(
-                                          detailRequest.documentNumber,
-                                          style: TextStyle(
-                                              fontSize: 12.0,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.black),
-                                        ),
-                                      ],
-                                    ),
-                                    SizedBox(
-                                      height: 12.0,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      children: <Widget>[
-                                        Text(
-                                          "Cost Allocacation : ",
-                                          style: TextStyle(
-                                              fontSize: 12.0,
-                                              color: Colors.black),
-                                        ),
-                                        Text(
-                                          detailRequest.costAllocation,
-                                          style: TextStyle(
-                                              fontSize: 12.0,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.black),
-                                        )
-                                      ],
-                                    ),
-                                    SizedBox(
-                                      height: 12.0,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      children: <Widget>[
-                                        Text(
-                                          "Purposed of Issue : ",
-                                          style: TextStyle(
-                                              fontSize: 12.0,
-                                              color: Colors.black),
-                                        ),
-                                        Text(
-                                          detailRequest.purposeOfIssue,
-                                          style: TextStyle(
-                                              fontSize: 12.0,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.black),
-                                        )
-                                      ],
-                                    ),
-                                    SizedBox(
-                                      height: 12.0,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      children: <Widget>[
-                                        Text(
-                                          "Procurement Type : ",
-                                          style: TextStyle(
-                                              fontSize: 12.0,
-                                              color: Colors.black),
-                                        ),
-                                        Text(
-                                          detailRequest.procurementType,
-                                          style: TextStyle(
-                                              fontSize: 12.0,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.black),
-                                        )
-                                      ],
-                                    ),
-                                    SizedBox(
-                                      height: 12.0,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      children: <Widget>[
-                                        Text(
-                                          "Recurring Option : ",
-                                          style: TextStyle(
-                                              fontSize: 12.0,
-                                              color: Colors.black),
-                                        ),
-                                        Text(
-                                          detailRequest.recurringOption,
-                                          style: TextStyle(
-                                              fontSize: 12.0,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.black),
-                                        )
-                                      ],
-                                    ),
-                                    SizedBox(
-                                      height: 12.0,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      children: <Widget>[
-                                        Text(
-                                          "Issued By : ",
-                                          style: TextStyle(
-                                              fontSize: 12.0,
-                                              color: Colors.black),
-                                        ),
-                                        Text(
-                                          detailRequest.issuedBy,
-                                          style: TextStyle(
-                                              fontSize: 12.0,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.black),
-                                        )
-                                      ],
-                                    ),
-                                    SizedBox(
-                                      height: 12.0,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      children: <Widget>[
-                                        Text(
-                                          "Grand Total : ",
-                                          style: TextStyle(
-                                              fontSize: 12.0,
-                                              color: Colors.black),
-                                        ),
-                                        Text(
-                                          detailRequest.value,
-                                          style: TextStyle(
-                                              fontSize: 12.0,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.black),
-                                        )
-                                      ],
-                                    ),
-                                    SizedBox(
-                                      height: 12.0,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      children: <Widget>[
-                                        Text(
-                                          "Supplier : ",
-                                          style: TextStyle(
-                                              fontSize: 12.0,
-                                              color: Colors.black),
-                                        ),
-                                        Text(
-                                          detailRequest.supplier,
-                                          style: TextStyle(
-                                              fontSize: 12.0,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.black),
-                                        )
-                                      ],
-                                    ),
-                                    SizedBox(
-                                      height: 24.0,
-                                    ),
-                                    Text(
-                                      'List Of Detail',
-                                      style: TextStyle(
-                                          fontSize: 16.0,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.black),
-                                    ),
-                                    SizedBox(
-                                      height: 18,
-                                    ),ListView.builder(
-                                        shrinkWrap: true,
-                                        scrollDirection: Axis.vertical,
-                                        itemCount: detailRequest.details.length,
-                                        itemBuilder: (BuildContext context, int index) {
-                                          Detail detailsItemList = detailRequest.details[index];
-                                          return Column(
-                                            mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                            crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                            children: <Widget>[
-                                              Row(
-                                                mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                                crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                                children: <Widget>[
-                                                  Text(
-                                                    detailsItemList.item+' :',
-                                                    style: TextStyle(
-                                                        fontSize: 12.0,
-                                                        color: Colors.black),
-                                                  ),
-                                                  Text(
-                                                    detailsItemList.value,
-                                                    style: TextStyle(
-                                                        fontSize: 12.0,
-                                                        fontWeight: FontWeight.bold,
-                                                        color: Colors.black),
-                                                  ),
-                                                ],
-                                              ),
-                                              SizedBox(
-                                                height: 12.0,
-                                              )
-                                            ],
-                                          );
-                                        }),
-                                    SizedBox(
-                                      height: 16.0,
-                                    ),
-                                    Text(
-                                      'List Of Document',
-                                      style: TextStyle(
-                                          fontSize: 16.0,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.black),
-                                    ),
-                                    SizedBox(
-                                      height: 16.0,
-                                    ),
-                                    ListView.builder(
-                                        shrinkWrap: true,
-                                        scrollDirection: Axis.vertical,
-                                        itemCount: detailRequest.documents.length,
-                                        itemBuilder: (BuildContext context, int index) {
-                                          Document document = detailRequest.documents[index];
-                                          return Column(
-                                            mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                            crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                            children: <Widget>[
-                                              Row(
-                                                mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                                crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                                children: <Widget>[
-                                                  Text(
-                                                    document.title,
-                                                    style: TextStyle(
-                                                        fontSize: 14.0,
-                                                        color: Colors.black),
-                                                  ),
-                                                  ButtonTheme(
-                                                    height: 30.0,
-                                                    child: FlatButton(
-                                                      color: Color(0xFF00bbb9),
-                                                      shape: RoundedRectangleBorder(
-                                                          borderRadius: BorderRadius.circular(10.0),
-                                                          side: BorderSide(color: Color(0xFF00bbb9))
-                                                      ),
-                                                      onPressed: (){
-                                                        print("Launch Url Jalan");
-                                                        String url = document.file;
-                                                        launchUrl(url);
-                                                      },
-                                                      child: Text(
-                                                        'Download',
-                                                        style: TextStyle(
-                                                            color: Colors.white
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  )
-                                                ],
-                                              ),
-                                            ],
-                                          );
-                                        })
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),SizedBox(
-                          height: 18.0,
-                        ),Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                        )
-                      ],
-                    ),
-                  ),
-                );
-              }else{
-                return SingleChildScrollView(
-                  child: Container(
-                    margin: const EdgeInsets.all(16.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Container(
-                          width: MediaQuery.of(context).size.width*1,
-                          height: MediaQuery.of(context).size.height*0.70,
-                          child: Material(
-                            elevation: 10.0,
-                            borderRadius: BorderRadius.circular(14.0),
-                            child: SingleChildScrollView(
-                              child: Padding(
-                                padding: const EdgeInsets.all(16.0),
-                                child: Column(
-                                  children: <Widget>[
-                                    Text(
-                                      detailRequest.name,
-                                      style: TextStyle(
-                                          fontSize: 16.0,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.black),
-                                    ),
-                                    SizedBox(
-                                      height: 18.0,
                                     ),
                                     Row(
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -546,28 +217,6 @@ class _NewRequestDetailState extends State<NewRequestDetail> {
                                       crossAxisAlignment: CrossAxisAlignment.center,
                                       children: <Widget>[
                                         Text(
-                                          "Recurring Option : ",
-                                          style: TextStyle(
-                                              fontSize: 12.0,
-                                              color: Colors.black),
-                                        ),
-                                        Text(
-                                          detailRequest.recurringOption,
-                                          style: TextStyle(
-                                              fontSize: 12.0,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.black),
-                                        )
-                                      ],
-                                    ),
-                                    SizedBox(
-                                      height: 12.0,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      children: <Widget>[
-                                        Text(
                                           "Issued By : ",
                                           style: TextStyle(
                                               fontSize: 12.0,
@@ -580,6 +229,28 @@ class _NewRequestDetailState extends State<NewRequestDetail> {
                                               fontWeight: FontWeight.bold,
                                               color: Colors.black),
                                         ),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 12.0,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: <Widget>[
+                                        Text(
+                                          "Recurring Option : ",
+                                          style: TextStyle(
+                                              fontSize: 12.0,
+                                              color: Colors.black),
+                                        ),
+                                        Text(
+                                          detailRequest.recurringOption,
+                                          style: TextStyle(
+                                              fontSize: 12.0,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black),
+                                        )
                                       ],
                                     ),
                                     SizedBox(
@@ -656,12 +327,12 @@ class _NewRequestDetailState extends State<NewRequestDetail> {
                                                 crossAxisAlignment:
                                                 CrossAxisAlignment.center,
                                                 children: <Widget>[
-                                                  Text(
+                                                  Flexible(child: Text(
                                                     detailsItemList.item + ':',
                                                     style: TextStyle(
                                                         fontSize: 12.0,
                                                         color: Colors.black),
-                                                  ),
+                                                  )),
                                                   Text(
                                                     detailsItemList.value,
                                                     style: TextStyle(
@@ -706,12 +377,12 @@ class _NewRequestDetailState extends State<NewRequestDetail> {
                                                 crossAxisAlignment:
                                                 CrossAxisAlignment.center,
                                                 children: <Widget>[
-                                                  Text(
+                                                  Flexible(child: Text(
                                                     document.title,
                                                     style: TextStyle(
                                                         fontSize: 14.0,
                                                         color: Colors.black),
-                                                  ),
+                                                  )),
                                                   ButtonTheme(
                                                     height: 30.0,
                                                     child: FlatButton(
@@ -745,78 +416,21 @@ class _NewRequestDetailState extends State<NewRequestDetail> {
                           ),
                         ),SizedBox(
                           height: 18.0,
-                        ),Row(
+                        ),
+                        draftButton(),SizedBox(
+                          height: 18.0,
+                        ),
+                        Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
-                            ButtonTheme(
-                              height: 50.0,
-                              minWidth: 50.0,
-                              child: FlatButton(
-                                color: Colors.blue,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(5.0),
-                                    side: BorderSide(color: Colors.blue)
-                                ),
-                                onPressed: () => Navigator.of(context).push(
-                                    new MaterialPageRoute(
-                                        builder: (BuildContext context) =>
-                                        new SignatureForm(approvalFormId: approvalFormId))),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: <Widget>[
-                                    ImageButton(
-                                      children: <Widget>[],
-                                      onTap: (){},
-                                      pressedImage: Image.asset('assets/approved.png'),
-                                      unpressedImage: Image.asset('assets/approved.png'),
-                                      height: 30.0,
-                                      width: 30.0,
-                                    ),SizedBox(
-                                      width: 8.0,
-                                    ),Text(
-                                      'APPROVE',
-                                      style: TextStyle(
-                                          color: Colors.white
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ),ButtonTheme(
-                              height: 50.0,
-                              minWidth: 50.0,
-                              child: FlatButton(
-                                color: Colors.red,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(5.0),
-                                    side: BorderSide(color: Colors.red)
-                                ),
-                                onPressed: (){
-                                  _showAlertDialog();
-                                },
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: <Widget>[
-                                    ImageButton(
-                                      children: <Widget>[],
-                                      pressedImage: Image.asset('assets/Reject.png'),
-                                      unpressedImage: Image.asset('assets/Reject.png'),
-                                      height: 30.0,
-                                      width: 30.0,
-                                    ),SizedBox(
-                                      width: 8.0,
-                                    ),Text(
-                                      'REJECT',
-                                      style: TextStyle(
-                                          color: Colors.white
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
+                          children: detailRequest.myApprovalStatus != "0" ? [] : <Widget>[
+                            Expanded(
+                              child: approveButton(),
+                            ),
+                            SizedBox(
+                              width: 18.0,
+                            ),
+                            Expanded(
+                              child: rejectButton(),
                             ),
                           ],
                         )
@@ -824,7 +438,6 @@ class _NewRequestDetailState extends State<NewRequestDetail> {
                     ),
                   ),
                 );
-              }
             }
           },
         ),
@@ -1003,9 +616,125 @@ class _NewRequestDetailState extends State<NewRequestDetail> {
   showCircular(context){
     showDialog(
         context: context,
-        child: new Center(
-          child: new CircularProgressIndicator(),
-        )
+        builder: (BuildContext context) {
+          return new Center(
+            child: new CircularProgressIndicator(),
+          );
+        }
+    );
+  }
+
+  Widget draftButton(){
+    return ButtonTheme(
+      height: 50.0,
+      minWidth: 50.0,
+      child: FlatButton(
+        color: Colors.green,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(5.0),
+            side: BorderSide(color: Colors.green)
+        ),
+        onPressed: () => Navigator.of(context).push(
+            new MaterialPageRoute(
+                builder: (BuildContext context) =>
+                new DraftRequest(approvalFormId: approvalFormId))),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            ImageButton(
+              children: <Widget>[],
+              pressedImage: Image.asset('assets/detail.png'),
+              unpressedImage: Image.asset('assets/detail.png'),
+              height: 30.0,
+              width: 30.0,
+            ),SizedBox(
+              width: 8.0,
+            ),Text(
+              'Preview',
+              style: TextStyle(
+                  color: Colors.white
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget rejectButton(){
+    return ButtonTheme(
+      height: 50.0,
+      minWidth: 50.0,
+      child: FlatButton(
+        color: Colors.red,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(5.0),
+            side: BorderSide(color: Colors.red)
+        ),
+        onPressed: (){
+          _showAlertDialog();
+        },
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            ImageButton(
+              children: <Widget>[],
+              pressedImage: Image.asset('assets/Reject.png'),
+              unpressedImage: Image.asset('assets/Reject.png'),
+              height: 30.0,
+              width: 30.0,
+            ),SizedBox(
+              width: 8.0,
+            ),Text(
+              'Reject',
+              style: TextStyle(
+                  color: Colors.white
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget approveButton(){
+    return ButtonTheme(
+      height: 50.0,
+      minWidth: 50.0,
+      child: FlatButton(
+        color: Colors.blue,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(5.0),
+            side: BorderSide(color: Colors.blue)
+        ),
+        onPressed: () => Navigator.of(context).push(
+            new MaterialPageRoute(
+                builder: (BuildContext context) =>
+                new SignatureForm(approvalFormId: approvalFormId))),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            ImageButton(
+              children: <Widget>[],
+              onTap: (){},
+              pressedImage: Image.asset('assets/approved.png'),
+              unpressedImage: Image.asset('assets/approved.png'),
+              height: 30.0,
+              width: 30.0,
+            ),SizedBox(
+              width: 8.0,
+            ),Text(
+              'Approve',
+              style: TextStyle(
+                  color: Colors.white
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 
